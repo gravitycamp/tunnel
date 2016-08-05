@@ -8,12 +8,10 @@ class Circle extends EmbeddedSketch {
     float amount = 20, num;
     int   width;
     int   height;
-    int   rotate;
 
-    public Circle(int w, int h, int r) {
+    public Circle(int w, int h) {
         width  = w;
         height = h;
-        rotate = r;
     }
 
     public void setup() {

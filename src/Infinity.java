@@ -7,12 +7,10 @@ class Infinity extends EmbeddedSketch {
 
     int width;
     int height;
-    int rotate;
 
-    public Infinity(int w, int h, int r) {
+    public Infinity(int w, int h) {
         width  = w;
         height = h;
-        rotate = r;
     }
 
     public void setup() {

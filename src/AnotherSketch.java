@@ -9,12 +9,10 @@ class AnotherSketch extends EmbeddedSketch
     float textScale;
     int   width;
     int   height;
-    int   rotate;
 
-    public AnotherSketch(int w, int h, int r) {
+    public AnotherSketch(int w, int h) {
         width  = w;
         height = h;
-        rotate = r;
     }
 
 

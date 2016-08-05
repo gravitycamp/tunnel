@@ -23,9 +23,9 @@ public class Tunnel extends PApplet {
         frameRate(1);
         setLayout(new FlowLayout(0,0,0));
 
-        EmbeddedSketch sketch1 = new AnotherSketch(wallWidth, height, 270);
-        EmbeddedSketch sketch2 = new AnotherSketch(ceilWidth, height, 0);
-        EmbeddedSketch sketch3 = new AnotherSketch(wallWidth, height, 90);
+        EmbeddedSketch sketch1 = new AnotherSketch(wallWidth, height);
+        EmbeddedSketch sketch2 = new AnotherSketch(ceilWidth, height);
+        EmbeddedSketch sketch3 = new AnotherSketch(wallWidth, height);
 
         sketches.add(sketch1);
         sketches.add(sketch2);
