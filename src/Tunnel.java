@@ -95,9 +95,9 @@ public class Tunnel extends PApplet {
             PApplet s2 = sketches.get(1);
             PApplet s3 = sketches.get(2);
 
-            output.image(s1.get(), 0, 0);
+            output.image(flipImage(s1.get()), 0, 0);
             output.image(s2.get(), 0, s1.height);
-            output.image(flipImage(s3.get()), 0, s1.height + s2.height);
+            output.image(s3.get(), 0, s1.height + s2.height);
         }
 
         output.endDraw();
