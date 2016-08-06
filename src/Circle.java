@@ -1,14 +1,17 @@
 import processing.core.*;
+import krister.Ess.*;
 
 public class Circle extends PApplet {
 
     float amount = 20, num;
     int   width;
     int   height;
+    Tunnel tunnel;
 
-    public Circle(int w, int h) {
+    public Circle(Tunnel t, int w, int h) {
         width  = w;
         height = h;
+        tunnel = t;
     }
     
     public void settings() {
@@ -17,13 +20,16 @@ public class Circle extends PApplet {
     
     public void setup() {
         stroke(0, 150, 255, 100);
+        frameRate(45);
     }
+
 
     public void draw() {
         fill(0, 40);
         rect(-1, -1, width + 1, height + 1);
 
-        float maxX = map(mouseX, 0, width, 1, 250);
+        float maxX = map(tunnel.getAudioAverage() * 1000, 0, width, 1, 250);
+        //println(maxX);
 
         translate(width / 2, height / 2);
         for (int i = 0; i < 360; i += amount) {
@@ -42,4 +48,5 @@ public class Circle extends PApplet {
 
         num += 0.5;
     }
+
 }

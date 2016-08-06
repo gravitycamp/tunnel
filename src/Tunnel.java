@@ -3,6 +3,7 @@ import java.lang.reflect.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 import processing.core.*;
+import krister.Ess.*;
 
 
 public class Tunnel extends PApplet {
@@ -12,6 +13,11 @@ public class Tunnel extends PApplet {
     int ceilHeight = 8 * 3 * scale;
     int width      = 150 * scale;
     int height     = wallHeight + ceilHeight + wallHeight;
+
+    // Audio
+    FFT fft;
+    AudioInput audioInput;
+    int bufferSize = 512;
 
     ArrayList<PApplet> sketches = new ArrayList();
 //    Wire wire = new Wire();
@@ -51,13 +57,25 @@ public class Tunnel extends PApplet {
 
         frameRate(40);
 
-        // run all sketches
+        // init Audio
+        //
+        Ess.start(this);
+        audioInput = new AudioInput(bufferSize);
+        fft = new FFT(bufferSize * 2);
+        audioInput.start();
+        fft.damp((float).5);
+        fft.equalizer(true);
+        fft.limits((float).005, (float).01);
+
+
+        // init Sketches
         //
         for(PApplet sketch : sketches) {
             Class c = sketch.getClass();
             String[] args = { c.getName() };
             if (sketch.frameCount == 0) {
                 PApplet.runSketch(args, sketch);
+                delay(200);
             }
         }
 
@@ -108,8 +126,8 @@ public class Tunnel extends PApplet {
     private PApplet loadSketch(String sketchName, int width, int height) {
         try {
             Class sketchClass = Class.forName(sketchName);
-            Constructor c  = sketchClass.getConstructor(Integer.TYPE, Integer.TYPE);
-            PApplet sketch = (PApplet) c.newInstance(width, height);
+            Constructor c  = sketchClass.getConstructor(Tunnel.class, Integer.TYPE, Integer.TYPE);
+            PApplet sketch = (PApplet) c.newInstance(this, width, height);
             sketches.add(sketch);
             return sketch;
         } catch (Exception e) {
@@ -139,6 +157,16 @@ public class Tunnel extends PApplet {
         tx.translate(0, -img.getHeight(null));
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         return new PImage(op.filter(img, null));
+    }
+
+
+    public void audioInputData(AudioInput theInput) {
+      fft.getSpectrum(audioInput);
+    }
+
+
+    public float getAudioAverage() {
+        return fft.averages[0];
     }
 
 

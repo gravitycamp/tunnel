@@ -1,0 +1,83 @@
+<component name="libraryTable">
+  <library name="processing">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib_processing/ant-launcher.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/ant.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/antlr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-awt-util-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-dom-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-ext-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-svggen-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-util-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/batik-xml-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/charsets.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/classpath-explorer-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/cldrdata.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/com.ibm.icu.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/core 2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/dnsns.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/dxf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/dxfviewer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-linux-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-linux-armv6hf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-linux-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt-natives-windows-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gluegen-rt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/itext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jaccess.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jai_imageio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/JavaMode.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jce.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jdi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jdimodel.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jdtCompilerAdapter.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jfr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jfxrt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jfxswt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jna-platform.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jna.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-linux-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-linux-armv6hf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-linux-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all-natives-windows-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jogl-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jsoup-1.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jssc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jsse.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/launch4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/localedata.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/MovieMaker.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/nashorn.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/net.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.core.contenttype.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.core.jobs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.core.resources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.core.runtime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.equinox.common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.equinox.preferences.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.jdt.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.osgi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.eclipse.text.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/org.netbeans.swing.outline.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/pde.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/pdf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/rt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/serial.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/sunec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/sunjce_provider.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/sunpkcs11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/svg.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/xstream.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/zipfs.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib_processing/jssc.jar!/" />
+    </SOURCES>
+  </library>
+</component>
