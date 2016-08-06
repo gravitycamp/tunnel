@@ -1,9 +1,6 @@
-/**
- * Created by skryl on 8/3/16.
- */
-import org.gicentre.utils.multisketch.*;
+import processing.core.*;
 
-class Circle extends EmbeddedSketch {
+public class Circle extends PApplet {
 
     float amount = 20, num;
     int   width;
@@ -13,9 +10,12 @@ class Circle extends EmbeddedSketch {
         width  = w;
         height = h;
     }
-
-    public void setup() {
+    
+    public void settings() {
         size(width, height);
+    }
+    
+    public void setup() {
         stroke(0, 150, 255, 100);
     }
 
@@ -43,4 +43,3 @@ class Circle extends EmbeddedSketch {
         num += 0.5;
     }
 }
-

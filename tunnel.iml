@@ -17,8 +17,10 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.processing:core:2.2.1" level="project" />
-    <orderEntry type="library" name="gicentreUtils" level="project" />
-    <orderEntry type="library" name="org.processing:serial:2.2.1" level="project" />
+    <orderEntry type="library" name="org.processing:core:3.1.1" level="project" />
+    <orderEntry type="library" name="org.processing:serial:3.1.1" level="project" />
+    <orderEntry type="library" name="opengl" level="project" />
+    <orderEntry type="library" name="jogl-all" level="project" />
+    <orderEntry type="library" name="gluegen-rt" level="project" />
   </component>
 </module>

@@ -1,9 +1,6 @@
-/**
- * Created by skryl on 8/3/16.
- */
-import org.gicentre.utils.multisketch.*;
+import processing.core.*;
 
-class Infinity extends EmbeddedSketch {
+public class Infinity extends PApplet {
 
     int width;
     int height;
@@ -13,14 +10,15 @@ class Infinity extends EmbeddedSketch {
         height = h;
     }
 
-    public void setup() {
+    public void settings() {
         size(width, height);
+    }
+
+    public void setup() {
         background(0, 30, 100);
     }
 
     public void draw() {
-        super.draw();
-
         translate(width/2, height/2);
 
         for (int i = -90; i < 90; i++) {
@@ -35,4 +33,3 @@ class Infinity extends EmbeddedSketch {
     }
 
 }
-

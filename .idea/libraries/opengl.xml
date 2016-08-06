@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="gicentreUtils">
+  <library name="opengl">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/gicentreUtils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/opengl.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

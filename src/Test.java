@@ -1,36 +1,35 @@
-/**
- * Created by skryl on 8/3/16.
- */
+import processing.core.*;
 
-import org.gicentre.utils.multisketch.*;
+public class Test extends PApplet {
 
-class AnotherSketch extends EmbeddedSketch
-{
     float textScale;
     int   width;
     int   height;
 
-    public AnotherSketch(int w, int h) {
+
+    public Test(int w, int h) {
         width  = w;
         height = h;
+    }
+
+    public void settings() {
+        size(width, height);
     }
 
 
     public void setup()
     {
 
-        size(width, height);
 
-        // textFont(createFont("SansSerif", 24), 24);
+        //textFont(createFont("SansSerif", 24), 24);
         textAlign(CENTER, CENTER);
         fill(20, 120, 20);
         textScale = 0;
     }
 
+
     public void draw()
     {
-        super.draw();
-
         background(200, 255, 200);
 
         pushMatrix();
