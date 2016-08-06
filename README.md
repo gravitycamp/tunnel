@@ -43,6 +43,10 @@ fft. See 'src/Circle.java' for an example.
 TBD
 
 
+### Using OpenGL in Your Sketches
+Don't do it. It breaks shit.
+
+
 ## Developing in IntelliJ
 
 You can develop and debug a bit in Processing but the IDE is very limited. IntelliJ will give you
