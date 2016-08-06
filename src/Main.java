@@ -2,16 +2,6 @@ import processing.core.*;
 import java.util.HashMap;
 
 
-/*
-
-The framework supports 3 types of configuration:
-
-1. Specify all three patterns to apply to each tunnel surface
-2. Specify two patterns. The Wall pattern will be mirrored on both walls.
-3. Specify one pattern which will be stretched around the whole tunnel.
-
-*/
-
 class Main {
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
