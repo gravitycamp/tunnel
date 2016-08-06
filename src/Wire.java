@@ -1,5 +1,5 @@
-import processing.serial.*;
 import processing.core.*;
+import processing.serial.*;
 
 import java.awt.Rectangle;
 
