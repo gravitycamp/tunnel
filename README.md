@@ -13,7 +13,7 @@ Double click the 'src/src.pde' file to open the project in Processing. Press Pla
 
 ## Tunnel Configuration
 
-You can modify the Main.java file to configure the tunnel output.
+You can modify the 'src/Main.java' file to configure the tunnel output.
 
 The tunnel supports 3 types of configuration:
 
@@ -26,10 +26,21 @@ Simply uncomment the configuration you want, change the sketch names to the ones
 
 ## Adding New Sketches
 
-In order for your sketches to work properly, please place them in the top level
-directory and rename any .pde files to .java. The sketch code then needs to be
-wrapped in a Java class and a constructor method needs to be added See 'Test.java'
-for a simple example.
+In order for your sketches to work properly, please place them in the 'src'
+directory and rename any .pde files to .java. The code will then need to be
+wrapped in a Java class and a constructor method will need to be added. See
+'src/Test.java' for a simple example.
+
+### Using Microphone Audio in Your Sketches
+
+Ones you add the proper constructor to your sketch class (see example in 'src/Test.java'),
+you will have access to a 'tunnel' property inside your class. calling the 'getAudioAverage()'
+method on the tunnel object will return a float value representing the audio intensity from the
+fft. See 'src/Circle.java' for an example.
+
+
+### Using Kinect Data in Your Sketches
+TBD
 
 
 ## Developing in IntelliJ
