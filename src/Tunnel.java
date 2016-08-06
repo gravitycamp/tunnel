@@ -20,7 +20,7 @@ public class Tunnel extends PApplet {
     int bufferSize = 512;
 
     ArrayList<PApplet> sketches = new ArrayList();
-//    Wire wire = new Wire();
+    Wire wire = new Wire();
 
 
     public Tunnel(HashMap<String, String> mapping) {
