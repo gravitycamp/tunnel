@@ -55,7 +55,7 @@ public class Tunnel extends PApplet {
 
     public void setup() {
 
-        frameRate(40);
+        frameRate(30);
 
         // init Audio
         //

@@ -11,12 +11,12 @@ class Main {
 //    }};
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("Wall", "Blobs");
+        put("Wall", "Tangle");
         put("Ceil", "Circle");
     }};
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-//        put("Tunnel", "Circle");
+//        put("Tunnel", "Tangle");
 //    }};
 
     public static void main(String... args) {

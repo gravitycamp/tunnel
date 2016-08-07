@@ -17,10 +17,10 @@ public class Wire extends PApplet {
 
 
     public Wire() {
-        String[] list = Serial.list();
-        println(list);
-
-        delay(4000);
+//        String[] list = Serial.list();
+//        println(list);
+//
+//        delay(4000);
 //        serialConfigure("COM1");   // Right-side #1 (Master)
 //        serialConfigure("COM2");   // Right-side #2
 //        serialConfigure("COM3");   // Right-side #3
