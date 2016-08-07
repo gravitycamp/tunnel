@@ -25,7 +25,7 @@ public class Gravity extends PApplet {
         background(0);
         fill(255, 255, 255);
         textAlign(CENTER, CENTER);
-        textSize(32);
+        textSize(height);
     }
 
 

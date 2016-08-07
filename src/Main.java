@@ -11,7 +11,7 @@ class Main {
 //    }};
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("Wall", "Life");
+        put("Wall", "Gravity");
         put("Ceil", "Circle");
     }};
 

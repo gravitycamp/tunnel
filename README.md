@@ -17,7 +17,7 @@ You can modify the 'src/Main.java' file to configure the tunnel output.
 
 The tunnel supports 3 types of configuration:
 
-1. Specify three different patterns to apply to each tunnel surface (both walls and ceiling are independent).
+1. Specify three different patterns to apply to each tunnel surface (left wall, right wall, and ceiling are independent).
 2. Specify one ceiling pattern and one wall pattern. The wall pattern will be mirrored on both walls.
 3. Specify one pattern. It will be stretched around the whole tunnel.
 
@@ -31,12 +31,16 @@ directory and rename any .pde files to .java. The code will then need to be
 wrapped in a Java class and a constructor method will need to be added. See
 'src/Gravity.java' for a simple example.
 
+In order to avoid blinking, wrap the contents of your sketch's draw function
+in a 'synchronized' block. See 'src/Gravity.java' for an example.
+
+
 ### Using Microphone Audio in Your Sketches
 
 Ones you add the proper constructor to your sketch class (see example in 'src/Gravity.java'),
-you will have access to a 'tunnel' property inside your class. calling the 'getAudioAverage()'
-method on the tunnel object will return a float value representing the audio intensity from the
-fft. See 'src/Circle.java' for an example.
+you will have access to a 'tunnel' property inside your sketch. calling the 'getAudioAverage()'
+method on the tunnel object will return a float value representing the low frequency audio
+intensity from the tunnel's fft. See 'src/Gravity.java' for an example.
 
 
 ### Using Kinect Data in Your Sketches
