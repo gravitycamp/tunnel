@@ -3,10 +3,12 @@ import java.lang.reflect.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 import processing.core.*;
-import krister.Ess.*;
+import ddf.minim.*;
+import ddf.minim.signals.*;
+import ddf.minim.analysis.*;
 
 
-public class Tunnel extends PApplet {
+public class Tunnel extends PApplet implements AudioListener {
 
     int scale      = 8;
     int wallHeight = 32 * scale;
@@ -15,9 +17,10 @@ public class Tunnel extends PApplet {
     int height     = wallHeight + ceilHeight + wallHeight;
 
     // Audio
+    Minim minim;
+    AudioInput in;
     FFT fft;
-    AudioInput audioInput;
-    int bufferSize = 512;
+
 
     ArrayList<PApplet> sketches = new ArrayList();
     Wire wire = new Wire();
@@ -25,6 +28,16 @@ public class Tunnel extends PApplet {
 
     public Tunnel(HashMap<String, String> mapping) {
 
+        // init Audio
+        //
+        minim = new Minim(this);
+        in = minim.getLineIn();
+        fft = new FFT(in.bufferSize(), in.sampleRate());
+        fft.logAverages(22,1);
+        in.addListener(this);
+
+        // init Sketches
+        //
         if (mapping.containsKey("Tunnel")) {
 
             loadSketch(mapping.get("Tunnel"), width, height);
@@ -34,6 +47,7 @@ public class Tunnel extends PApplet {
 
             PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight);
             loadSketch(mapping.get("Ceil"), width, ceilHeight);
+            //loadSketch(mapping.get("Wall"), width, wallHeight);
             loadSketch(s1);
 
         } else if ((mapping.containsKey("RWall")) &&
@@ -55,27 +69,17 @@ public class Tunnel extends PApplet {
 
     public void setup() {
 
-        frameRate(30);
-
-        // init Audio
-        //
-        Ess.start(this);
-        audioInput = new AudioInput(bufferSize);
-        fft = new FFT(bufferSize * 2);
-        audioInput.start();
-        fft.damp((float).5);
-        fft.equalizer(true);
-        fft.limits((float).005, (float).01);
+        frameRate(60);
 
 
-        // init Sketches
+        // Run sketches
         //
         for(PApplet sketch : sketches) {
             Class c = sketch.getClass();
             String[] args = { c.getName() };
             if (sketch.frameCount == 0) {
                 PApplet.runSketch(args, sketch);
-                delay(200);
+                delay(1000);
             }
         }
 
@@ -83,20 +87,22 @@ public class Tunnel extends PApplet {
 
 
     public void draw() {
-        // draw combined output
-        //
-        PImage frame = combineSketches();
-        image(frame, 0, 0);
+        synchronized(Tunnel.class) {
+            // draw combined output
+            //
+            PImage frame = combineSketches();
+            image(frame, 0, 0);
 
-        // scale output to correct size and send to hardware
-        //
-        PImage unscaled = get();
-        unscaled.resize(frame.width/scale, frame.height/scale);
-        //unscaled.save("/Users/skryl/Desktop/frame.jpg");
+            // scale output to correct size and send to hardware
+            //
+            PImage unscaled = get();
+            unscaled.resize(frame.width / scale, frame.height / scale);
+            //unscaled.save("/Users/skryl/Desktop/frame.jpg");
 
-        //wire.send(unscaled);
+            //wire.send(unscaled);
 
-        //println(frameCount);
+            //println(frameCount);
+        }
     }
 
 
@@ -160,13 +166,21 @@ public class Tunnel extends PApplet {
     }
 
 
-    public void audioInputData(AudioInput theInput) {
-      fft.getSpectrum(audioInput);
+    // feed FFT when samples are available
+    //
+    public synchronized void samples(float[] samp)
+    {
+        fft.forward(in.mix);
+    }
+
+    public synchronized void samples(float[] sampL, float[] sampR)
+    {
+        fft.forward(in.mix);
     }
 
 
     public float getAudioAverage() {
-        return fft.averages[0];
+        return fft.getAvg(2);
     }
 
 

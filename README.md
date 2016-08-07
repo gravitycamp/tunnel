@@ -29,11 +29,11 @@ Simply uncomment the configuration you want, change the sketch names to the ones
 In order for your sketches to work properly, please place them in the 'src'
 directory and rename any .pde files to .java. The code will then need to be
 wrapped in a Java class and a constructor method will need to be added. See
-'src/Test.java' for a simple example.
+'src/Gravity.java' for a simple example.
 
 ### Using Microphone Audio in Your Sketches
 
-Ones you add the proper constructor to your sketch class (see example in 'src/Test.java'),
+Ones you add the proper constructor to your sketch class (see example in 'src/Gravity.java'),
 you will have access to a 'tunnel' property inside your class. calling the 'getAudioAverage()'
 method on the tunnel object will return a float value representing the audio intensity from the
 fft. See 'src/Circle.java' for an example.

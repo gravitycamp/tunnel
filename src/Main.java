@@ -5,18 +5,18 @@ import java.util.HashMap;
 class Main {
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-//        put("RWall", "Test");
-//        put("LWall", "Test");
-//        put("Ceil",  "Test");
+//        put("RWall", "Gravity");
+//        put("LWall", "Gravity");
+//        put("Ceil",  "Gravity");
 //    }};
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("Wall", "Blobs");
-        put("Ceil", "GlitchMob");
+        put("Wall", "Life");
+        put("Ceil", "Circle");
     }};
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-//        put("Tunnel", "GlitchMob");
+//        put("Tunnel", "Gravity");
 //    }};
 
     public static void main(String... args) {

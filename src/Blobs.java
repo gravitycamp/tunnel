@@ -36,24 +36,27 @@ public class Blobs extends PApplet {
 
 
     public void draw() {
+        synchronized(Tunnel.class) {
 
-        if (renk < 100) {
-            renk = renk + 1;
-        } else {
-            renk = 0;
+            if (renk < 100) {
+                renk = renk + 1;
+            } else {
+                renk = 0;
+            }
+
+            float x = random(0, width);
+            float y = random(0, height);
+
+            ellipse(x, y, tunnel.getAudioAverage() * 100, tunnel.getAudioAverage() * 100);
+
+            if (tunnel.getAudioAverage() > 1) {
+                background(0);
+            }
+
+            noStroke();
+            fill(renk, 100, 100);
+
         }
-
-        float x = random(0, width);
-        float y = random(0, height);
-
-        ellipse(x, y, tunnel.getAudioAverage() * 500, tunnel.getAudioAverage() * 500);
-
-        if (tunnel.getAudioAverage() > 0.7) {
-            background(0);
-        }
-
-        noStroke();
-        fill(renk, 100, 100);
     }
 
 }

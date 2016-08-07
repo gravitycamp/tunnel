@@ -29,14 +29,18 @@ public class Balls extends PApplet {
     }
 
     public void draw() {
-        background(60,120,200);
-        for (int i = 0; i < balls.length; i++) {
-            ellipse(balls[i].x, balls[i].y, balls[i].r + tunnel.getAudioAverage() * 400, balls[i].r + tunnel.getAudioAverage() * 400);
-            fill(0, 0, 0, 255);
-        }
-        if (tunnel.getAudioAverage() > 0.3) {
-            Ball b = new Ball(random(width), random(height), random(80), (int) random(255));
-            balls = (Ball[]) append(balls, b);
+        synchronized(Tunnel.class) {
+
+            background(60, 120, 200);
+            for (int i = 0; i < balls.length; i++) {
+                ellipse(balls[i].x, balls[i].y, balls[i].r + tunnel.getAudioAverage() * 400, balls[i].r + tunnel.getAudioAverage() * 400);
+                fill(0, 0, 0, 255);
+            }
+            if (tunnel.getAudioAverage() > 0.3) {
+                Ball b = new Ball(random(width), random(height), random(80), (int) random(255));
+                balls = (Ball[]) append(balls, b);
+            }
+
         }
     }
 

@@ -36,10 +36,14 @@ public class GlitchMob extends PApplet {
 
 
     public void draw() {
-        md = movie.duration();
-        mt = movie.time();
-        println(mt);
-        image(movie, 0,0);
+        synchronized(Tunnel.class) {
+
+            md = movie.duration();
+            mt = movie.time();
+            //println(mt);
+            image(movie, 0, 0);
+
+        }
     }
 
 

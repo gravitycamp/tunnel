@@ -70,23 +70,27 @@ class Tangle extends PApplet {
     }
 
     public void draw() {
-        background(10, 18, 10);
+        synchronized (Tunnel.class) {
 
-        dx = (float) width / (float) numCols;
-        dy = (float) height / (float) numRows;
-        strokeWeight(dx * (float) 0.25);
-        strokeJoin(ROUND);
-        strokeCap(ROUND);
+            background(10, 18, 10);
 
-        for (int i = numRows - 1; i >= 0; i--) {
-            rows[i].display(i * dy, dx, dy);
-            if (rows[i].update(speed)) {
-                if (i > 0) rows[i - 1].start();
+            dx = (float) width / (float) numCols;
+            dy = (float) height / (float) numRows;
+            strokeWeight(dx * (float) 0.25);
+            strokeJoin(ROUND);
+            strokeCap(ROUND);
+
+            for (int i = numRows - 1; i >= 0; i--) {
+                rows[i].display(i * dy, dx, dy);
+                if (rows[i].update(speed)) {
+                    if (i > 0) rows[i - 1].start();
+                }
             }
-        }
 
-        if (rows[0].finish) {
-            generate();
+            if (rows[0].finish) {
+                generate();
+            }
+
         }
     }
 

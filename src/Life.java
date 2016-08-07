@@ -40,19 +40,23 @@ public class Life extends PApplet {
     }
 
     public void draw() {
-        background(87,56,92);
-        noStroke();
-        for (Cell c : cells) {
+        synchronized (Tunnel.class) {
 
-            updateIndicies(indicies, c.row, c.column, resX, resY);
-            if (mousePressed) {
-                c.setState(mouseX, mouseY, (float) width / resY);
+            background(87, 56, 92);
+            noStroke();
+            for (Cell c : cells) {
+
+                updateIndicies(indicies, c.row, c.column, resX, resY);
+                if (mousePressed) {
+                    c.setState(mouseX, mouseY, (float) width / resY);
+                }
+                c.setNewStat(cells, indicies, resX);
             }
-            c.setNewStat(cells, indicies, resX);
-        }
-        for (Cell c : cells) {
-            c.update();
-            c.draw((float) width / resY);
+            for (Cell c : cells) {
+                c.update();
+                c.draw((float) width / resY);
+            }
+
         }
     }
 
