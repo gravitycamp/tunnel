@@ -74,10 +74,70 @@
       <root url="jar://$PROJECT_DIR$/lib_processing/svg.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/xstream.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/zipfs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/gstreamer-java.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/video.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/Ess.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jl1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jsminim.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/minim.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/mp3spi1.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_aos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_share.jar!/" />
     </CLASSES>
     <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+    </NATIVE>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/lib_processing/jssc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/jl1.0.1.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -48,7 +48,7 @@ public class Blobs extends PApplet {
 
         ellipse(x, y, tunnel.getAudioAverage() * 500, tunnel.getAudioAverage() * 500);
 
-        if (tunnel.getAudioAverage() > 0.5) {
+        if (tunnel.getAudioAverage() > 0.7) {
             background(0);
         }
 
