@@ -1,5 +1,4 @@
 import processing.core.*;
-import krister.Ess.*;
 
 public class Circle extends PApplet {
 
