@@ -47,8 +47,8 @@ public class Tunnel extends PApplet implements AudioListener {
 
             PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight);
             loadSketch(mapping.get("Ceil"), width, ceilHeight);
-            //loadSketch(mapping.get("Wall"), width, wallHeight);
-            loadSketch(s1);
+            loadSketch(mapping.get("Wall"), width, wallHeight);
+            //loadSketch(s1);
 
         } else if ((mapping.containsKey("RWall")) &&
                     mapping.containsKey("LWall") &&
@@ -79,7 +79,7 @@ public class Tunnel extends PApplet implements AudioListener {
             String[] args = { c.getName() };
             if (sketch.frameCount == 0) {
                 PApplet.runSketch(args, sketch);
-                delay(1000);
+                //delay(1000);
             }
         }
 
