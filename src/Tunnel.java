@@ -10,11 +10,12 @@ import ddf.minim.analysis.*;
 
 public class Tunnel extends PApplet implements AudioListener {
 
-    int scale      = 8;
+    int scale      = 1;
     int wallHeight = 32 * scale;
     int ceilHeight = 8 * 3 * scale;
     int width      = 150 * scale;
     int height     = wallHeight + ceilHeight + wallHeight;
+    boolean wallMirroring = false;
 
     // Audio
     Minim minim;
@@ -45,10 +46,10 @@ public class Tunnel extends PApplet implements AudioListener {
         } else if ((mapping.containsKey("Wall")) &&
                     mapping.containsKey("Ceil")) {
 
+            wallMirroring = true;
             PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight);
             loadSketch(mapping.get("Ceil"), width, ceilHeight);
-            loadSketch(mapping.get("Wall"), width, wallHeight);
-            //loadSketch(s1);
+            loadSketch(s1);
 
         } else if ((mapping.containsKey("RWall")) &&
                     mapping.containsKey("LWall") &&
@@ -74,12 +75,13 @@ public class Tunnel extends PApplet implements AudioListener {
 
         // Run sketches
         //
-        for(PApplet sketch : sketches) {
-            Class c = sketch.getClass();
-            String[] args = { c.getName() };
-            if (sketch.frameCount == 0) {
-                PApplet.runSketch(args, sketch);
-                //delay(1000);
+        for(int i = 0; i < sketches.size(); i++) {
+            // skip the initialization of the last sketch if wallMirroring is used
+            //
+            if (!(wallMirroring == true && i == 2)) {
+                Class c = sketches.get(i).getClass();
+                String[] args = {c.getName()};
+                PApplet.runSketch(args, sketches.get(i));
             }
         }
 

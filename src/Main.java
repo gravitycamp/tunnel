@@ -10,15 +10,14 @@ class Main {
 //        put("Ceil",  "Gravity");
 //    }};
 
-    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("RWall", "GlitchMob");
-        put("LWall", "Circle");
-        put("Ceil", "Circle");
-    }};
-
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-//        put("Tunnel", "Gravity");
+//        put("Wall", "Tree");
+//        put("Ceil", "Life");
 //    }};
+
+    static HashMap<String, String> mapping = new HashMap<String, String>(){{
+        put("Tunnel", "Field");
+    }};
 
     public static void main(String... args) {
         PApplet tunnel = new Tunnel(mapping);

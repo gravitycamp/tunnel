@@ -27,7 +27,7 @@ public class Life extends PApplet {
 
     public void setup() {
 
-        frameRate(27);
+        frameRate(30);
 
         resX = (int) (resY * width / (float) height);
 
@@ -42,7 +42,7 @@ public class Life extends PApplet {
     public void draw() {
         synchronized (Tunnel.class) {
 
-            background(87, 56, 92);
+            background(0);
             noStroke();
             for (Cell c : cells) {
 
@@ -188,7 +188,7 @@ public class Life extends PApplet {
 
         public void draw(float s) {
             if (isAlive()) {
-                fill(255,237,188);
+                fill(random(0,255),random(0,255),random(0,255));
                 rect(s * row, s * column, s, s);
             }
         }
