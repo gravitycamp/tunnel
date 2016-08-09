@@ -10,7 +10,7 @@ import ddf.minim.analysis.*;
 
 public class Tunnel extends PApplet implements AudioListener {
 
-    int scale      = 1;
+    int scale      = 4;
     int wallHeight = 32 * scale;
     int ceilHeight = 8 * 3 * scale;
     int width      = 150 * scale;
@@ -94,12 +94,14 @@ public class Tunnel extends PApplet implements AudioListener {
             //
             PImage frame = combineSketches();
             image(frame, 0, 0);
+            frame = frame.get();
 
             // scale output to correct size and send to hardware
             //
-            PImage unscaled = get();
-            unscaled.resize(frame.width / scale, frame.height / scale);
-            //unscaled.save("/Users/skryl/Desktop/frame.jpg");
+            if (scale > 1) {
+              frame.resize(frame.width / scale, frame.height / scale);
+            }
+            //frame.save("/Users/skryl/Desktop/frame.jpg");
 
             //wire.send(unscaled);
 
