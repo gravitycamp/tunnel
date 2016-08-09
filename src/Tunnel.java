@@ -87,6 +87,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     public void draw() {
+      try{
         synchronized(Tunnel.class) {
             // draw combined output
             //
@@ -103,6 +104,8 @@ public class Tunnel extends PApplet implements AudioListener {
 
             //println(frameCount);
         }
+      }
+    catch(Exception e){}
     }
 
 

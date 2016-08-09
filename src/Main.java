@@ -12,7 +12,7 @@ class Main {
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
         put("RWall", "GlitchMob");
-        put("LWall", "Circle");
+        put("LWall", "Gravity");
         put("Ceil", "Circle");
     }};
 
