@@ -28,7 +28,8 @@ public class GlitchMob extends PApplet {
     }
 
     public void setup() {
-        movie = new Movie(this, "C:/TunnelGit2/src/data/glitch_mob.mp4");
+//        movie = new Movie(this, "C:/TunnelGit2/src/data/glitch_mob.mp4");
+        movie = new Movie(this, "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/glitch_mob.mp4");
         movie.play();
 
         PApplet sketch = new Video(movie, 400, 400);
@@ -43,6 +44,7 @@ public class GlitchMob extends PApplet {
 
             md = movie.duration();
             mt = movie.time();
+
             for(int i = 0; i < fft.specSize(); i++)
             {
               float centerFrequency    = fft.getAverageCenterFrequency(i);
@@ -65,7 +67,7 @@ public class GlitchMob extends PApplet {
               
               stroke(150);
               line(i, height, i, height - fft.getBand(i)*4);
-              rect( xl, height, xr, height - fft.getAvg(i)*4 );
+              rect( xl, height, xr, height - fft.getBand(i)*4 );
             }
             
 
