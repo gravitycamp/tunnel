@@ -201,4 +201,3 @@ public class Life extends PApplet {
     }
 
 }
-

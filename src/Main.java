@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 class Main {
-
+        
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
 //        put("RWall", "Gravity");
 //        put("LWall", "Gravity");
@@ -11,7 +11,8 @@ class Main {
 //    }};
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("Wall", "Gravity");
+        put("RWall", "GlitchMob");
+        put("LWall", "Circle");
         put("Ceil", "Circle");
     }};
 

@@ -3,6 +3,7 @@
 
 import processing.video.*;
 import processing.core.*;
+import ddf.minim.analysis.*;
 
 public class GlitchMob extends PApplet {
 
@@ -10,6 +11,7 @@ public class GlitchMob extends PApplet {
     int height;
     Tunnel tunnel;
     Movie movie;
+    FFT fft;
 
     float md;
     float mt;
@@ -18,6 +20,7 @@ public class GlitchMob extends PApplet {
         width = w;
         height = h;
         tunnel = t;
+        fft = tunnel.fft;
     }
 
     public void settings() {
@@ -25,12 +28,12 @@ public class GlitchMob extends PApplet {
     }
 
     public void setup() {
-        movie = new Movie(this, "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/glitch_mob.mp4");
+        movie = new Movie(this, "C:/TunnelGit2/src/data/glitch_mob.mp4");
         movie.play();
 
-//        PApplet sketch = new Video(movie, 400, 400);
-//        String[] args = {"PlayVideo",};
-//        PApplet.runSketch(args, sketch);
+        PApplet sketch = new Video(movie, 400, 400);
+        String[] args = {"Video",};
+        PApplet.runSketch(args, sketch);
 
     }
 
@@ -40,8 +43,31 @@ public class GlitchMob extends PApplet {
 
             md = movie.duration();
             mt = movie.time();
-            //println(mt);
-            image(movie, 0, 0);
+            for(int i = 0; i < fft.specSize(); i++)
+            {
+              float centerFrequency    = fft.getAverageCenterFrequency(i);
+              // how wide is this average in Hz?
+              float averageWidth = fft.getAverageBandWidth(i);   
+              
+              // we calculate the lowest and highest frequencies
+              // contained in this average using the center frequency
+              // and bandwidth of this average.
+              float lowFreq  = centerFrequency - averageWidth/2;
+              float highFreq = centerFrequency + averageWidth/2;
+              
+              // freqToIndex converts a frequency in Hz to a spectrum band index
+              // that can be passed to getBand. in this case, we simply use the 
+              // index as coordinates for the rectangle we draw to represent
+              // the average.
+              int xl = (int)fft.freqToIndex(lowFreq);
+              int xr = (int)fft.freqToIndex(highFreq);
+              
+              
+              stroke(150);
+              line(i, height, i, height - fft.getBand(i)*4);
+              rect( xl, height, xr, height - fft.getAvg(i)*4 );
+            }
+            
 
         }
     }
