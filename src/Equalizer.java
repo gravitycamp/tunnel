@@ -1,4 +1,6 @@
 import processing.core.*;
+import ddf.minim.*;
+import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
 
 class Equalizer extends PApplet {
@@ -6,6 +8,8 @@ class Equalizer extends PApplet {
 
     PImage fade;
     float rWidth, rHeight;
+    Minim minim;
+    AudioInput in;
     FFT fft;
 
     int width;
@@ -17,7 +21,10 @@ class Equalizer extends PApplet {
         width = w;
         height = h;
         tunnel = t;
-        fft = tunnel.fft;
+        ////fft = tunnel.fft;
+        //minim = new Minim(this);
+        //in = minim.getLineIn();
+        //fft = new FFT(in.bufferSize(), in.sampleRate());
     }
 
 

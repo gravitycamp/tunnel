@@ -12,8 +12,8 @@ class Main {
 
     static HashMap<String, String> mapping = new HashMap<String, String>(){{
         put("RWall", "GlitchMob");
-        put("LWall", "Gravity");
-        put("Ceil", "Circle");
+        put("Ceil", "Gravity");
+        put("LWall", "Circle");
     }};
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{

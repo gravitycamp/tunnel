@@ -15,7 +15,7 @@ public class Video extends PApplet {
 
     public void settings() {
         size(width, height);
-        //fullScreen(2);
+        fullScreen(2);
     }
 
   public void setup () {

@@ -17,21 +17,21 @@ public class Wire extends PApplet {
 
 
     public Wire() {
-//        String[] list = Serial.list();
-//        println(list);
-//
-//        delay(4000);
-//        serialConfigure("COM1");   // Right-side #1 (Master)
-//        serialConfigure("COM2");   // Right-side #2
-//        serialConfigure("COM3");   // Right-side #3
-//        serialConfigure("COM4");   // Right-side #4
-//        serialConfigure("COM5");   // Right-roof #5 (roof-right)
-//        serialConfigure("COM6");   // Right-side #6 (roof-center)
-//        serialConfigure("COM7");   // Left-side  #1
-//        serialConfigure("COM8");   // Left-side  #2
-//        serialConfigure("COM9");   // Left-side  #3
-//        serialConfigure("COM10");  // Left-side  #4
-//        serialConfigure("COM11");  // Left-side  #5 (roof-left)
+        //String[] list = Serial.list();
+        //println(list);
+
+        delay(4000);
+        serialConfigure("COM1");   // Right-side #1 (Master)
+        serialConfigure("COM2");   // Right-side #2
+        serialConfigure("COM3");   // Right-side #3
+        serialConfigure("COM4");   // Right-side #4
+        serialConfigure("COM5");   // Right-roof #5 (roof-right)
+        serialConfigure("COM6");   // Right-side #6 (roof-center)
+        serialConfigure("COM7");   // Left-side  #1
+        serialConfigure("COM8");   // Left-side  #2
+        serialConfigure("COM9");   // Left-side  #3
+        serialConfigure("COM10");  // Left-side  #4
+        serialConfigure("COM11");  // Left-side  #5 (roof-left)
 
         for (int i = 0; i < 256; i++) {
             gammatable[i] = (int) (pow((float) i / (float) 255.0, gamma) * 255.0 + 0.5);
@@ -41,7 +41,7 @@ public class Wire extends PApplet {
 
     public void send(PImage frame) {
 
-        SendSerial SendThreads[] = new SendSerial[numPorts];
+        SendSerial SendThreads[] = new SendSerial[numPorts]; //<>//
         for (int j = 0; j < numPorts; j++) {
             SendThreads[j] = new SendSerial();
         }

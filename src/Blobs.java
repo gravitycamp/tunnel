@@ -2,7 +2,7 @@
 /* !do not delete the line above, required for linking your tweak if you upload again */
 
 import processing.core.*;
-
+import krister.Ess.*;
 
 public class Blobs extends PApplet {
 
