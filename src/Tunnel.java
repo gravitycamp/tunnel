@@ -110,7 +110,7 @@ public class Tunnel extends PApplet implements AudioListener {
             unscaled.resize(frame.width/scale, frame.height/scale);
             //unscaled.save("/Users/skryl/Desktop/frame.jpg");
             
-            wire.send(unscaled);
+          //  wire.send(unscaled);
             
 
             //println(frameCount);
