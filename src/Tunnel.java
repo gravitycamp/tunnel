@@ -4,9 +4,7 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import processing.core.*;
 import ddf.minim.*;
-import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
-//import krister.Ess.*;
 
 
 public class Tunnel extends PApplet implements AudioListener {
@@ -91,35 +89,36 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     public void draw() {
-      try{
         synchronized(Tunnel.class) {
             // draw combined output
             //
             PImage frame = combineSketches();
             image(frame, 0, 0);
-            //frame = frame.get();
+            frame = frame.get();
 
             // scale output to correct size and send to hardware
             //
-            //if (scale > 1) {
-            //  frame.resize(frame.width / scale, frame.height / scale);
-            //}
-            //frame.save("/Users/skryl/Desktop/frame.jpg");
-
-           // wire.send(unscaled);
-            PImage unscaled = get();
-            unscaled.resize(frame.width/scale, frame.height/scale);
-            //unscaled.save("/Users/skryl/Desktop/frame.jpg");
-            
-            wire.send(unscaled);
-            
-
-            //println(frameCount);
+            if (scale > 1) {
+              frame.resize(frame.width / scale, frame.height / scale);
+            }
+            // frame.save("/Users/skryl/Desktop/frame.jpg");
+            // wire.send(frame);
+            // println(frameCount);
         }
-      }
-    catch(Exception e){}
     }
 
+
+    public void kill() {
+
+        for (PApplet sketch : sketches) {
+            sketch.dispose();
+            sketch.frame.setVisible(false);
+        }
+
+        dispose();
+        frame.setVisible(false);
+
+    }
 
     private PImage combineSketches() {
         PGraphics output = createGraphics(width, height, JAVA2D);

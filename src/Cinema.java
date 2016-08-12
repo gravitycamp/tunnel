@@ -1,10 +1,5 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */
-/* !do not delete the line above, required for linking your tweak if you upload again */
-
 import processing.video.*;
 import processing.core.*;
-import ddf.minim.*;
-//import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
 
 public class Cinema extends PApplet {

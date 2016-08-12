@@ -13,16 +13,16 @@ Double click the 'src/src.pde' file to open the project in Processing. Press Pla
 
 ## Tunnel Configuration
 
-You can modify the 'src/Main.java' file to configure the tunnel output.
+You can modify the 'data/playlist.txt' file to configure the tunnel playlist.
 
-The tunnel supports 3 types of configuration:
+Each line in the playlist must have one of the following 3 formats:
 
 1. Specify three different patterns to apply to each tunnel surface (left wall, right wall, and ceiling are independent).
+   ex. "Bounce,Gravity,Life"
 2. Specify one ceiling pattern and one wall pattern. The wall pattern will be mirrored on both walls.
+   ex. "Bounce,Gravity"
 3. Specify one pattern. It will be stretched around the whole tunnel.
-
-Simply uncomment the configuration you want, change the sketch names to the ones you want to run and press Play!
-
+   ex. "Gravity"
 
 ## Adding New Sketches
 

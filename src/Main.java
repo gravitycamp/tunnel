@@ -8,13 +8,13 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 
-class Main extends PApplet {
+class Main {
 
-    static String playlistPath = "src/data/playlist.txt";
+    static String playlistPath = "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/playlist.txt";
     static Tunnel tunnel;
     static ArrayList<HashMap<String, String>> queue = new ArrayList();
     static int queueIndex = 0;
-    static int duration = 5000;
+    static int duration = 10000;
     static int elapsedTime = 0;
 
 
@@ -26,6 +26,7 @@ class Main extends PApplet {
             if (elapsedTime < duration) {
                 elapsedTime = tunnel.millis();
             } else {
+                tunnel.kill();
                 loadNextInQueue();
             }
         }
@@ -43,26 +44,26 @@ class Main extends PApplet {
 
     public static void loadPlaylist() {
         try (Stream<String> stream = Files.lines(Paths.get(playlistPath))) {
+            Object[] lines = stream.toArray();
 
-            stream.forEach( line -> {
+            for (Object line: lines) {
                 HashMap<String, String> mapping = new HashMap();
 
-                String[] sketches = line.split(",");
+                String[] sketches = ((String) line).split(",");
                 if (sketches.length == 1) {
-                   mapping.put("Tunnel", sketches[0]);
+                   mapping.put("Tunnel", sketches[0].trim());
                 } else if (sketches.length == 2) {
-                    mapping.put("Wall", sketches[0]);
-                    mapping.put("Ceil", sketches[1]);
+                    mapping.put("Wall", sketches[0].trim());
+                    mapping.put("Ceil", sketches[1].trim());
                 } else {
-                    mapping.put("RWall", sketches[0]);
-                    mapping.put("LWall", sketches[1]);
-                    mapping.put("Ceil",  sketches[2]);
+                    mapping.put("RWall", sketches[0].trim());
+                    mapping.put("LWall", sketches[1].trim());
+                    mapping.put("Ceil",  sketches[2].trim());
 
                 }
                 queue.add(mapping);
-            });
+            }
         } catch (IOException e) {
-            println(e);
         }
     }
 

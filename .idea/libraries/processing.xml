@@ -84,6 +84,7 @@
       <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_aos.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_share.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/controlP5.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib_processing/kinect" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
@@ -135,10 +136,12 @@
       <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
       <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
       <root url="file://$PROJECT_DIR$/lib_processing/macosx64" />
+      <root url="file://$PROJECT_DIR$/lib_processing/kinect" />
     </NATIVE>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/lib_processing/jssc.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/jl1.0.1.jar!/" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib_processing/kinect" recursive="false" />
   </library>
 </component>

@@ -59,10 +59,8 @@ public class AudioInputKinect extends PApplet {
     }
 
     public void setup() {
-        //dot = loadImage("C:/TunnelGit2/src/data/dot.png");
-        //colors = loadImage("C:/TunnelGit2/src/data/colors.png");
-        dot = loadImage("F:/Tunnel2/src/data/dot.png");
-        colors = loadImage("F:/Tunnel2/src/data/colors.png");        
+        dot = loadImage("src/data/dot.png");
+        colors = loadImage("src/data/colors.png");
         fftFilter = new float[fft.specSize()];
 
         LeftWall= createGraphics(150*scale, 32*scale);

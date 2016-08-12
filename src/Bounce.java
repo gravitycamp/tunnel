@@ -1,14 +1,3 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/11123*@* */
-/* !do not delete the line above, required for linking your tweak if you upload again */
-/*
-* PushLetters by Christophe Guébert
-*  Particle simulation with a grid-based neighbours search.
-*  8000 particles and approximately 20k springs.
-*  Move the mouse to push the particles around.
-*  Space to randomize their position.
-*  Press any character or digit key to make a hole.
-*/
-
 import java.util.*;
 import processing.core.*;
 
@@ -24,7 +13,7 @@ class Bounce extends PApplet {
     final float particleRadius = 1;
     final float randomAcceleration = 0;
 
-    final int nbParticles = 500;
+    final int nbParticles = 5000;
     final int gridSize = 10;
 
     Particle[] particles;
@@ -206,7 +195,7 @@ class Bounce extends PApplet {
     }
 
     void removeLetter(char c) {
-        PImage letter = loadImage("C:/TunnelGit2/src/data/chars/" + (int) c + ".png");
+        PImage letter = loadImage("src/data/chars/" + (int) c + ".png");
         letter.resize(width, height);
         letter.loadPixels();
         for (int i = 0; i < particles.length; i++) {
