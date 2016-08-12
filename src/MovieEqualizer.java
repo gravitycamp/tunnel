@@ -3,7 +3,7 @@ import ddf.minim.*;
 import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
 
-class Equalizer extends PApplet {
+class MovieEqualizer extends PApplet {
     Visualizer classicVi;
 
     PImage fade;
@@ -17,7 +17,7 @@ class Equalizer extends PApplet {
     Tunnel tunnel;
 
 
-    public Equalizer(Tunnel t, int w, int h) {
+    public MovieEqualizer(Tunnel t, int w, int h) {
         width = w;
         height = h;
         tunnel = t;

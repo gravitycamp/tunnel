@@ -10,7 +10,7 @@ import KinectPV2.KJoint;
 import KinectPV2.*;
 import java.util.*;
 
-public class GlitchMob extends PApplet {
+public class MovieGlitchMob extends PApplet {
 
     int width;
     int height;
@@ -36,7 +36,7 @@ public class GlitchMob extends PApplet {
     float sizeScale = (float)0.4;
     float textScale = 0;
 
-    public GlitchMob(Tunnel t, int w, int h) {
+    public MovieGlitchMob(Tunnel t, int w, int h) {
         width = w;
         height = h;
         tunnel = t;

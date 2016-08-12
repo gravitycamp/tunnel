@@ -43,14 +43,14 @@ public class Letters extends PApplet {
                     currentSize = currentSize * (float) 0.95;
                 }
             }
-            if (tunnel.getAudioAverage() > 3) {
+           else {
                 initialize();
             }
         }
     }
 
     void initialize() {
-        background(color(0, 0, 1));
+        background(color(150, 150, 1));
         currentSize = 300;
     }
 
@@ -72,7 +72,7 @@ public class Letters extends PApplet {
 
         PGraphics gMask = createGraphics(intSize, intSize);
         gMask.beginDraw();
-        gMask.background(color(0, 0, 1, 1));
+        gMask.background(color(150, 150, 1, 1));
         gMask.image(g, 0, 0);
         gMask.filter(ERODE);
         gMask.filter(ERODE);
@@ -93,7 +93,7 @@ public class Letters extends PApplet {
                 }
             }
             if (fits) {
-                image(g, x, y);
+                image(g, x, y); //<>//
                 return true;
             }
         }

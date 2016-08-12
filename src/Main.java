@@ -11,16 +11,21 @@ class Main {
 //    }};
 
     //static HashMap<String, String> mapping = new HashMap<String, String>(){{
-    //    put("RWall", "GlitchMob");
+    //    put("RWall", "MovieGlitchMob");
     //    put("Ceil", "Gravity");
     //    put("LWall", "Circle");
     //}};
     
-    static HashMap<String, String> mapping = new HashMap<String, String>(){{
-        put("RWall", "Equalizer");
-        put("Ceil", "Cinema");
-        put("LWall", "Circle");
+    //static HashMap<String, String> mapping = new HashMap<String, String>(){{
+    //    put("RWall", "Blobs");
+    //    put("Ceil", "Perlin");
+    //    put("LWall", "Balls");
+    //}};
+    
+        static HashMap<String, String> mapping = new HashMap<String, String>(){{
+        put("Tunnel", "AudioInputKinect");
     }};
+//    
 
 //    static HashMap<String, String> mapping = new HashMap<String, String>(){{
 //        put("Tunnel", "Gravity");
