@@ -43,6 +43,7 @@ public class AudioInputKinect extends PApplet {
     byte G = 2;
     byte B = 3;
     int scale = 4;  
+    int counter = 0;
     
 
     public AudioInputKinect(Tunnel t, int w, int h) {
@@ -58,10 +59,10 @@ public class AudioInputKinect extends PApplet {
     }
 
     public void setup() {
-        dot = loadImage("C:/TunnelGit2/src/data/dot.png");
-        colors = loadImage("C:/TunnelGit2/src/data/colors.png");
-        //dot = loadImage("F:/Tunnel2/src/data/dot.png");
-        //colors = loadImage("F:/Tunnel2/src/data/colors.png");        
+        //dot = loadImage("C:/TunnelGit2/src/data/dot.png");
+        //colors = loadImage("C:/TunnelGit2/src/data/colors.png");
+        dot = loadImage("F:/Tunnel2/src/data/dot.png");
+        colors = loadImage("F:/Tunnel2/src/data/colors.png");        
         fftFilter = new float[fft.specSize()];
 
         LeftWall= createGraphics(150*scale, 32*scale);
@@ -89,12 +90,12 @@ public class AudioInputKinect extends PApplet {
    
             Roof.beginDraw();
             Roof.background(0,70,140);
-            if (millis()-StartTime <=30*1000)
+            if (millis()-StartTime <=15*1000)
             {
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
             }
-            else if (millis()-StartTime < 60*1000)
+            else if (millis()-StartTime < 30*1000)
             {
               FlyingBalls(LeftWall);  
               FlyingBalls(RightWall);  
@@ -105,12 +106,23 @@ public class AudioInputKinect extends PApplet {
               LightControl(LeftWall, RightWall);  
               Roof.background(R+=2,G--,B++);
             }
+            else
+            {
+              Equilizer(LeftWall);  
+              Equilizer(RightWall); 
+              Roof.line(counter,0, counter, 24);
+              counter++;
+              counter%=150;
+            }
+            
+            
+            
             LeftWall.endDraw();
             RightWall.endDraw();
             Roof.endDraw();
-            image(LeftWall, 0, 0);
+            image(RightWall, 0, 0);
             image(Roof, 0, 32*scale);
-            image(flipImage(RightWall.get()), 0, (32+24)*scale);
+            image(flipImage(LeftWall.get()), 0, (32+24)*scale);
 
             //FlyingBalls();
             //LightControl();
@@ -130,16 +142,24 @@ public class AudioInputKinect extends PApplet {
     
 
     public void Equilizer(PGraphics Image) {
-        rectMode(CORNERS);
-        int scale = Image.width/20;
-        for(int i = 0; i < scale*fft.specSize(); i+=(scale/5))
+        rectMode(CORNER);
+        
+        for(int i = 0; i < 70; i+=scale)
         {
+          
           stroke(135);
-  //     line(i, Image.height, i, Image.height - fft.getBand(i)*35);
-          Image.rect( i+Image.width/2, Image.height, i+(scale/5)+Image.width/2, Image.height - fft.getBand(i)*35 );
-          Image.rect( Image.width - (i+Image.width/2), Image.height, Image.width - (i+(scale/5)+Image.width/2), Image.height - fft.getBand(i)*20 );
+          float amp = 5*fft.getBand(i);
+          println( "i= " + i + " amp = " + amp);
+          if(amp*.8 > height)
+            amp = (float)(height*.8);
+          println((i+Image.width/2) + "  "  + scale);
+          Image.rect( i+Image.width/2, 0, scale, amp);
+          Image.rect( Image.width - (i+Image.width/2), 0, -1*scale, amp );
+          ellipseMode(CENTER);
+          Image.ellipse((float)(.2*Image.width),(float)(.5*Image.height), amp, amp);
+          Image.ellipse((float)(.8*Image.width),(float)(.5*Image.height), amp, amp);
+          
         }
-       // LeftWall=Image;
     }
 
     public void FlyingBalls(PGraphics Image){
@@ -167,17 +187,10 @@ public class AudioInputKinect extends PApplet {
       }
     }
     public void LightControl(PGraphics ImageL,PGraphics ImageR){
-      fill(150, 0, 0);
-      pushMatrix();
-      translate(ImageL.width / 2, ImageL.height / 2);
-    //  textAlign(CENTER, CENTER);
-      textSize(20); 
-        
-      scale((float) 0.1 + sin(textScale), 1);
-      ImageL.text("INTERACTIVE", 110, +55);
-      ImageR.text("INTERACTIVE", 110, +55);
-      popMatrix();
-      textScale += 0.02;
+      fill(255, 0, 0);
+      textSize(80); 
+      ImageL.text("INTERACTIVE", 110, 100);
+  
       
       float RightHandRaisedRatio = 0;
       float LeftHandRaisedRatio = 0;
@@ -218,10 +231,10 @@ public class AudioInputKinect extends PApplet {
         
         ImageL.ellipseMode(RADIUS);
         ImageR.ellipseMode(RADIUS);
-        ImageL.fill( random(150), random(150), random(150), random(150)); 
-        ImageL.ellipse(width*depth_LeftHand_Ratio, ImageL.height*(1-LeftHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));
-        ImageR.fill( random(150), random(150), random(150), random(150)); 
-        ImageR.ellipse(width*depth_RightHand_Ratio, ImageR.height*(float)(1-RightHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));      
+        ImageL.fill( random(255), random(255), random(255), random(255)); 
+        ImageL.ellipse(width*depth_LeftHand_Ratio, ImageL.height*(RightHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));
+        ImageR.fill( random(150), random(255), random(255), random(255)); 
+        ImageR.ellipse(width*depth_RightHand_Ratio, ImageR.height*(float)(LeftHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
       
     }
 
