@@ -17,6 +17,7 @@ public class Tunnel extends PApplet implements AudioListener {
     int height     = wallHeight + ceilHeight + wallHeight;
     boolean wallMirroring = false;
 
+
     // Audio
     Minim minim;
     AudioInput in;

@@ -83,6 +83,7 @@
       <root url="jar://$PROJECT_DIR$/lib_processing/mp3spi1.9.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_aos.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib_processing/tritonus_share.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_processing/controlP5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
