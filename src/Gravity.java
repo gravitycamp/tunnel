@@ -40,7 +40,7 @@ public class Gravity extends PApplet {
             pushMatrix();
             translate(width / 2, height / 2);
             scale((float) 0.1 + sin(textScale), 1);
-            text("GRAVITY", 0, 0);
+            text("GRAVITY", 0, -15);
             popMatrix();
 
             textScale += 0.02;

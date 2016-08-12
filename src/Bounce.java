@@ -206,7 +206,7 @@ class Bounce extends PApplet {
     }
 
     void removeLetter(char c) {
-        PImage letter = loadImage("chars/" + (int) c + ".png");
+        PImage letter = loadImage("C:/TunnelGit2/src/data/chars/" + (int) c + ".png");
         letter.resize(width, height);
         letter.loadPixels();
         for (int i = 0; i < particles.length; i++) {
@@ -236,24 +236,27 @@ class Bounce extends PApplet {
     public void draw() {
         synchronized(Tunnel.class) {
 
-            background(color(0));
-            for (int i = 0; i < particles.length; i++)
-                particles[i].fx = particles[i].fy = 0;
+          background(color(0));
+          for (int i = 0; i < particles.length; i++)
+              particles[i].fx = particles[i].fy = 0;
 
-            long startTime = System.nanoTime();
-            if (mousePressed || mouseX != pmouseX || mouseY != pmouseY)
-                mouseRepulsion();
-            computeSprings();
-            for (int i = 0; i < particles.length; i++)
-                particles[i].update();
+          long startTime = System.nanoTime();
+          if (mousePressed || mouseX != pmouseX || mouseY != pmouseY)
+              mouseRepulsion();
+          computeSprings();
+          for (int i = 0; i < particles.length; i++)
+              particles[i].update();
 
-            for (int i = 0; i < particles.length; i++)
-                point(particles[i].x, particles[i].y);
-
+          for (int i = 0; i < particles.length; i++)
+              point(particles[i].x, particles[i].y);
+          try{
             if (tunnel.getAudioAverage() > 1) {
-                removeLetter(banner.charAt(bannerIdx));
-                bannerIdx = (bannerIdx + 1) % banner.length();
+              removeLetter(banner.charAt(bannerIdx));
+              bannerIdx = (bannerIdx + 1) % banner.length();
             }
+                  }
+          catch(Exception e){}
+            
 
         }
     }

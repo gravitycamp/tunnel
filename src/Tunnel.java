@@ -6,6 +6,7 @@ import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
+//import krister.Ess.*;
 
 
 public class Tunnel extends PApplet implements AudioListener {
@@ -21,7 +22,7 @@ public class Tunnel extends PApplet implements AudioListener {
     // Audio
     Minim minim;
     AudioInput in;
-    FFT fft;
+    FFT fft; //<>//
 
 
     ArrayList<PApplet> sketches = new ArrayList();
@@ -31,7 +32,7 @@ public class Tunnel extends PApplet implements AudioListener {
     public Tunnel(HashMap<String, String> mapping) {
 
         // init Audio
-        //
+        
         minim = new Minim(this);
         in = minim.getLineIn();
         fft = new FFT(in.bufferSize(), in.sampleRate());
@@ -90,24 +91,33 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     public void draw() {
+      try{
         synchronized(Tunnel.class) {
             // draw combined output
             //
             PImage frame = combineSketches();
             image(frame, 0, 0);
-            frame = frame.get();
+            //frame = frame.get();
 
             // scale output to correct size and send to hardware
             //
-            if (scale > 1) {
-              frame.resize(frame.width / scale, frame.height / scale);
-            }
+            //if (scale > 1) {
+            //  frame.resize(frame.width / scale, frame.height / scale);
+            //}
             //frame.save("/Users/skryl/Desktop/frame.jpg");
 
-            //wire.send(unscaled);
+           // wire.send(unscaled);
+            PImage unscaled = get();
+            unscaled.resize(frame.width/scale, frame.height/scale);
+            //unscaled.save("/Users/skryl/Desktop/frame.jpg");
+            
+            wire.send(unscaled);
+            
 
             //println(frameCount);
         }
+      }
+    catch(Exception e){}
     }
 
 
@@ -172,7 +182,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     // feed FFT when samples are available
-    //
+    
     public synchronized void samples(float[] samp)
     {
         fft.forward(in.mix);

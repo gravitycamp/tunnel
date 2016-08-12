@@ -59,7 +59,7 @@ public class Tree extends PApplet {
 
             synchronized (Tunnel.class) {
                 background(0);
-                stroke(250);
+                stroke(150);
                 tree(mouseX, mouseX, mouseY);
             }
         }
