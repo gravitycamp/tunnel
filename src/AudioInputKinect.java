@@ -39,6 +39,10 @@ public class AudioInputKinect extends PApplet {
     PGraphics Roof;
     double StartTime=0;
     double patternTime = 0;
+    byte R = 0;
+    byte G = 2;
+    byte B = 3;
+    int scale = 4;  
     
 
     public AudioInputKinect(Tunnel t, int w, int h) {
@@ -59,9 +63,10 @@ public class AudioInputKinect extends PApplet {
         //dot = loadImage("F:/Tunnel2/src/data/dot.png");
         //colors = loadImage("F:/Tunnel2/src/data/colors.png");        
         fftFilter = new float[fft.specSize()];
-        LeftWall= createGraphics(150, 32);
-        RightWall= createGraphics(150, 32);
-        Roof= createGraphics(150, 24);
+
+        LeftWall= createGraphics(150*scale, 32*scale);
+        RightWall= createGraphics(150*scale, 32*scale);
+        Roof= createGraphics(150*scale, 24*scale);
         StartTime = millis();
    
         depthZero    = new int[ KinectPV2.WIDTHDepth * KinectPV2.HEIGHTDepth];        
@@ -69,9 +74,6 @@ public class AudioInputKinect extends PApplet {
         kinect.enableDepthImg(true);
         kinect.enableSkeleton3DMap(true);
         kinect.init();
-
-     //
-        
     }
 
 
@@ -87,28 +89,28 @@ public class AudioInputKinect extends PApplet {
    
             Roof.beginDraw();
             Roof.background(0,70,140);
-            if (millis()-StartTime <=30)
+            if (millis()-StartTime <=30*1000)
             {
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
             }
-            else if (millis()-StartTime > 30)
+            else if (millis()-StartTime < 60*1000)
             {
               FlyingBalls(LeftWall);  
-              FlyingBalls(RightWall);     
+              FlyingBalls(RightWall);  
+              Roof.background(R+=2,G--,B++);
             }
-
-
-
-
-
-
+            else if (millis()-StartTime < 90*1000)
+            {
+              LightControl(LeftWall, RightWall);  
+              Roof.background(R+=2,G--,B++);
+            }
             LeftWall.endDraw();
             RightWall.endDraw();
             Roof.endDraw();
             image(LeftWall, 0, 0);
-            image(Roof, 0, 32);
-            image(flipImage(RightWall.get()), 0, 32+24);
+            image(Roof, 0, 32*scale);
+            image(flipImage(RightWall.get()), 0, (32+24)*scale);
 
             //FlyingBalls();
             //LightControl();
@@ -146,7 +148,6 @@ public class AudioInputKinect extends PApplet {
       }
       
       for (int i = 0; i < fftFilter.length; i += 3) {   
-      //  color rgb = colors.get((map(i, 0, fftFilter.length-1, 0, colors.width-1)), colors.height/2);
         tint(colors.get((int)map(i, 0, fftFilter.length-1, 0, colors.width-1), colors.height/2));
         blendMode(ADD);
      
@@ -165,15 +166,16 @@ public class AudioInputKinect extends PApplet {
         //ellipse(center.x + size/2, center.y + size/2, size/15, size/15);
       }
     }
-    public void LightControl(){
+    public void LightControl(PGraphics ImageL,PGraphics ImageR){
       fill(150, 0, 0);
       pushMatrix();
-      translate(width / 2, height / 2);
+      translate(ImageL.width / 2, ImageL.height / 2);
     //  textAlign(CENTER, CENTER);
       textSize(20); 
         
       scale((float) 0.1 + sin(textScale), 1);
-      text("INTERACTIVE", 110, +55);
+      ImageL.text("INTERACTIVE", 110, +55);
+      ImageR.text("INTERACTIVE", 110, +55);
       popMatrix();
       textScale += 0.02;
       
@@ -214,12 +216,12 @@ public class AudioInputKinect extends PApplet {
         
         //we now have ratios, now draw
         
-        ellipseMode(RADIUS);
-        println(LeftHandRaisedRatio + " new = " + (.2+1/(LeftHandRaisedRatio+.4)));
-        fill( random(150), random(150), random(150), random(150)); 
-        ellipse(width*depth_LeftHand_Ratio, height*(1-LeftHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));
-        fill( random(150), random(150), random(150), random(150)); 
-        ellipse(width*depth_RightHand_Ratio, height*(float)(1-RightHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));      
+        ImageL.ellipseMode(RADIUS);
+        ImageR.ellipseMode(RADIUS);
+        ImageL.fill( random(150), random(150), random(150), random(150)); 
+        ImageL.ellipse(width*depth_LeftHand_Ratio, ImageL.height*(1-LeftHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));
+        ImageR.fill( random(150), random(150), random(150), random(150)); 
+        ImageR.ellipse(width*depth_RightHand_Ratio, ImageR.height*(float)(1-RightHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));      
       
     }
 
