@@ -24,7 +24,7 @@ class Main {
         loadNextInQueue();
 
         while (true) {
-            if (elapsedTime < duration) {
+            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex).get("Time")))  {
                 elapsedTime = tunnel.millis();
             } else {
                 tunnel.kill();
@@ -34,7 +34,8 @@ class Main {
     }
 
 
-    public static void loadNextInQueue() {
+
+    public static void loadNextInQueue() { //<>//
         tunnel = new Tunnel(queue.get(queueIndex));
         PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
 
@@ -47,19 +48,20 @@ class Main {
         try (Stream<String> stream = Files.lines(Paths.get(playlistPath))) {
             Object[] lines = stream.toArray();
 
-            for (Object line: lines) {
+            for (Object line: lines) { //<>//
                 HashMap<String, String> mapping = new HashMap();
 
                 String[] sketches = ((String) line).split(",");
-                if (sketches.length == 1) {
-                   mapping.put("Tunnel", sketches[0].trim());
-                } else if (sketches.length == 2) {
-                    mapping.put("Wall", sketches[0].trim());
-                    mapping.put("Ceil", sketches[1].trim());
+                mapping.put("Time", sketches[0].trim());
+                if (sketches.length == 2) {
+                   mapping.put("Tunnel", sketches[1].trim());
+                } else if (sketches.length == 3) {
+                    mapping.put("Wall", sketches[1].trim());
+                    mapping.put("Ceil", sketches[2].trim());
                 } else {
-                    mapping.put("RWall", sketches[0].trim());
-                    mapping.put("LWall", sketches[1].trim());
-                    mapping.put("Ceil",  sketches[2].trim());
+                    mapping.put("RWall", sketches[1].trim());
+                    mapping.put("LWall", sketches[2].trim());
+                    mapping.put("Ceil",  sketches[3].trim());
 
                 }
                 queue.add(mapping);
@@ -67,6 +69,6 @@ class Main {
         } catch (IOException e) {
         }
     }
-
-
+    
+    
 }

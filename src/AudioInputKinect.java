@@ -102,7 +102,6 @@ public class AudioInputKinect extends PApplet {
               FlyingBalls(LeftWall);  
               FlyingBalls(RightWall);  
               SmoothRGB();
-              println(R+ " " + G + " " +B);
               Roof.background(R,G,B);
             }
             else if (millis()-StartTime < 90*1000)

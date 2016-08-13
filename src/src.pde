@@ -13,8 +13,16 @@ import ddf.minim.analysis.*;
 
 void setup() {
   noLoop();
+  
+  frame.setAlwaysOnTop(true);
 }
 
 void draw() {
   Main.main();
+}
+
+void keyPressed() {
+  if (keyPressed && (keyCode==DOWN))
+    Main.loadNextInQueue();
+
 }
