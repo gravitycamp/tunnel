@@ -1,4 +1,4 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>//
+/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>//
 /* !do not delete the line above, required for linking your tweak if you upload again */
 
 import processing.video.*;
@@ -49,17 +49,17 @@ public class MovieGlitchMob extends PApplet {
 
     public void setup() {
         movie = new Movie(this, "C:/TunnelGit2/src/data/glitch_mob.mp4");
-        //movie = new Movie(this, "F:/Tunnel2/src/data/glitch_mob.mp4");
+        ////movie = new Movie(this, "F:/Tunnel2/src/data/glitch_mob.mp4");
         movie.loop();
 
         PApplet sketch = new Video(movie, 400, 400);
         String[] args = {"Video",};
         PApplet.runSketch(args, sketch);
         
-        //dot = loadImage("C:/TunnelGit2/src/data/dot.png");
-        //colors = loadImage("C:/TunnelGit2/src/data/colors.png");
-        dot = loadImage("F:/Tunnel2/src/data/dot.png");
-        colors = loadImage("F:/Tunnel2/src/data/colors.png");
+        dot = loadImage("C:/TunnelGit2/src/data/dot.png");
+        colors = loadImage("C:/TunnelGit2/src/data/colors.png");
+        //dot = loadImage("F:/Tunnel2/src/data/dot.png");
+        //colors = loadImage("F:/Tunnel2/src/data/colors.png");
         
         fftFilter = new float[fft.specSize()];
         

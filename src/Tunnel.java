@@ -21,7 +21,7 @@ public class Tunnel extends PApplet implements AudioListener {
     Minim minim;
     AudioInput in;
     FFT fft; //<>//
-
+ //<>//
 
     ArrayList<PApplet> sketches = new ArrayList();
     Wire wire = new Wire();
@@ -89,7 +89,9 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     public void draw() {
+                try{
         synchronized(Tunnel.class) {
+
             // draw combined output
             //
             PImage frame = combineSketches();
@@ -105,6 +107,8 @@ public class Tunnel extends PApplet implements AudioListener {
             // wire.send(frame);
             // println(frameCount);
         }
+                 }
+      catch(Exception e){}
     }
 
 

@@ -1,3 +1,8 @@
+Ayukit
+NoiseField
+IsoLinesFull
+TextScroll,Circle,SinusPlasma
+AudioInputKinect
 Field
 Balls,Blobs
 Blobs,Bounce,Gravity

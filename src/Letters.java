@@ -93,7 +93,7 @@ public class Letters extends PApplet {
                 }
             }
             if (fits) {
-                image(g, x, y); //<>//
+                image(g, x, y);
                 return true;
             }
         }

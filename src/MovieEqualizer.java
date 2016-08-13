@@ -21,10 +21,6 @@ class MovieEqualizer extends PApplet {
         width = w;
         height = h;
         tunnel = t;
-        ////fft = tunnel.fft;
-        //minim = new Minim(this);
-        //in = minim.getLineIn();
-        //fft = new FFT(in.bufferSize(), in.sampleRate());
     }
 
 
@@ -70,22 +66,22 @@ class MovieEqualizer extends PApplet {
             rWidth = width * (float) 0.99; //<>//
             rHeight = height * (float) 0.99;
         }
-
-        void drawEQ() {
+ //<>//
+        void drawEQ() { //<>//
             //creates the values needed to make the 3D effect
             background(0); //<>//
             tint(255, 255, 255, 254); //<>//
             image(fade, (width - rWidth) / 2, (height - rHeight) / 2, rWidth, rHeight); //<>//
             noTint(); //<>//
-
-            // rainbow Effect parameters
-            smooth(); //<>//
-            colorMode(HSB);// sets color mode value
+ //<>//
+            // rainbow Effect parameters //<>//
+            smooth(); //<>// //<>//
+            colorMode(HSB);// sets color mode value //<>//
             fill(hVal, 255, 255);//cycles through hue and brightness to expose a greater color palete //<>//
             stroke(hVal, 255, 225);// sets the stroke to cycle through the whole color spectrum
-            colorMode(RGB);//sets color mode back to Red green and blue
+            colorMode(RGB);//sets color mode back to Red green and blue //<>//
             //fill(EQColorR,EQColorG,EQColorB);
-
+ //<>//
             //for loop for creating the audio bars
             w=width/fft.avgSize();
             strokeWeight(w);//the width of line will be equally spacing

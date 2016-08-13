@@ -195,7 +195,8 @@ class Bounce extends PApplet {
     }
 
     void removeLetter(char c) {
-        PImage letter = loadImage("src/data/chars/" + (int) c + ".png");
+        //PImage letter = loadImage("src/data/chars/" + (int) c + ".png");
+        PImage letter = loadImage("C:/TunnelGit2/src/data/chars/" + (int) c + ".png");
         letter.resize(width, height);
         letter.loadPixels();
         for (int i = 0; i < particles.length; i++) {

@@ -1,4 +1,4 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>//
+/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>//
 /* !do not delete the line above, required for linking your tweak if you upload again */
 import java.util.*;
 import java.lang.reflect.*;
@@ -18,7 +18,7 @@ public class AudioInputKinect extends PApplet {
     int height;
     Tunnel tunnel;
     FFT fft;
-    //Minim minim;
+    Minim minim;
     //AudioInput in;
     
     KinectPV2 kinect;
@@ -39,11 +39,14 @@ public class AudioInputKinect extends PApplet {
     PGraphics Roof;
     double StartTime=0;
     double patternTime = 0;
-    byte R = 0;
-    byte G = 2;
-    byte B = 3;
+    int R = (int)random(255);
+    int G = (int)random(255);
+    int B = (int)random(255);
     int scale = 4;  
     int counter = 0;
+    int dR = 1;
+    int dG = 1;
+    int dB = 1;
     
 
     public AudioInputKinect(Tunnel t, int w, int h) {
@@ -51,16 +54,17 @@ public class AudioInputKinect extends PApplet {
         height = h;
         tunnel = t;
         fft = tunnel.fft;
-
-    }
+     }
 
     public void settings() {
         size(width, height);
     }
 
     public void setup() {
-        dot = loadImage("src/data/dot.png");
-        colors = loadImage("src/data/colors.png");
+        //dot = loadImage("src/data/dot.png");
+        //colors = loadImage("src/data/colors.png");
+        dot = loadImage("C:/TunnelGit2/src/data/dot.png");
+        colors = loadImage("C:/TunnelGit2/src/data/colors.png");
         fftFilter = new float[fft.specSize()];
 
         LeftWall= createGraphics(150*scale, 32*scale);
@@ -88,7 +92,7 @@ public class AudioInputKinect extends PApplet {
    
             Roof.beginDraw();
             Roof.background(0,70,140);
-            if (millis()-StartTime <=15*1000)
+            if (millis()-StartTime <=5*1000)
             {
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
@@ -97,12 +101,16 @@ public class AudioInputKinect extends PApplet {
             {
               FlyingBalls(LeftWall);  
               FlyingBalls(RightWall);  
-              Roof.background(R+=2,G--,B++);
+              SmoothRGB();
+              println(R+ " " + G + " " +B);
+              Roof.background(R,G,B);
             }
             else if (millis()-StartTime < 90*1000)
             {
               LightControl(LeftWall, RightWall);  
-              Roof.background(R+=2,G--,B++);
+              SmoothRGB();
+              Roof.background(R,G,B);
+
             }
             else
             {
@@ -147,10 +155,8 @@ public class AudioInputKinect extends PApplet {
           
           stroke(135);
           float amp = 5*fft.getBand(i);
-          println( "i= " + i + " amp = " + amp);
           if(amp*.8 > height)
             amp = (float)(height*.8);
-          println((i+Image.width/2) + "  "  + scale);
           Image.rect( i+Image.width/2, 0, scale, amp);
           Image.rect( Image.width - (i+Image.width/2), 0, -1*scale, amp );
           ellipseMode(CENTER);
@@ -184,11 +190,26 @@ public class AudioInputKinect extends PApplet {
         //ellipse(center.x + size/2, center.y + size/2, size/15, size/15);
       }
     }
+    public void SinglePixel(PImage Image)
+    {
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    }
+    
+    
+    
+    
     public void LightControl(PGraphics ImageL,PGraphics ImageR){
       fill(255, 0, 0);
-      textSize(80); 
-      ImageL.text("INTERACTIVE", 110, 100);
-  
+      textSize(30*scale); 
+      ImageL.text("INTERACTIVE", width, height);
       
       float RightHandRaisedRatio = 0;
       float LeftHandRaisedRatio = 0;
@@ -234,6 +255,18 @@ public class AudioInputKinect extends PApplet {
         ImageR.fill( random(150), random(255), random(255), random(255)); 
         ImageR.ellipse(width*depth_RightHand_Ratio, ImageR.height*(float)(LeftHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
       
+    }
+    void SmoothRGB(){
+    R+=dR;
+    G+=dG;    
+    B+=dB;
+  
+  if ((R <= 5) || (R >= 250))  // if out of bounds
+    dR = - dR; // swap direction  
+  if ((G <= 5) || (G >= 250))  // if out of bounds
+    dG = - dG; // swap direction  
+  if ((B <= 5) || (B >= 250))  // if out of bounds
+    dB = - dB; // swap direction  
     }
 
 
