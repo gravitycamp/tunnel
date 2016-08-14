@@ -1,5 +1,5 @@
 import processing.core.*;
-
+import java.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,17 +17,20 @@ class Main {
     static int queueIndex = 0;
     static int duration = 100000;
     static int elapsedTime = 0;
-
-
+    static Wire wire = new Wire();
+    
     public static void main(String... args) {
+       
+        wire.SetupCom();
         loadPlaylist();
         loadNextInQueue();
 
         while (true) {
-            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex).get("Time")))  {
+            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex-1).get("Time")))  {
                 elapsedTime = tunnel.millis();
             } else {
-                tunnel.kill();
+              int x= 1000*Integer.parseInt(queue.get(queueIndex).get("Time"));
+                tunnel.kill(x);
                 loadNextInQueue();
             }
         }
@@ -35,8 +38,8 @@ class Main {
 
 
 
-    public static void loadNextInQueue() { //<>//
-        tunnel = new Tunnel(queue.get(queueIndex));
+    public static void loadNextInQueue() {
+        tunnel = new Tunnel(queue.get(queueIndex), wire);
         PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
 
         elapsedTime = 0;
@@ -48,7 +51,7 @@ class Main {
         try (Stream<String> stream = Files.lines(Paths.get(playlistPath))) {
             Object[] lines = stream.toArray();
 
-            for (Object line: lines) { //<>//
+            for (Object line: lines) {
                 HashMap<String, String> mapping = new HashMap();
 
                 String[] sketches = ((String) line).split(",");

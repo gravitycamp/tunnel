@@ -2,7 +2,7 @@ import processing.core.*;
 
 public class Field extends PApplet {
 
-    int NUM_PARTICLES = 100;
+    int NUM_PARTICLES = 1000;
     ParticleSystem p;
 
     int   width;

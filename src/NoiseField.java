@@ -52,7 +52,7 @@ public class NoiseField extends PApplet {
     
     void update()
     {
-      velocity.x = (float)(20*(noise(mouseX/10+position.y/100)-0.5));  //change to kinect
+      velocity.x = (float)(20*(noise(mouseX/10+position.y/100)-0.5));  //change to kinect //<>//
       velocity.y = (float)(20*(noise(mouseY/10+position.x/100)-0.5));
       position.add(velocity);
       

@@ -24,7 +24,7 @@ class IsoLinesFull extends PApplet {
 
   public void setup()
   {
-    values = new int[width * height]; //<>//
+    values = new int[width * height];
     background(0);
     noiseDetail(6, (float).5);
   }
@@ -34,7 +34,7 @@ class IsoLinesFull extends PApplet {
     float offset = frameCount * (float).005;
     
     // first pass: compute values
-    for(int y = 0; y < height; y++) { //<>//
+    for(int y = 0; y < height; y++) {
       for(int x = 0; x < width; x++) {
         int i = y * width + x;
         values[i] = (int) (levels * noise(

@@ -5,13 +5,18 @@ import java.awt.image.*;
 import processing.core.*;
 import processing.serial.*;
 import processing.video.*;
-import KinectPV2.*;
 import ddf.minim.*;
 import ddf.minim.signals.*;
 import ddf.minim.analysis.*;
+import KinectPV2.KJoint;
+import KinectPV2.*;
 
+
+
+ 
 
 void setup() {
+
   noLoop();
   
   frame.setAlwaysOnTop(true);
@@ -22,7 +27,7 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyPressed && (keyCode==DOWN))
+  if ((keyCode==DOWN))
     Main.loadNextInQueue();
 
 }

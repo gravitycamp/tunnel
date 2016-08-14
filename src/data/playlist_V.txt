@@ -1,8 +1,5 @@
+50,Balls,Blobs
 15,AudioInputKinect
-40,Balls
-50,Blobs
-50,Perlin,Field
-30,Tree,Circle
 50,IsoLinesFull
 50,Field
 50,NoiseField
@@ -13,5 +10,7 @@
 50,Gravity
 50,Letters,Circle
 50,Life
-10,Tangle,Circle
-50,WhiteRain,Circle
+50,Perlin
+50,Tangle
+50,Tree
+50,WhiteRain

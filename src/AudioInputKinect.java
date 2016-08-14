@@ -72,7 +72,7 @@ public class AudioInputKinect extends PApplet {
         Roof= createGraphics(150*scale, 24*scale);
         StartTime = millis();
    
-        depthZero    = new int[ KinectPV2.WIDTHDepth * KinectPV2.HEIGHTDepth];        
+     //   depthZero    = new int[ KinectPV2.WIDTHDepth * KinectPV2.HEIGHTDepth];        
         kinect = new KinectPV2(this);
         kinect.enableDepthImg(true);
         kinect.enableSkeleton3DMap(true);
@@ -97,22 +97,22 @@ public class AudioInputKinect extends PApplet {
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
             }
-            else if (millis()-StartTime < 30*1000)
+            else if (millis()-StartTime < 10*1000)
             {
               FlyingBalls(LeftWall);  
               FlyingBalls(RightWall);  
               SmoothRGB();
               Roof.background(R,G,B);
             }
-            else if (millis()-StartTime < 90*1000)
+            else if (millis()-StartTime < 20*1000)
             {
               LightControl(LeftWall, RightWall);  
               SmoothRGB();
               Roof.background(R,G,B);
-
             }
             else
             {
+              Kinect.shutDown(); 
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
               Roof.line(counter,0, counter, 24);
@@ -152,7 +152,8 @@ public class AudioInputKinect extends PApplet {
         for(int i = 0; i < 70; i+=scale)
         {
           
-          stroke(135);
+          stroke(135,135,135);
+          fill(135,135,135);
           float amp = 5*fft.getBand(i);
           if(amp*.8 > height)
             amp = (float)(height*.8);

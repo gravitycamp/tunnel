@@ -20,14 +20,14 @@ public class Tunnel extends PApplet implements AudioListener {
     // Audio
     Minim minim;
     AudioInput in;
-    FFT fft; //<>//
- //<>//
+    FFT fft;
+
 
     ArrayList<PApplet> sketches = new ArrayList();
-    Wire wire = new Wire();
+    Wire wire;
 
 
-    public Tunnel(HashMap<String, String> mapping) {
+    public Tunnel(HashMap<String, String> mapping, Wire wire) {
 
         // init Audio
         
@@ -36,6 +36,7 @@ public class Tunnel extends PApplet implements AudioListener {
         fft = new FFT(in.bufferSize(), in.sampleRate());
         fft.logAverages(22,1);
         in.addListener(this);
+        this.wire = wire;
 
         // init Sketches
         //
@@ -104,16 +105,16 @@ public class Tunnel extends PApplet implements AudioListener {
               frame.resize(frame.width / scale, frame.height / scale);
             }
             // frame.save("/Users/skryl/Desktop/frame.jpg");
-            // wire.send(frame);
-            // println(frameCount);
+             wire.send(frame);
+             //println(frameCount);
         }
                  }
       catch(Exception e){}
     }
 
 
-    public void kill() {
-
+    public void kill(int x) {
+          println(x);
         for (PApplet sketch : sketches) {
             sketch.dispose();
             sketch.frame.setVisible(false);

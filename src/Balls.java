@@ -22,7 +22,7 @@ public class Balls extends PApplet {
 
     public void setup() {
         frameRate(45);
-        background(255);
+       // background(255);
         noStroke();
         smooth();
 
@@ -33,10 +33,10 @@ public class Balls extends PApplet {
 
             background(60, 120, 200);
             for (int i = 0; i < balls.length; i++) {
-                ellipse(balls[i].x, balls[i].y, balls[i].r + tunnel.getAudioAverage() * 400, balls[i].r + tunnel.getAudioAverage() * 400);
+                ellipse(balls[i].x, balls[i].y, balls[i].r + tunnel.getAudioAverage() * 30, balls[i].r + tunnel.getAudioAverage() * 30);
                 fill(0, 0, 0, 255);
             }
-            if (tunnel.getAudioAverage() > 0.3) {
+            if (tunnel.getAudioAverage() > 0.9) {
                 Ball b = new Ball(random(width), random(height), random(80), (int) random(255));
                 balls = (Ball[]) append(balls, b);
             }
