@@ -30,7 +30,7 @@ class Main {
                 elapsedTime = tunnel.millis();
             } else {
               int x= 1000*Integer.parseInt(queue.get(queueIndex).get("Time"));
-                tunnel.kill(x);
+                tunnel.kill();
                 loadNextInQueue();
             }
         }
