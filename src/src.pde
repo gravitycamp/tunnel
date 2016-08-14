@@ -11,15 +11,8 @@ import ddf.minim.analysis.*;
 import KinectPV2.KJoint;
 import KinectPV2.*;
 
-
-
- 
-
 void setup() {
-
   noLoop();
-  
-  frame.setAlwaysOnTop(true);
 }
 
 void draw() {
