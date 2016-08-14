@@ -71,7 +71,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
     public void setup() {
 
-        frameRate(60);
+      //  frameRate(60);
 
 
         // Run sketches
@@ -111,7 +111,6 @@ public class Tunnel extends PApplet implements AudioListener {
                  }
       catch(Exception e){}
     }
-
 
     public void kill() {
         for (PApplet sketch : sketches) {

@@ -87,7 +87,7 @@ class Bounce extends PApplet {
     }
 
     public void setup() {
-        frameRate(60);  // highest possible
+       // frameRate(60);  // highest possible
 
         particles = new Particle[nbParticles];
         for (int i = 0; i < particles.length; i++)

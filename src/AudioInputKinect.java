@@ -104,7 +104,7 @@ public class AudioInputKinect extends PApplet {
               SmoothRGB();
               Roof.background(R,G,B);
             }
-            else if (millis()-StartTime < 20*1000)
+            else if (millis()-StartTime < 100*1000)
             {
               LightControl(LeftWall, RightWall);  
               SmoothRGB();
@@ -118,8 +118,6 @@ public class AudioInputKinect extends PApplet {
               counter++;
               counter%=150;
             }
-            
-            
             
             LeftWall.endDraw();
             RightWall.endDraw();

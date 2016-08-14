@@ -26,7 +26,7 @@ class Main {
         loadNextInQueue();
 
         while (true) {
-            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex-1).get("Time")))  {
+            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex).get("Time")))  {
                 elapsedTime = tunnel.millis();
             } else {
               int x= 1000*Integer.parseInt(queue.get(queueIndex).get("Time"));

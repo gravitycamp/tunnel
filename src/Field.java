@@ -22,7 +22,7 @@ public class Field extends PApplet {
 
     public void setup()
     {
-        frameRate(30);
+     //   frameRate(30);
         smooth();
         background(0);
         p = new ParticleSystem(tunnel, width, height);

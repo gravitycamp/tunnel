@@ -21,7 +21,7 @@ public class Balls extends PApplet {
 
 
     public void setup() {
-        frameRate(45);
+       // frameRate(45);
        // background(255);
         noStroke();
         smooth();

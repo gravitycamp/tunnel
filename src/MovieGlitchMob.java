@@ -181,7 +181,7 @@ public class MovieGlitchMob extends PApplet {
         //we now have ratios, now draw
         
         ellipseMode(RADIUS);
-        println(LeftHandRaisedRatio + " new = " + (.2+1/(LeftHandRaisedRatio+.4)));
+      //  println(LeftHandRaisedRatio + " new = " + (.2+1/(LeftHandRaisedRatio+.4)));
         fill( random(150), random(150), random(150), random(150)); 
         ellipse(width*depth_LeftHand_Ratio, height*(1-LeftHandRaisedRatio), 5*fft.getBand(0), 5*fft.getBand(0));
         fill( random(150), random(150), random(150), random(150)); 

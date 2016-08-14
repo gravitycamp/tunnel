@@ -5,7 +5,7 @@ class Tangle extends PApplet {
     int numCols = 32;
     int numRows = 24;
     float dx, dy;
-    float speed = (float) 0.03;
+    float speed = (float) 0.2;
 
     Row[] rows;
 
@@ -29,7 +29,7 @@ class Tangle extends PApplet {
 
     public void setup() {
         colorMode(HSB, 100, 100, 100);
-        frameRate(30);
+       // frameRate(30);
 
         for (int i = 0; i < numCols; i++) {
             palette[i] = color(random(37, 47), 50, 75);

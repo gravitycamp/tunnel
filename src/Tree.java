@@ -36,7 +36,7 @@ public class Tree extends PApplet {
 
     public void setup()
     {
-        frameRate(10);
+      //  frameRate(10);
         smooth();
     }
 
