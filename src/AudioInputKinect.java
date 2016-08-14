@@ -189,19 +189,8 @@ public class AudioInputKinect extends PApplet {
     }
     public void SinglePixel(PImage Image)
     {
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
     }
-    
-    
-    
     
     public void LightControl(PGraphics ImageL,PGraphics ImageR){
       fill(255, 0, 0);
@@ -265,8 +254,4 @@ public class AudioInputKinect extends PApplet {
   if ((B <= 5) || (B >= 250))  // if out of bounds
     dB = - dB; // swap direction  
     }
-
-
-
-
 }
