@@ -111,8 +111,7 @@ public class AudioInputKinect extends PApplet {
               Roof.background(R,G,B);
             }
             else
-            {
-              Kinect.shutDown(); 
+            { 
               Equilizer(LeftWall);  
               Equilizer(RightWall); 
               Roof.line(counter,0, counter, 24);
