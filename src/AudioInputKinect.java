@@ -52,7 +52,7 @@ public class AudioInputKinect extends PApplet {
         height = h;
         tunnel = t;
         fft = tunnel.fft;
-        kinect = Main.kinect;
+        kinect = Main.kinect.pv2();
      }
 
     public void settings() {

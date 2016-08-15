@@ -11,17 +11,14 @@ import ddf.minim.analysis.*;
 import KinectPV2.KJoint;
 import KinectPV2.*;
 
-KinectPV2 kinect;
+Kinect kinect;
 
 void setup() {
   frameRate(60);
   noLoop();
   
-  // init kinect
-  kinect = new KinectPV2(this);
-  kinect.enableDepthImg(true);
-  kinect.enableSkeleton3DMap(true);
-  kinect.init();
+  // Init kinect
+  kinect = new Kinect(new KinectPV2(this));
 }
 
 void draw() {

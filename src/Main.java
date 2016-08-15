@@ -21,9 +21,9 @@ class Main {
     static int elapsedTime = 0;
     static Wire wire = new Wire();
     static Timer playTimer = new Timer();
-    public static KinectPV2 kinect;
+    public static Kinect kinect;
 
-    public static void setKinect(KinectPV2 k) {
+    public static void setKinect(Kinect k) {
       kinect = k;
     }
     

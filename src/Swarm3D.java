@@ -2,7 +2,7 @@ import processing.core.*;
 
 class Swarm3D extends PApplet {
 
-  particle[] Z = new particle[1000];
+  particle[] Z = new particle[500];
   float colour = random(1);
   boolean tracer = true;
   int depth;
@@ -10,6 +10,9 @@ class Swarm3D extends PApplet {
   int width;
   int height;
   Tunnel tunnel;
+  
+  float lastX;
+  float lastY;
   
   public Swarm3D(Tunnel t, int w, int h) {
       width = w;
@@ -19,11 +22,11 @@ class Swarm3D extends PApplet {
 
   public void settings()
   {
-      size(width, height); //<>//
+      size(width, height);
   }
   
   public void setup() {
-    smooth();   //<>//
+    smooth();  
     depth = width;
     background(0);
     frameRate(25);
@@ -37,7 +40,7 @@ class Swarm3D extends PApplet {
       py = random(height);
       pz = random(depth);
       m = random(50);
-      for(int i = (int)((Z.length-1000)*k/n); i < (int)((Z.length-1000)*(k+1)/n); i++) {
+      for(int i = (int)((Z.length-100)*k/n); i < (int)((Z.length-100)*(k+1)/n); i++) {
         v = sq(random(sqrt(m)));
         theta = random(TWO_PI);
         phi = random(TWO_PI);
@@ -46,7 +49,7 @@ class Swarm3D extends PApplet {
     }
     px = width/2;
     py = height/2;
-    for(int i = Z.length-1000; i < Z.length; i++) {
+    for(int i = Z.length-100; i < Z.length; i++) {
       pz = random(depth);
       v = sq(random(sqrt(width/4)));
       theta = random(TWO_PI);
@@ -64,7 +67,9 @@ class Swarm3D extends PApplet {
   }
   
   public void draw() {
-          synchronized (Tunnel.class) {
+    synchronized (Tunnel.class) {
+    
+    Main.kinect.update();
     
     colorMode(RGB,255);
     float r;
@@ -78,15 +83,23 @@ class Swarm3D extends PApplet {
     }
     
     filter(INVERT);
-  
+    
+    lastX = (float)width * Main.kinect.RightHandDepthRatio;
+    lastY = (float)height * Main.kinect.RightHandRaisedRatio;
     for(int i = 0; i < Z.length; i++) {
-      if( mousePressed && mouseButton == LEFT ) {
-        Z[i].gravitate( new particle( (float)mouseX, (float)mouseY, (float)depth/2, (float)0, (float)0,(float)0, (float)0.75 ) );
-      }
-      else if( mousePressed && mouseButton == RIGHT ) {
-        Z[i].repel( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 1 ) );
-      }
-      else {
+        float currentX = (float)width * Main.kinect.RightHandDepthRatio;
+        float currentY = height * Main.kinect.RightHandRaisedRatio;
+
+        Z[i].gravitate( new particle( currentX, currentY, (float)depth/2, (float)0, (float)0,(float)0, (float)0.75 ) );
+        println(currentX, currentY); 
+        lastX = currentX;
+        lastY = currentY;
+
+      //else if( mousePressed && mouseButton == RIGHT ) {
+      //  Z[i].repel( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 1 ) );
+      //}
+      
+      if(currentX == lastX && currentY == lastY) {
         Z[i].deteriorate();
       }
   
