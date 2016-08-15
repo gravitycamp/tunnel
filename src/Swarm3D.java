@@ -2,7 +2,7 @@ import processing.core.*;
 
 class Swarm3D extends PApplet {
 
-  particle[] Z = new particle[5000];
+  particle[] Z = new particle[1000];
   float colour = random(1);
   boolean tracer = true;
   int depth;
@@ -11,7 +11,7 @@ class Swarm3D extends PApplet {
   int height;
   Tunnel tunnel;
   
-  public IsoLinesFull(Tunnel t, int w, int h) {
+  public Swarm3D(Tunnel t, int w, int h) {
       width = w;
       height = h;
       tunnel = t;
@@ -19,14 +19,13 @@ class Swarm3D extends PApplet {
 
   public void settings()
   {
-      size(width, height);
+      size(width, height); //<>//
   }
   
-  void setup() {
-    smooth();
-    size(500,500,P2D);  
+  public void setup() {
+    smooth();   //<>//
     depth = width;
-    background(255);
+    background(0);
     frameRate(25);
     
     float n = 100;
@@ -38,7 +37,7 @@ class Swarm3D extends PApplet {
       py = random(height);
       pz = random(depth);
       m = random(50);
-      for(int i = int((Z.length-1000)*k/n); i < int((Z.length-1000)*(k+1)/n); i++) {
+      for(int i = (int)((Z.length-1000)*k/n); i < (int)((Z.length-1000)*(k+1)/n); i++) {
         v = sq(random(sqrt(m)));
         theta = random(TWO_PI);
         phi = random(TWO_PI);
@@ -62,10 +61,10 @@ class Swarm3D extends PApplet {
     */
     
     frameRate(60);
-  
   }
   
-  void draw() {
+  public void draw() {
+          synchronized (Tunnel.class) {
     
     colorMode(RGB,255);
     float r;
@@ -82,7 +81,7 @@ class Swarm3D extends PApplet {
   
     for(int i = 0; i < Z.length; i++) {
       if( mousePressed && mouseButton == LEFT ) {
-        Z[i].gravitate( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 0.75 ) );
+        Z[i].gravitate( new particle( (float)mouseX, (float)mouseY, (float)depth/2, (float)0, (float)0,(float)0, (float)0.75 ) );
       }
       else if( mousePressed && mouseButton == RIGHT ) {
         Z[i].repel( new particle( mouseX, mouseY, depth/2, 0, 0, 0, 1 ) );
@@ -92,25 +91,26 @@ class Swarm3D extends PApplet {
       }
   
       Z[i].update();
-      r = float(i)/Z.length;
+      r = (float)(i)/Z.length;
       colorMode(HSB,1);
       if( Z[i].magnitude/100 < 0.1 ) {
-        stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), Z[i].magnitude/100+abs(Z[i].z/depth)*0.05 );
+        stroke( (int)colour, (float) pow((float)r, (float)0.1), (float)0.9*sqrt(1-r), (float)(Z[i].magnitude/100+abs(Z[i].z/depth)*0.05) );
       }
       else {
-        stroke( colour, pow(r,0.1), 0.9*sqrt(1-r), 0.1+abs(Z[i].z/depth)*0.05 );
+        stroke( (int)colour, (float)pow((float)r,(float)0.1), (float)0.9*sqrt(1-r), (float)(0.1+abs(Z[i].z/depth)*0.05 ));
       }
       Z[i].display();
     }
   
-    colour+=random(0.01);
+    colour+=random((float)0.01);
     colour = colour%1;
   
     filter(INVERT);
+          }
     
   }
   
-  void keyPressed() {
+  public void keyPressed() {
     
     if( key == ' ' ) {
     
@@ -118,7 +118,7 @@ class Swarm3D extends PApplet {
       
       for(int i = 0; i < Z.length; i++) {
         
-        r = i/float(Z.length);
+        r = i/(float)Z.length;
     
         if( choice > 0.8 ) {
           // Slice
@@ -156,7 +156,7 @@ class Swarm3D extends PApplet {
       
   }
   
-  class particle {
+  public class particle {
     
     float x;
     float y;
