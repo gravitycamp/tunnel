@@ -5,6 +5,8 @@ import java.awt.image.*;
 import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
+import KinectPV2.KJoint;
+import KinectPV2.*;
 
 
 public class Tunnel extends PApplet implements AudioListener {
@@ -22,6 +24,9 @@ public class Tunnel extends PApplet implements AudioListener {
     AudioInput in;
     FFT fft;
 
+    // KinectPV2
+    KinectPV2 kinect;
+
 
     ArrayList<PApplet> sketches = new ArrayList();
     Wire wire;
@@ -30,7 +35,7 @@ public class Tunnel extends PApplet implements AudioListener {
     public Tunnel(HashMap<String, String> mapping, Wire wire) {
 
         // init Audio
-        
+
         minim = new Minim(this);
         in = minim.getLineIn();
         fft = new FFT(in.bufferSize(), in.sampleRate());
@@ -70,6 +75,11 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     public void setup() {
+        // Setup Kinect
+        kinect = new KinectPV2(this);
+        kinect.enableDepthImg(true);
+        kinect.enableSkeleton3DMap(true);
+        kinect.init();
 
         frameRate(60);
 
@@ -117,10 +127,10 @@ public class Tunnel extends PApplet implements AudioListener {
         for (PApplet sketch : sketches) {
             sketch.frame.setVisible(false);
         }
-        
-        // Mark for GC 
+
+        // Mark for GC
         sketches.clear();
-        
+
         dispose();
         frame.setVisible(false);
     }
@@ -186,7 +196,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
 
     // feed FFT when samples are available
-    
+
     public synchronized void samples(float[] samp)
     {
         fft.forward(in.mix);

@@ -13,14 +13,14 @@ class Main {
     //static String playlistPath = "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/playlist.txt";
     static String playlistPath = "C:/TunnelGit2/src/data/playlist.txt";
     static Tunnel tunnel;
-    static ArrayList<HashMap<String, String>> queue = new ArrayList();
+    static ArrayList <HashMap <String, String>> queue = new ArrayList();
     static int queueIndex = 0;
     static int duration = 100000;
     static int elapsedTime = 0;
     static Wire wire = new Wire();
-    
+
     public static void main(String... args) {
-       
+
         wire.SetupCom();
         loadPlaylist();
         loadNextInQueue();
@@ -72,6 +72,6 @@ class Main {
         } catch (IOException e) {
         }
     }
-    
-    
+
+
 }
