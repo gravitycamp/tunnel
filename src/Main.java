@@ -30,22 +30,19 @@ class Main {
                 elapsedTime = tunnel.millis();
             } else {
               int x= 1000*Integer.parseInt(queue.get(queueIndex).get("Time"));
-                tunnel.kill();
                 loadNextInQueue();
             }
         }
     }
 
-
-
     public static void loadNextInQueue() {
+        try { tunnel.kill(); } catch(Exception e) {}
         tunnel = new Tunnel(queue.get(queueIndex), wire);
         PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
 
         elapsedTime = 0;
         queueIndex = ++queueIndex % queue.size();
     }
-
 
     public static void loadPlaylist() {
         try (Stream<String> stream = Files.lines(Paths.get(playlistPath))) {
