@@ -30,14 +30,15 @@ public class NoiseField extends PApplet {
     p = new ParticleSystem();
   }
   
-  public void draw()
-  {
-    //println(frameCount);
-    noStroke();
-    fill(0,5);
-    rect(0,0,width,height);
-    p.update();
-    p.render();
+  public void draw(){
+    synchronized (Tunnel.class) {
+      //println(frameCount);
+      noStroke();
+      fill(0,5);
+      rect(0,0,width,height);
+      p.update();
+      p.render();
+    }
   }
   
   class Particle

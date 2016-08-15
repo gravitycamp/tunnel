@@ -24,6 +24,8 @@ public class Video extends PApplet {
   
 
   public void draw () {
+    synchronized (Tunnel.class) {
       image(movie, 0, 0);
+    }
   }
 }

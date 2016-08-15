@@ -42,7 +42,6 @@ class MovieEqualizer extends PApplet {
     }
 
     public void draw() {
-
         synchronized (Tunnel.class) {
             classicVi.drawEQ();
 
