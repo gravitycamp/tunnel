@@ -20,9 +20,7 @@ public class AudioInputKinect extends PApplet {
     FFT fft;
     Minim minim;
     //AudioInput in;
-    
     KinectPV2 kinect;
-    int [] depthZero;
 
     PImage dot;
     PImage colors;
@@ -54,6 +52,7 @@ public class AudioInputKinect extends PApplet {
         height = h;
         tunnel = t;
         fft = tunnel.fft;
+        kinect = Main.kinect;
      }
 
     public void settings() {
@@ -71,12 +70,6 @@ public class AudioInputKinect extends PApplet {
         RightWall= createGraphics(150*scale, 32*scale);
         Roof= createGraphics(150*scale, 24*scale);
         StartTime = millis();
-   
-     //   depthZero    = new int[ KinectPV2.WIDTHDepth * KinectPV2.HEIGHTDepth];        
-        kinect = new KinectPV2(this);
-        kinect.enableDepthImg(true);
-        kinect.enableSkeleton3DMap(true);
-        kinect.init();
     }
 
 

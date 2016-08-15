@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
+import KinectPV2.KJoint;
+import KinectPV2.*;
 
 
 class Main {
@@ -19,6 +21,11 @@ class Main {
     static int elapsedTime = 0;
     static Wire wire = new Wire();
     static Timer playTimer = new Timer();
+    public static KinectPV2 kinect;
+
+    public static void setKinect(KinectPV2 k) {
+      kinect = k;
+    }
     
     public static void main(String... args) {
        
