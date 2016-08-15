@@ -1,4 +1,4 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>//
+/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>// //<>//
 /* !do not delete the line above, required for linking your tweak if you upload again */
 import java.util.*;
 import java.lang.reflect.*;
@@ -25,6 +25,7 @@ public class Ayukit extends PApplet {
     //Ayukit data
     PImage Ayukit; 
     PImage Logo;
+    PImage Ken;
     double AY_depth = 0;
     double AY_Y = 0;
     boolean AY_OnLeftWall = true;
@@ -40,6 +41,9 @@ public class Ayukit extends PApplet {
     int dR = 1;
     int dG = 1;
     int dB = 1;
+    
+    float kenMove = 0;
+    float kenDelta = (float).4;
     
     PGraphics LeftWall;
     PGraphics RightWall;
@@ -60,14 +64,15 @@ public class Ayukit extends PApplet {
     public void setup() {
         Ayukit = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");
         Logo = loadImage("C:/TunnelGit2/src/data/logo.jpg");
+        Ken = loadImage("C:/TunnelGit2/src/data/Ken.jpg");
         Ayukit.resize(15,15);
+        Ken.resize((int)((.6*32*scale)/Ken.height*Ken.width),(int)(.6*32*scale));
+        Ken=flipImage(Ken);
         Ayukit_Sound = minim.loadFile("C:/TunnelGit2/src/data/Ayukit.mp3");        
         VS_Sound = minim.loadFile("C:/TunnelGit2/src/data/StreetFightervs.mp3");
-        Ayukit_Sound = minim.loadFile("C:/TunnelGit2/src/data/StreetFightervs.mp3");
         Stage_Sound = minim.loadFile("C:/TunnelGit2/src/data/RyuStage.mp3");
-        //Ayukit_Sound = new SoundFile(this, "C:/TunnelGit2/src/data/Ayukit.mp3");
-        VS_Sound.play(1);
-         //     Logo.resize(150*scale, 32*scale);
+        VS_Sound.play();
+
         background(0);
         image(flipImage(Logo.get()), 0, 0, 150*scale, 32*scale);
         image(Logo, 0, (32+24)*scale, 150*scale, 32*scale);
@@ -82,9 +87,7 @@ public class Ayukit extends PApplet {
         kinect = new KinectPV2(this);
         kinect.enableDepthImg(true);
         kinect.enableSkeleton3DMap(true);
-        kinect.init();
- //<>//
-
+        kinect.init(); //<>//
     }
 
 
@@ -93,9 +96,11 @@ public class Ayukit extends PApplet {
         synchronized(Tunnel.class) {
           if((millis()-timeElapsed)>3500)
           {
-      //      VS_Sound.stop();
       //      background(40,150,10);
-            //Stage_Sound.play(); 
+                    Stage_Sound.play();
+                    
+                    
+                    
             
             LeftWall.beginDraw();
             LeftWall.background(0);
@@ -141,11 +146,18 @@ public class Ayukit extends PApplet {
                 LeftHandRaisedRatio = (float)(LeftWristP.y-LeftKneeP.y*.85)/(HeadP.y - LeftKneeP.y);
               }
             }
+            
+            //draw Ken
+
+            kenMove +=kenDelta;
+            if((kenMove> 0.4*32*scale) || (kenMove<0))
+              kenDelta = - kenDelta;
+            RightWall.copy(Ken, 0,0, Ken.width, Ken.height+(int)kenMove, 0, (int)kenMove, Ken.width, Ken.height+(int)kenMove);
         
             //we now have ratios, now draw game logic 
             if(!AyukitFound &&(LeftWristdepth/HeadDepth < .9) && (RightWristdepth/HeadDepth < .9))    //create an ayukit at right hand y = center of ayukit
             {
-              //println(AY_depth);
+              //println(HeadP.x);
               AyukitFound = true;
               AY_depth = depth_RightHand_Ratio;
               AY_Y = RightHandRaisedRatio;
@@ -155,16 +167,16 @@ public class Ayukit extends PApplet {
               AyukitFrame = 0;
             }
             
-            //AY_depth = 0.5;
-            //AY_Y = 0.5;
-            //AY_OnLeftWall = true;    
+            //test data
+           if(!AyukitFound && (millis()-timeElapsed)>5500)
+           {
+              AY_depth = 0.5;
+              AY_Y = 0.5;
+              AY_OnLeftWall = true;   
+              AyukitFound = true;
+              Ayukit_Sound.play(); 
+           }
             
-            //LeftWall.ellipseMode(RADIUS);
-            //RightWall.ellipseMode(RADIUS);
-            //LeftWall.fill( random(255), random(255), random(255), random(255)); 
-          //  LeftWall.ellipse(width*depth_LeftHand_Ratio, LeftWall.height*(RightHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));
-            //RightWall.fill( random(150), random(255), random(255), random(255)); 
-    //        RightWall.ellipse(width*depth_RightHand_Ratio, RightWall.height*(float)(LeftHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));
             if(AyukitFound)
             {
               RightWall.copy(Ayukit, 0,0, Ayukit.width, Ayukit.height, (int)(RightWall.width*AY_depth-AyukitFrame), (int)(RightWall.height*AY_Y), Ayukit.width, Ayukit.height);
