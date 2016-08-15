@@ -36,14 +36,13 @@ public class Tree extends PApplet {
 
     public void setup()
     {
-        frameRate(10);
+      //  frameRate(10);
         smooth();
     }
 
 
     public void draw()
     {
-
         synchronized (Tunnel.class) {
             if (tunnel.getAudioAverage() > 5) {
                 dir = 1 - dir;

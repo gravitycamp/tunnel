@@ -30,7 +30,7 @@ class MovieEqualizer extends PApplet {
 
     public void setup() {
         //program setup
-        frameRate(60);
+       // frameRate(60);
 
         rectMode(CORNERS);
         background(0);
@@ -42,7 +42,6 @@ class MovieEqualizer extends PApplet {
     }
 
     public void draw() {
-
         synchronized (Tunnel.class) {
             classicVi.drawEQ();
 

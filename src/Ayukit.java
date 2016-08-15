@@ -24,16 +24,27 @@ public class Ayukit extends PApplet {
 
     //Ayukit data
     PImage Ayukit; 
+    PImage Logo;
     double AY_depth = 0;
     double AY_Y = 0;
     boolean AY_OnLeftWall = true;
     boolean AyukitFound = true; 
     int AyukitFrame = 0;
     AudioPlayer  Ayukit_Sound;
-    int scale =4;
+    AudioPlayer  VS_Sound;
+    AudioPlayer  Stage_Sound;
+    int R = (int)random(255);
+    int G = (int)random(255);
+    int B = (int)random(255);
+    int scale = 4;  
+    int dR = 1;
+    int dG = 1;
+    int dB = 1;
+    
     PGraphics LeftWall;
     PGraphics RightWall;
     PGraphics Roof; 
+    float timeElapsed;
 
     public Ayukit(Tunnel t, int w, int h) {
         width = w;
@@ -48,9 +59,19 @@ public class Ayukit extends PApplet {
 
     public void setup() {
         Ayukit = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");
+        Logo = loadImage("C:/TunnelGit2/src/data/logo.jpg");
         Ayukit.resize(10,10);
-        Ayukit_Sound = minim.loadFile("C:/TunnelGit2/src/data/Ayukit.mp3"); //<>//
+        Ayukit_Sound = minim.loadFile("C:/TunnelGit2/src/data/Ayukit.mp3");        
+        VS_Sound = minim.loadFile("C:/TunnelGit2/src/data/StreetFightervs.mp3");
+        Ayukit_Sound = minim.loadFile("C:/TunnelGit2/src/data/StreetFightervs.mp3");
+        Stage_Sound = minim.loadFile("C:/TunnelGit2/src/data/RyuStage.mp3");
         //Ayukit_Sound = new SoundFile(this, "C:/TunnelGit2/src/data/Ayukit.mp3");
+        VS_Sound.play();
+         //     Logo.resize(150*scale, 32*scale);
+        background(0);
+        image(Logo, 0, 0, 150*scale, 32*scale);
+        image(flipImage(Logo.get()), 0, (32+24)*scale, 150*scale, 32*scale);
+        timeElapsed = millis();
 
         LeftWall= createGraphics(150*scale, 32*scale);
         RightWall= createGraphics(150*scale, 32*scale);
@@ -62,20 +83,28 @@ public class Ayukit extends PApplet {
         kinect.enableDepthImg(true);
         kinect.enableSkeleton3DMap(true);
         kinect.init();
+ //<>//
+
     }
 
 
     public void draw() {
       try{
         synchronized(Tunnel.class) {
-            background(0);
+          if((millis()-timeElapsed)>3500)
+          {
+            background(40,150,10);
+            Stage_Sound.play(); 
+            
             LeftWall.beginDraw();
             LeftWall.background(0);
             RightWall.beginDraw();
             RightWall.background(0);
             Roof.beginDraw();
-            Roof.background(0,70,140);
             
+            
+            SmoothRGB();
+            Roof.background(R,G,B);          
             
             float RightHandRaisedRatio = 0;
             float LeftHandRaisedRatio = 0;
@@ -113,21 +142,20 @@ public class Ayukit extends PApplet {
             }
         
             //we now have ratios, now draw game logic 
-            //if(!AyukitFound &&(LeftWristdepth > HeadDepth+.2) && (RightWristdepth > HeadDepth+.2))    //create an ayukit at right hand y = center of ayukit
-            //{
-            //  AyukitFound = true;
-            //  AY_depth = RightWristdepth;
-            //  AY_Y = RightHandRaisedRatio;
-            //  if(HeadP.x < 100) //head is on left or right side (need to update center of screen = width/2 
-            //    AY_OnLeftWall = true;
-            //  Ayukit_Sound.play(); 
-            //  AyukitFrame = 0;
-            //}
+            if(!AyukitFound &&(LeftWristdepth > HeadDepth+.2) && (RightWristdepth > HeadDepth+.2))    //create an ayukit at right hand y = center of ayukit
+            {
+              AyukitFound = true;
+              AY_depth = RightWristdepth;
+              AY_Y = RightHandRaisedRatio;
+              if(HeadP.x < 100) //head is on left or right side (need to update center of screen = width/2 
+                AY_OnLeftWall = true;
+              Ayukit_Sound.play(); 
+              AyukitFrame = 0;
+            }
             
-            //AyukitFound = true;
-            AY_depth = 0.5;
-            AY_Y = 0.5;
-            AY_OnLeftWall = true;    
+            //AY_depth = 0.5;
+            //AY_Y = 0.5;
+            //AY_OnLeftWall = true;    
             
             //LeftWall.ellipseMode(RADIUS);
             //RightWall.ellipseMode(RADIUS);
@@ -138,7 +166,7 @@ public class Ayukit extends PApplet {
             if(AyukitFound)
             {
               RightWall.copy(Ayukit, 0,0, Ayukit.width, Ayukit.height, (int)(RightWall.width*AY_depth-AyukitFrame), (int)(RightWall.height*AY_Y), Ayukit.width, Ayukit.height);
-              AyukitFrame++;
+              AyukitFrame+=2;
               if(RightWall.width*AY_depth-AyukitFrame <0)
                 AyukitFound = false;
             }
@@ -150,6 +178,7 @@ public class Ayukit extends PApplet {
             image(RightWall, 0, 0);
             image(Roof, 0, 32*scale);
             image(flipImage(LeftWall.get()), 0, (32+24)*scale);
+          }
         }
       }
       catch(Exception e){}
@@ -163,4 +192,18 @@ public class Ayukit extends PApplet {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         return new PImage(op.filter(img, null));
     }
+    
+    void SmoothRGB(){
+    R+=dR;
+    G+=dG;    
+    B+=dB;
+  
+    if ((R <= 5) || (R >= 250))  // if out of bounds
+      dR = - dR; // swap direction  
+    if ((G <= 5) || (G >= 250))  // if out of bounds
+      dG = - dG; // swap direction  
+    if ((B <= 5) || (B >= 250))  // if out of bounds
+      dB = - dB; // swap direction  
+    }
+    
 }

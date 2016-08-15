@@ -41,24 +41,26 @@ public class SinusPlasma extends PApplet {
   
   // draw one frame of the sinus plasma
   public void draw() {
-  	loadPixels();
-  	int i = 0;
-  	int t = frameCount*SPEEDUP;
-  	int swingT = swing(t); // swingT/-Y/-YT variables are used for a little tuning ...
-  
-  	for (int y = 0; y < height; y++) {
-  		int swingY  = swing(y);
-  		int swingYT = swing(y + t);
-  		for (int x = 0; x < width; x++) {
-  			// this is where the magic happens: map x, y, t around
-  			// the swing curves and lookup a color from the gradient
-  			// the "formula" was found by a lot of experimentation
-  			pixels[i++] = gradient(
-  					swing(swing(x + swingT) + swingYT) +
-  					swing(swing(x + t     ) + swingY ));
-  		}
-  	}
-  	updatePixels();
+    synchronized (Tunnel.class) {
+    	loadPixels();
+    	int i = 0;
+    	int t = frameCount*SPEEDUP;
+    	int swingT = swing(t); // swingT/-Y/-YT variables are used for a little tuning ...
+    
+    	for (int y = 0; y < height; y++) {
+    		int swingY  = swing(y);
+    		int swingYT = swing(y + t);
+    		for (int x = 0; x < width; x++) {
+    			// this is where the magic happens: map x, y, t around
+    			// the swing curves and lookup a color from the gradient
+    			// the "formula" was found by a lot of experimentation
+    			pixels[i++] = gradient(
+    					swing(swing(x + swingT) + swingYT) +
+    					swing(swing(x + t     ) + swingY ));
+    		}
+    	}
+    	updatePixels();
+    }
   }
   
   // create a new random gradient when mouse is pressed

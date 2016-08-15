@@ -12,6 +12,7 @@ import KinectPV2.KJoint;
 import KinectPV2.*;
 
 void setup() {
+  frameRate(60);
   noLoop();
 }
 

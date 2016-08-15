@@ -18,6 +18,7 @@ class Main {
     static int duration = 100000;
     static int elapsedTime = 0;
     static Wire wire = new Wire();
+    static Timer playTimer = new Timer();
     
     public static void main(String... args) {
        
@@ -25,27 +26,24 @@ class Main {
         loadPlaylist();
         loadNextInQueue();
 
-        while (true) {
-            if (elapsedTime < 1000*Integer.parseInt(queue.get(queueIndex-1).get("Time")))  {
-                elapsedTime = tunnel.millis();
-            } else {
-              int x= 1000*Integer.parseInt(queue.get(queueIndex).get("Time"));
-                tunnel.kill();
-                loadNextInQueue();
+        int playSeconds = 1000* Integer.parseInt(queue.get(queueIndex).get("Time"));
+        
+        playTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+               loadNextInQueue();
             }
-        }
+         }, playSeconds, playSeconds);
     }
 
-
-
     public static void loadNextInQueue() {
+        try { tunnel.kill(); } catch(Exception e) {}
         tunnel = new Tunnel(queue.get(queueIndex), wire);
         PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
 
         elapsedTime = 0;
         queueIndex = ++queueIndex % queue.size();
     }
-
 
     public static void loadPlaylist() {
         try (Stream<String> stream = Files.lines(Paths.get(playlistPath))) {

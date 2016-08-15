@@ -29,8 +29,8 @@ class IsoLinesFull extends PApplet {
     noiseDetail(6, (float).5);
   }
    
-  public void draw()
-  {
+  public void draw(){
+    synchronized (Tunnel.class) {
     float offset = frameCount * (float).005;
     
     // first pass: compute values
@@ -43,7 +43,7 @@ class IsoLinesFull extends PApplet {
           offset));
       }
     }
-    
+    }
     // second pass: check neighborhood
     loadPixels();
     int c = color(random(255), random(255), random(255), random(255));

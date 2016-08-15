@@ -90,7 +90,7 @@ public class Wire extends PApplet {
 
         //wait for all threads to finish
         //
-        delay(13);
+      //  delay(13);
         double startThreads = millis();
         for (int i = 0; i < numPorts; i++) {
             try {

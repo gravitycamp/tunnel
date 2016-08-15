@@ -104,7 +104,7 @@ public class AudioInputKinect extends PApplet {
               SmoothRGB();
               Roof.background(R,G,B);
             }
-            else if (millis()-StartTime < 20*1000)
+            else if (millis()-StartTime < 100*1000)
             {
               LightControl(LeftWall, RightWall);  
               SmoothRGB();
@@ -118,8 +118,6 @@ public class AudioInputKinect extends PApplet {
               counter++;
               counter%=150;
             }
-            
-            
             
             LeftWall.endDraw();
             RightWall.endDraw();
@@ -191,19 +189,8 @@ public class AudioInputKinect extends PApplet {
     }
     public void SinglePixel(PImage Image)
     {
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
     }
-    
-    
-    
     
     public void LightControl(PGraphics ImageL,PGraphics ImageR){
       fill(255, 0, 0);
@@ -267,8 +254,4 @@ public class AudioInputKinect extends PApplet {
   if ((B <= 5) || (B >= 250))  // if out of bounds
     dB = - dB; // swap direction  
     }
-
-
-
-
 }

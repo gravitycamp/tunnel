@@ -27,7 +27,7 @@ public class Life extends PApplet {
 
     public void setup() {
 
-        frameRate(30);
+     //   frameRate(30);
 
         resX = (int) (resY * width / (float) height);
 
