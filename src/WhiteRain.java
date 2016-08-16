@@ -38,41 +38,67 @@ public class WhiteRain extends PApplet {
     
     public void draw() {
       synchronized(Tunnel.class) {
-
+      Main.kinect.update();
           blur(50);
-
-          if ((millis() - current) / 1000 > reseed && rain.size() < 150) {
-              rain.add(new Rain());
-              float reseed = random(0, (float) .2);
-              current = millis();
-          }
-
-          for (int i = 0; i < rain.size(); i++) {
-              Rain rainT = (Rain) rain.get(i);
-              rainT.calculate();
-              rainT.draw();
-              if (rainT.position.y > height) {
-
-                  for (int k = 0; k < random(5, 10); k++) {
-                      splash.add(new Splash(rainT.position.x, height));
-                  }
-
-                  rain.remove(i);
-                  float rand = random(0, 100);
-                  if (rand > 10 && rain.size() < 150)
-                      rain.add(new Rain());
-              }
-          }
-
-          for (int i = 0; i < splash.size(); i++) {
-              Splash spl = (Splash) splash.get(i);
-              spl.calculate();
-              spl.draw();
-              if (spl.position.y > height)
-                  splash.remove(i);
-          }
-
+      if ((millis()-current)/1000>reseed&&rain.size()<150)
+      {
+        rain.add(new Rain());
+        float reseed = random(0,(float).2);
+        current = millis();
       }
+       
+      for (int i=0 ; i<rain.size() ; i++)
+      {
+        Rain rainT = (Rain) rain.get(i);
+        rainT.calculate();
+        rainT.draw();
+        
+        if ((rainT.position.x>width*Main.kinect.RightHandRaisedRatio*.9) && (rainT.position.x<width*Main.kinect.RightHandDepthRatio*1.1))
+        {
+          if (rainT.position.y>height*Main.kinect.RightHandRaisedRatio)
+          {
+             
+            for (int k = 0 ; k<random(5,10) ; k++)
+            {
+              splash.add(new Splash(rainT.position.x,(float)(height*Main.kinect.RightHandRaisedRatio)));
+            }
+             
+            rain.remove(i);
+            float rand = random(0,100);
+            if (rand>10&&rain.size()<150)
+            rain.add(new Rain());
+          }
+        }
+        if (rainT.position.y>height)
+          {
+             
+            for (int k = 0 ; k<random(5,10) ; k++)
+            {
+              splash.add(new Splash(rainT.position.x,(float)(height)));
+            }
+             
+            rain.remove(i);
+            float rand = random(0,100);
+            if (rand>10&&rain.size()<150)
+            rain.add(new Rain());
+          }
+      }
+       
+      for (int i=0 ; i<splash.size() ; i++)
+      {
+        Splash spl = (Splash) splash.get(i);
+        spl.calculate();
+        spl.draw();
+        //println("position " + spl.position.y);
+        //println("depth " + height*depth_RightHand_Ratio);
+        if ((spl.position.x>height*Main.kinect.RightHandDepthRatio*.9) && (spl.position.x<height*Main.kinect.RightHandDepthRatio*1.1))
+        {
+          if (spl.position.y>height*Main.kinect.RightHandRaisedRatio)
+            splash.remove(i);
+        }
+        else if (spl.position.y>height)
+            splash.remove(i);
+      }}
     }
     
     void blur(float trans)
@@ -106,8 +132,7 @@ public class WhiteRain extends PApplet {
       void calculate()
       {
         pposition = new PVector(position.x,position.y);
-        gravity();
-    
+        gravity();    
       }
       
       void gravity()
@@ -155,7 +180,5 @@ public class WhiteRain extends PApplet {
       {
         speed.y+=.2;
       }
-      
-    }
-    
+    }   
 }

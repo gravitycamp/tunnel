@@ -29,19 +29,27 @@ public class Balls extends PApplet {
     }
 
     public void draw() {
+      try{
         synchronized(Tunnel.class) {
 
             background(60, 120, 200);
-            for (int i = 0; i < balls.length; i++) {
+            for (int i = 0; i < balls.length; i++) {  // balls move to average audio size radius continuously
                 ellipse(balls[i].x, balls[i].y, balls[i].r + tunnel.getAudioAverage() * 30, balls[i].r + tunnel.getAudioAverage() * 30);
                 fill(0, 0, 0, 255);
             }
-            if (tunnel.getAudioAverage() > 0.9) {
+            if (tunnel.getAudioAverage() > 0.9) {   //make new balls if above this audio level threshold
                 Ball b = new Ball(random(width), random(height), random(80), (int) random(255));
                 balls = (Ball[]) append(balls, b);
             }
-
-        }
+            
+            if((abs(Main.kinect.LeftWrist.x - Main.kinect.RightWrist.x)<30) &&(abs(Main.kinect.LeftWrist.x - Main.kinect.RightWrist.x)>0))
+            {
+              balls=null;
+            }
+              
+        } 
+      }
+      catch(Exception e){}
     }
 
 

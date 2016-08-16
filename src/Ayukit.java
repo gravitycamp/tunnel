@@ -81,72 +81,25 @@ public class Ayukit extends PApplet {
         LeftWall= createGraphics(150*scale, 32*scale);
         RightWall= createGraphics(150*scale, 32*scale);
         Roof= createGraphics(150*scale, 24*scale);
-     //   StartTime = millis();
-   
-        depthZero    = new int[ KinectPV2.WIDTHDepth * KinectPV2.HEIGHTDepth];        
-        kinect = new KinectPV2(this);
-        kinect.enableDepthImg(true);
-        kinect.enableSkeleton3DMap(true);
-        kinect.init(); //<>//
+     //   StartTime = millis(); //<>//
     }
 
 
     public void draw() {
       try{
         synchronized(Tunnel.class) {
+          Main.kinect.update();
           if((millis()-timeElapsed)>3500)
           {
-      //      background(40,150,10);
-                    Stage_Sound.play();
-                    
-                    
-                    
-            
+            Stage_Sound.play();            
             LeftWall.beginDraw();
             LeftWall.background(0);
             RightWall.beginDraw();
             RightWall.background(0);
             Roof.beginDraw();
-            
-            
+                        
             SmoothRGB();
-            Roof.background(R,G,B);          
-            
-            float RightHandRaisedRatio = 0;
-            float LeftHandRaisedRatio = 0;
-            float depth_RightHand_Ratio = 0;
-            float depth_LeftHand_Ratio =0;
-            ArrayList<KSkeleton> skeletonArray =  kinect.getSkeleton3d();
-            int [] DepthRaw = kinect.getRawDepthData();
-            //individual JOINTS
-            PVector RightWristP;
-            PVector LeftWristP;
-            PVector LeftKneeP;
-            PVector RightKneeP;
-            PVector HeadP = null;
-            float RightWristdepth = 0;
-            float LeftWristdepth = 0;
-            float HeadDepth = 0;
-            for (int i = 0; i < skeletonArray.size(); i++) {
-              KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
-              if (skeleton.isTracked()) {
-                KJoint[] joints = skeleton.getJoints();
-                RightWristP = joints[KinectPV2.JointType_WristRight].getPosition();
-                LeftWristP = joints[KinectPV2.JointType_WristLeft].getPosition();
-                RightKneeP = joints[KinectPV2.JointType_KneeRight].getPosition();
-                LeftKneeP = joints[KinectPV2.JointType_KneeLeft].getPosition();
-                HeadP = joints[KinectPV2.JointType_Head].getPosition();   
-                RightWristdepth = joints[KinectPV2.JointType_WristRight].getZ();
-                LeftWristdepth = joints[KinectPV2.JointType_WristLeft].getZ();
-                HeadDepth = joints[KinectPV2.JointType_Head].getZ(); 
-                //Ratio calculation and calibration
-                depth_RightHand_Ratio = RightWristdepth/5; //4 is as deep as you can go!
-                depth_LeftHand_Ratio = LeftWristdepth/5; //4 is as deep as you can go!
-                RightHandRaisedRatio = (float)(RightWristP.y-RightKneeP.y*.85)/(HeadP.y - RightKneeP.y);
-                LeftHandRaisedRatio = (float)(LeftWristP.y-LeftKneeP.y*.85)/(HeadP.y - LeftKneeP.y);
-              }
-            }
-            
+            Roof.background(R,G,B);            
             //draw Ken
 
             kenMove +=kenDelta;
@@ -155,13 +108,13 @@ public class Ayukit extends PApplet {
             RightWall.copy(Ken, 0,0, Ken.width, Ken.height+(int)kenMove, 0, (int)kenMove, Ken.width, Ken.height+(int)kenMove);
         
             //we now have ratios, now draw game logic 
-            if(!AyukitFound &&(LeftWristdepth/HeadDepth < .9) && (RightWristdepth/HeadDepth < .9))    //create an ayukit at right hand y = center of ayukit
+            if(!AyukitFound &&(Main.kinect.LeftWristDepth/Main.kinect.HeadDepth < .9) && (Main.kinect.RightWristDepth/Main.kinect.HeadDepth < .9))    //create an ayukit at right hand y = center of ayukit
             {
               //println(HeadP.x);
               AyukitFound = true;
-              AY_depth = depth_RightHand_Ratio;
-              AY_Y = RightHandRaisedRatio;
-              if(HeadP.x < 100) //head is on left or right side (need to update center of screen = width/2 
+              AY_depth = Main.kinect.RightHandDepthRatio;
+              AY_Y = Main.kinect.RightHandRaisedRatio;
+              if(Main.kinect.Head.x < 100) //head is on left or right side (need to update center of screen = width/2 
                 AY_OnLeftWall = true;
               Ayukit_Sound.play(); 
               AyukitFrame = 0;

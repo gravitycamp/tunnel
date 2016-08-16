@@ -91,7 +91,7 @@ class Swarm3D extends PApplet {
         float currentY = height * Main.kinect.RightHandRaisedRatio;
 
         Z[i].gravitate( new particle( currentX, currentY, (float)depth/2, (float)0, (float)0,(float)0, (float)0.75 ) );
-        println(currentX, currentY); 
+        //println(currentX, currentY); 
         lastX = currentX;
         lastY = currentY;
 

@@ -135,7 +135,7 @@ public class SinusPlasma extends PApplet {
   
   // helper: get cosinus sample normalized to 0..255
   private int cos256(final int amplitude, final int x) {
-  	return (int) (cos(x * TWO_PI / amplitude) * 127 + 127);
+  	return (int) (cos(x * TWO_PI / amplitude) * 127 + 60);
   }
   
   // helper: get a swing curve sample

@@ -179,7 +179,7 @@ public class Perlin extends PApplet {
         }
 
         void render() {
-            stroke(particleColor, 255);
+            stroke(particleColor, 155);
             line(position.x, position.y, position.x + velocity.x, position.y + velocity.y);
         }
     }

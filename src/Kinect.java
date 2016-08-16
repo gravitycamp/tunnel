@@ -24,6 +24,8 @@ public class Kinect
     public float LeftHandRaisedRatio = 0;
     public float RightHandDepthRatio = 0;
     public float LeftHandDepthRatio =0;
+    public boolean RightHandOpen = false;
+    public boolean LeftHandOpen = false;
 
     public Kinect(KinectPV2 k) {
       kinect = k;
@@ -50,12 +52,21 @@ public class Kinect
             Head = joints[KinectPV2.JointType_Head].getPosition();   
             RightWristDepth = joints[KinectPV2.JointType_WristRight].getZ();
             LeftWristDepth = joints[KinectPV2.JointType_WristLeft].getZ();
-            HeadDepth = joints[KinectPV2.JointType_Head].getZ(); 
+            HeadDepth = joints[KinectPV2.JointType_Head].getZ();
+            if(KinectPV2.HandState_Open == joints[KinectPV2.JointType_HandLeft].getState())
+              LeftHandOpen = true;
+            else
+              LeftHandOpen =false; 
+            if(KinectPV2.HandState_Open == joints[KinectPV2.JointType_HandRight].getState())
+              RightHandOpen = true;
+            else
+              RightHandOpen =false; 
             //Ratio calculation and calibration
             RightHandDepthRatio = RightWristDepth/5; //4 is as deep as you can go!
             LeftHandDepthRatio = LeftWristDepth/5; //4 is as deep as you can go!
             RightHandRaisedRatio = (float)(RightWrist.y-RightKnee.y*.85)/(Head.y - RightKnee.y);
             LeftHandRaisedRatio = (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
+            
           }
         }
     }

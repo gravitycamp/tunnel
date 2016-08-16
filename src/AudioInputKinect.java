@@ -8,8 +8,6 @@ import processing.video.*;
 import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
-import KinectPV2.KJoint;
-import KinectPV2.*;
 import java.util.*;
 
 public class AudioInputKinect extends PApplet {
@@ -20,7 +18,6 @@ public class AudioInputKinect extends PApplet {
     FFT fft;
     Minim minim;
     //AudioInput in;
-    KinectPV2 kinect;
 
     PImage dot;
     PImage colors;
@@ -52,7 +49,6 @@ public class AudioInputKinect extends PApplet {
         height = h;
         tunnel = t;
         fft = tunnel.fft;
-        kinect = Main.kinect.pv2();
      }
 
     public void settings() {
@@ -76,7 +72,8 @@ public class AudioInputKinect extends PApplet {
     public void draw() {
       try{
         synchronized(Tunnel.class) {
-            background(0);
+            Main.kinect.update();
+            //background(0);
             LeftWall.beginDraw();
             LeftWall.background(0);
             RightWall.beginDraw();
@@ -190,49 +187,16 @@ public class AudioInputKinect extends PApplet {
       textSize(30*scale); 
       ImageL.text("INTERACTIVE", width, height);
       
-      float RightHandRaisedRatio = 0;
-      float LeftHandRaisedRatio = 0;
-      float depth_RightHand_Ratio = 0;
-      float depth_LeftHand_Ratio =0;
-      ArrayList<KSkeleton> skeletonArray =  kinect.getSkeleton3d();
-      int [] DepthRaw = kinect.getRawDepthData();
-      //individual JOINTS
-      PVector RightWristP;
-      PVector LeftWristP;
-      PVector LeftKneeP;
-      PVector RightKneeP;
-      PVector HeadP = null;
-      float RightWristdepth = 0;
-      float LeftWristdepth = 0;
-      float HeadDepth = 0;
-      for (int i = 0; i < skeletonArray.size(); i++) {
-        KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
-        if (skeleton.isTracked()) {
-          KJoint[] joints = skeleton.getJoints();
-          RightWristP = joints[KinectPV2.JointType_WristRight].getPosition();
-          LeftWristP = joints[KinectPV2.JointType_WristLeft].getPosition();
-          RightKneeP = joints[KinectPV2.JointType_KneeRight].getPosition();
-          LeftKneeP = joints[KinectPV2.JointType_KneeLeft].getPosition();
-          HeadP = joints[KinectPV2.JointType_Head].getPosition();   
-          RightWristdepth = joints[KinectPV2.JointType_WristRight].getZ();
-          LeftWristdepth = joints[KinectPV2.JointType_WristLeft].getZ();
-          HeadDepth = joints[KinectPV2.JointType_Head].getZ(); 
-          //Ratio calculation and calibration
-          depth_RightHand_Ratio = RightWristdepth/5; //4 is as deep as you can go!
-          depth_LeftHand_Ratio = LeftWristdepth/5; //4 is as deep as you can go!
-          RightHandRaisedRatio = (float)(RightWristP.y-RightKneeP.y*.85)/(HeadP.y - RightKneeP.y);
-          LeftHandRaisedRatio = (float)(LeftWristP.y-LeftKneeP.y*.85)/(HeadP.y - LeftKneeP.y);
-        }
-      }
+   
         
         //we now have ratios, now draw
         
         ImageL.ellipseMode(RADIUS);
         ImageR.ellipseMode(RADIUS);
         ImageL.fill( random(255), random(255), random(255), random(255)); 
-        ImageL.ellipse(width*depth_LeftHand_Ratio, ImageL.height*(RightHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));
+        ImageL.ellipse(width*Main.kinect.RightHandDepthRatio, ImageL.height*(Main.kinect.RightHandDepthRatio), 3*fft.getBand(0), 3*fft.getBand(0));
         ImageR.fill( random(150), random(255), random(255), random(255)); 
-        ImageR.ellipse(width*depth_RightHand_Ratio, ImageR.height*(float)(LeftHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
+        ImageR.ellipse(width*Main.kinect.RightHandDepthRatio, ImageR.height*(float)(Main.kinect.LeftHandDepthRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
       
     }
     void SmoothRGB(){

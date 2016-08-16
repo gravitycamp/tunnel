@@ -42,11 +42,13 @@ class MovieEqualizer extends PApplet {
     }
 
     public void draw() {
+      try{
         synchronized (Tunnel.class) {
             classicVi.drawEQ();
 
         }
-
+ } catch (Exception e) {
+        }
 
     }
 
