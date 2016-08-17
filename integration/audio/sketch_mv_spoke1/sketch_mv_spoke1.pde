@@ -4,7 +4,7 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 
 Minim minim;
-AudioPlayer myPlayer;
+AudioInput myPlayer;
 FFT fftL;
 FFT fftR;
 
@@ -27,8 +27,7 @@ void setup()
   colorMode(HSB, 360, 100, 100, 100);
 
   minim = new Minim(this);
-  myPlayer = minim.loadFile("groove.mp3", 1024);
-  myPlayer.loop();
+  myPlayer = minim.getLineIn(Minim.STEREO, 512);
   fftL = new FFT( myPlayer.bufferSize(), myPlayer.sampleRate() );
   fftR = new FFT( myPlayer.bufferSize(), myPlayer.sampleRate() );
 
@@ -36,9 +35,9 @@ void setup()
   _barScaling = 85;
   _barWeight = 1.25;
   _barColorL = color(188, 80, 30);
-  _barColorR = color(188, 80, 100);
+  _barColorR = color(188, 80, 200);
   _barColorL2 = color(310, 80, 40);
-  _barColorR2 = color(310, 50, 100);
+  _barColorR2 = color(310, 50, 200);
   _bgColor = color(0, 0, 0, 30);
 }
 
@@ -100,7 +99,7 @@ void drawSpoke(int LR, int i, color barColor, color barColor2) {
   //strokeWeight(2);
   strokeWeight(_barWeight*log(_spectrumArr[LR][i]+1));
   smooth();
-  line(random(0,10), random(0,10), log(_spectrumArr[LR][i]+1)*_barScaling, 0);
+  line(random(0,mouseX), random(0,mouseY), log(_spectrumArr[LR][i]+1)*_barScaling, 0);
 }
 
 void screenRefresh() {
@@ -108,4 +107,3 @@ void screenRefresh() {
   fill(_bgColor);
   rect(0, 0, width, height);
 }
-

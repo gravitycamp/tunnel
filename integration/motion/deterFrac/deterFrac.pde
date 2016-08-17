@@ -8,6 +8,8 @@ float power = 4; // power in coloring algorithm
 float angle = TWO_PI; // angle in spread of branches
 float hueVal = 0; // hue value of connecting lines
 boolean spots = true; // draw dots on nodes, yes or no
+import ddf.minim.*;
+import ddf.minim.analysis.*;
 
 void setup() {
   
@@ -29,7 +31,7 @@ void draw() {
 
   plotFrac(width/2,height/2,num,PI,TWO_PI); // plot the fractal
 
-  noLoop(); // stop draw() from looping until needed
+  // noLoop(); // stop draw() from looping until needed
 
 }
 
