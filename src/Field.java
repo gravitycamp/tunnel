@@ -1,5 +1,4 @@
 import processing.core.*;
-
 public class Field extends PApplet {
 
     int NUM_PARTICLES = 1000;
@@ -8,7 +7,6 @@ public class Field extends PApplet {
     int   width;
     int   height;
     Tunnel tunnel;
-
 
     public Field(Tunnel t, int w, int h) {
         width  = w;
@@ -28,9 +26,26 @@ public class Field extends PApplet {
         p = new ParticleSystem(tunnel, width, height);
     }
 
+    float trackX = 0;
+    float trackY = 0;
+    float trackZ = 0;
+
+    public void track() {
+     if(Main.kinect != null) {
+         Main.kinect.update();
+         trackX = (float)width * Main.kinect.RightHandDepthRatio;
+         trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+         trackZ = 0;
+     } else {
+         trackX = mouseX;
+         trackY = mouseY;
+     }
+    }
+
     public void draw()
     {
         synchronized (Tunnel.class) {
+            track();
             noStroke();
             fill(0);
             rect(0, 0, width, height);
@@ -111,7 +126,7 @@ public class Field extends PApplet {
         void render()
         {
             stroke(color);
-            line(position.x,position.y,position.x-velocity.x,position.y-velocity.y);
+            line(position.x-trackX/30,position.y-trackY/30,position.x-velocity.x,position.y-velocity.y);
         }
     }
 
