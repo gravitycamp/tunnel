@@ -1,5 +1,8 @@
 import processing.core.*;
 import java.util.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+
 
 public class Perlin extends PApplet {
 
@@ -7,11 +10,15 @@ public class Perlin extends PApplet {
     int height;
     Tunnel tunnel;
 
+    AudioInput audio;
+    Minim minim;
+    BeatDetect beat;
 
     public Perlin(Tunnel t, int w, int h) {
         width = w;
         height = h;
         tunnel = t;
+        audio = tunnel.in;
     }
 
     public void settings() {
@@ -20,12 +27,14 @@ public class Perlin extends PApplet {
 
     ParticleSystem particleSystem;
     int symmetry = 6;
-    int stepSize = 5;
+    int stepSize = 2;
     boolean blur = true;
     boolean zMotion = true;
 
     //-----------------Setup
     public void setup() {
+        minim = new Minim(this);
+        beat = new BeatDetect();
         background(0);
         rectMode(CORNERS);
         noFill();
@@ -33,9 +42,39 @@ public class Perlin extends PApplet {
         particleSystem = new ParticleSystem(5);
     }
 
+    float trackX = 0;
+    float trackY = 0;
+    float trackZ = 0;
+
+    public void track() {
+     if(Main.kinect != null) {
+         Main.kinect.update();
+         trackX = (float)width * Main.kinect.RightHandDepthRatio;
+         trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+         trackZ = 0;
+     } else {
+         trackX = mouseX;
+         trackY = mouseY;
+     }
+    }
+
+
     //-----------------Main Loop
     public void draw() {
         synchronized(Tunnel.class) {
+            track();
+            beat.detect(audio.mix);
+            if(beat.isOnset()) {
+              blur = true;
+            } else {
+              blur = false;
+            }
+            
+            symmetry = (int)(trackX/30);
+            if (symmetry < 6) {
+              symmetry = 6;
+            }
+
 
             fill(0, 32);
             rect(0, 0, width, height);
@@ -141,7 +180,7 @@ public class Perlin extends PApplet {
 
     class Particle {
         PVector position, velocity;
-        int particleColor = 255;
+        int particleColor = blendColor(color(0,0,255), color(random(255),random(255),random(255)), ADD);
         int lifetime = floor(random(15000) + 20000);
 
         Particle() {
@@ -180,6 +219,11 @@ public class Perlin extends PApplet {
 
         void render() {
             stroke(particleColor, 155);
+            float weight = trackY/30;
+            if (weight < 5) { 
+              weight = 5;
+            }
+            strokeWeight(weight);
             line(position.x, position.y, position.x + velocity.x, position.y + velocity.y);
         }
     }
