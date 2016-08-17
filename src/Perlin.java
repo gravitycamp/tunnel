@@ -69,10 +69,10 @@ public class Perlin extends PApplet {
             } else {
               blur = false;
             }
-            
+
             symmetry = (int)(trackX/30);
-            if (symmetry < 6) {
-              symmetry = 6;
+            if (symmetry < 3) {
+              symmetry = 3;
             }
 
 
@@ -220,7 +220,7 @@ public class Perlin extends PApplet {
         void render() {
             stroke(particleColor, 155);
             float weight = trackY/30;
-            if (weight < 5) { 
+            if (weight < 5) {
               weight = 5;
             }
             strokeWeight(weight);
