@@ -64,8 +64,8 @@ class Ice extends PApplet {
 
       beat.detect(audio.mix);
       if(beat.isOnset()) {
-        v1[(int)trackX][(int)trackY] = (float)0.3;
-        v2[(int)trackX][(int)trackY] = (float)0.3;
+        v1[(int)trackX][(int)trackY] = (float)0.1;
+        v2[(int)trackX][(int)trackY] = (float)0.1;
       } else {
         v1[(int)trackX][(int)trackY] = randomGaussian();
         v2[(int)trackX][(int)trackY] = randomGaussian();
