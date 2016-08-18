@@ -41,10 +41,10 @@ public class Kinect
     public void update() {
         skeletonArray = kinect.getSkeleton3d();
         RawDepth = kinect.getRawDepthData();
-        for (int i = 0; i < skeletonArray.size(); i++) { //<>//
+        for (int i = 0; i < skeletonArray.size(); i++) {
           KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
           if (skeleton.isTracked()) {
-            joints = skeleton.getJoints(); //<>//
+            joints = skeleton.getJoints();
             RightWrist = joints[KinectPV2.JointType_WristRight].getPosition();
             LeftWrist = joints[KinectPV2.JointType_WristLeft].getPosition();
             RightKnee = joints[KinectPV2.JointType_KneeRight].getPosition();

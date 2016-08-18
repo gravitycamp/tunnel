@@ -2,6 +2,7 @@ import processing.core.*;
 import java.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.lang.Runtime;
 import java.util.HashMap;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,6 +22,7 @@ class Main {
     static int elapsedTime = 0;
     static Wire wire = new Wire();
     static Timer playTimer = new Timer();
+    static Timer RestartTimer = new Timer();
     public static Kinect kinect;
 
     public static void setKinect(Kinect k) {
@@ -32,7 +34,23 @@ class Main {
         wire.SetupCom();
         loadPlaylist();
         loadNextInQueue();
-
+        
+      //  tunnel.exec("C:/TunnelGit2/src/Restart.bat");      
+        TimerTask exitApp = new TimerTask() {
+        public void run() {
+            //open("rundll32 SHELL32.DLL,ShellExec_RunDLL " + "C:/TunnelGit2/src/Restart.bat");
+            //tunnel.launch("C:/TunnelGit2/src/Restart.bat");
+            try {
+              Runtime.getRuntime().exec("cmd.exe /c start C:\\TunnelGit2\\src\\Restart.bat");
+            } catch(IOException ie) {ie.printStackTrace();}
+            
+            System.exit(0);
+            }
+        };
+        
+        RestartTimer.schedule(exitApp, new Date(System.currentTimeMillis()+30*60*1000)); //restart every 30 minutes
+        
+        
         int playSeconds = 1000* Integer.parseInt(queue.get(queueIndex).get("Time"));
         
         playTimer.schedule(new TimerTask() {
