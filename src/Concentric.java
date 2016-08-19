@@ -110,7 +110,7 @@ class Concentric extends PApplet {
         int col = color(a, b, c);
         noFill();
         stroke(col, r);
-        strokeWeight(s);
+        strokeWeight(s * tunnel.getAudioAverage()/10);
         strokeCap(SQUARE);
         
          for (int i = 0; i < num; i++){
