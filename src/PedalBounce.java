@@ -72,6 +72,7 @@ class PedalBounce extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
+      trackX = trackY;
       beat.detect(audio.mix);
       float mag = 1;
       if(beat.isOnset()) {
