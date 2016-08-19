@@ -3,9 +3,10 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 
 class Spotlight extends PApplet {
-
   int width;
   int height;
+  String position = "Tunnel";
+  
   Tunnel tunnel;
 
   // Audio Support
@@ -16,11 +17,12 @@ class Spotlight extends PApplet {
 
   // Instance Variables
 
-  public Spotlight(Tunnel t, int w, int h) {
+  public Spotlight(Tunnel t, int w, int h, String p) {
       width = w;
       height = h;
       tunnel = t;
       audio = tunnel.in;
+      position = p;
   }
 
   public void settings()
@@ -44,9 +46,25 @@ class Spotlight extends PApplet {
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
-       trackX = (float)width * Main.kinect.RightHandDepthRatio;
-       trackY = (float)height * Main.kinect.RightHandRaisedRatio;
-       trackZ = 0;
+       switch (position) {
+         case "Tunnel":
+         case "Wall":
+         case "Ceil":
+           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackY = (float)height * Main.kinect.HandDistance;
+           trackZ = 0; 
+           break;
+         case "RWall":
+           trackX = (float)width * Main.kinect.RightHandDepthRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackZ = 0;
+           break;
+         case "LWall":
+           trackX = (float)width * Main.kinect.LeftHandDepthRatio;
+           trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
+           trackZ = 0;
+           break;
+       }
    } else {
        trackX = mouseX;
        trackY = mouseY;
@@ -75,8 +93,8 @@ class Spotlight extends PApplet {
         int c1 =  (int)random(0,255);
         int c2 =  (int)random(0,255);
         int c3 =  (int)random(0,255);
-        int s = (int)random(0,tunnel.getAudioAverage() * 15);
-        int t = (int)random(0,255);
+        int s = (int)random(0,tunnel.getAudioAverage() * 8);
+        int t = (int)random(0,100);
 
         fill(0,0,0,50);
         noStroke();

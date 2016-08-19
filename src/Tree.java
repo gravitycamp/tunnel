@@ -10,7 +10,8 @@ public class Tree extends PApplet {
     float growthTarget = 1;
 
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
     int dir = 0;
@@ -19,10 +20,11 @@ public class Tree extends PApplet {
     int center = 0;
 
 
-    public Tree(Tunnel t, int w, int h) {
+    public Tree(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
 
         center = width  / 2;
         mouseX = width  / 2;

@@ -64,7 +64,9 @@ class Main {
     public static void loadNextInQueue() {
         try { tunnel.kill(); } catch(Exception e) {}
         tunnel = new Tunnel(queue.get(queueIndex), wire);
+        System.out.println(queueIndex);
         PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
+ 
 
         elapsedTime = 0;
         queueIndex = ++queueIndex % queue.size();
@@ -85,9 +87,9 @@ class Main {
                     mapping.put("Wall", sketches[1].trim());
                     mapping.put("Ceil", sketches[2].trim());
                 } else {
-                    mapping.put("RWall", sketches[1].trim());
-                    mapping.put("LWall", sketches[2].trim());
-                    mapping.put("Ceil",  sketches[3].trim());
+                    mapping.put("LWall", sketches[1].trim());
+                    mapping.put("Ceil", sketches[2].trim());
+                    mapping.put("RWall",  sketches[3].trim());
 
                 }
                 queue.add(mapping);

@@ -15,8 +15,7 @@ public class Tunnel extends PApplet implements AudioListener {
     int width      = 150 * scale;
     int height     = wallHeight + ceilHeight + wallHeight;
     boolean wallMirroring = false;
-
-
+    
     // Audio
     Minim minim;
     AudioInput in;
@@ -42,23 +41,25 @@ public class Tunnel extends PApplet implements AudioListener {
         //
         if (mapping.containsKey("Tunnel")) {
 
-            loadSketch(mapping.get("Tunnel"), width, height);
+            loadSketch(mapping.get("Tunnel"), width, height, "Tunnel");
 
         } else if ((mapping.containsKey("Wall")) &&
                     mapping.containsKey("Ceil")) {
 
             wallMirroring = true;
-            PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight);
-            loadSketch(mapping.get("Ceil"), width, ceilHeight);
+            PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight, "Wall");
+            loadSketch(mapping.get("Ceil"), width, ceilHeight, "Ceil"); //<>//
             loadSketch(s1);
 
         } else if ((mapping.containsKey("RWall")) &&
                     mapping.containsKey("LWall") &&
                     mapping.containsKey("Ceil")) {
 
-            loadSketch(mapping.get("RWall"), width, wallHeight);
-            loadSketch(mapping.get("LWall"), width, ceilHeight);
-            loadSketch(mapping.get("Ceil"),  width, wallHeight);
+            loadSketch(mapping.get("LWall"),  width, wallHeight, "LWall");
+            loadSketch(mapping.get("Ceil"), width, ceilHeight, "Ceil");
+            loadSketch(mapping.get("RWall"), width, wallHeight, "RWall");
+   
+
         } else { exitInvalid(); }
 
     }
@@ -145,11 +146,11 @@ public class Tunnel extends PApplet implements AudioListener {
     }
 
 
-    private PApplet loadSketch(String sketchName, int width, int height) {
+    private PApplet loadSketch(String sketchName, int width, int height, String position) {
         try {
             Class sketchClass = Class.forName(sketchName);
-            Constructor c  = sketchClass.getConstructor(Tunnel.class, Integer.TYPE, Integer.TYPE);
-            PApplet sketch = (PApplet) c.newInstance(this, width, height);
+            Constructor c  = sketchClass.getConstructor(Tunnel.class, Integer.TYPE, Integer.TYPE, String.class); //<>//
+            PApplet sketch = (PApplet) c.newInstance(this, width, height, position);
             sketches.add(sketch);
             return sketch;
         } catch (Exception e) {

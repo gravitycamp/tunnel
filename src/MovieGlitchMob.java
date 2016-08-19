@@ -14,6 +14,7 @@ public class MovieGlitchMob extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
     Movie movie;
     FFT fft;
@@ -36,10 +37,11 @@ public class MovieGlitchMob extends PApplet {
     float sizeScale = (float)0.4;
     float textScale = 0;
 
-    public MovieGlitchMob(Tunnel t, int w, int h) {
+    public MovieGlitchMob(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
         fft = tunnel.fft;
     }
 

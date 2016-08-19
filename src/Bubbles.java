@@ -6,6 +6,7 @@ class Bubbles extends PApplet {
 
   int width;
   int height;
+    String position = "Tunnel";
   Tunnel tunnel;
 
   // Audio Support
@@ -17,10 +18,11 @@ class Bubbles extends PApplet {
   int num=200;
   SpreadC[]sc=new SpreadC[num];
 
-  public Bubbles(Tunnel t, int w, int h) {
+  public Bubbles(Tunnel t, int w, int h, String p) {
       width = w;
       height = h;
       tunnel = t;
+        position = p;
       audio = tunnel.in;
   }
 
@@ -48,9 +50,25 @@ class Bubbles extends PApplet {
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
-       trackX = (float)width * Main.kinect.RightHandDepthRatio;
-       trackY = (float)height * Main.kinect.RightHandRaisedRatio;
-       trackZ = 0;
+       switch (position) {
+         case "Tunnel":
+         case "Wall":
+         case "Ceil":
+           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackY = (float)height * Main.kinect.HandDistance;
+           trackZ = 0; 
+           break;
+         case "RWall":
+           trackX = (float)width * Main.kinect.RightHandDepthRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackZ = 0;
+           break;
+         case "LWall":
+           trackX = (float)width * Main.kinect.LeftHandDepthRatio;
+           trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
+           trackZ = 0;
+           break;
+       }
    } else {
        trackX = mouseX;
        trackY = mouseY;

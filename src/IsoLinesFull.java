@@ -8,12 +8,14 @@ class IsoLinesFull extends PApplet {
 
   int width;
   int height;
+    String position = "Tunnel";
   Tunnel tunnel;
   
-  public IsoLinesFull(Tunnel t, int w, int h) {
+  public IsoLinesFull(Tunnel t, int w, int h, String p) {
       width = w;
       height = h;
       tunnel = t;
+        position = p;
   }
 
   public void settings()

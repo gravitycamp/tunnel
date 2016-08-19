@@ -14,13 +14,15 @@ class MovieEqualizer extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
 
-    public MovieEqualizer(Tunnel t, int w, int h) {
+    public MovieEqualizer(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
     }
 
 

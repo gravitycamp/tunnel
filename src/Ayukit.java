@@ -16,6 +16,7 @@ public class Ayukit extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
     Minim minim;
     
@@ -50,10 +51,11 @@ public class Ayukit extends PApplet {
     PGraphics Roof; 
     float timeElapsed;
 
-    public Ayukit(Tunnel t, int w, int h) {
+    public Ayukit(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
         minim = tunnel.minim;
     }
 

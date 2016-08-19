@@ -4,7 +4,8 @@ import processing.core.*;
 public class Video extends PApplet {
 
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Movie  movie;
 
     public Video(Movie m, int w, int h) {

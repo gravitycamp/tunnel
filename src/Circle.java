@@ -4,13 +4,15 @@ public class Circle extends PApplet {
 
     float amount = 20, num;
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
-    public Circle(Tunnel t, int w, int h) {
+    public Circle(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
     }
     
     public void settings() {
