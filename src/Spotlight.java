@@ -12,6 +12,7 @@ class Spotlight extends PApplet {
   AudioInput audio;
   Minim minim;
   BeatDetect beat;
+  int baseColor = (int)color(0,0,255);
 
   // Instance Variables
 
@@ -33,6 +34,7 @@ class Spotlight extends PApplet {
 
     // Additional Setup
     smooth();
+    background(0);
   }
 
   float trackX = 0;
@@ -56,22 +58,32 @@ class Spotlight extends PApplet {
       track();
       beat.detect(audio.mix);
       if(beat.isOnset()) {
-      } else {
+        switch((int)random(1,3)) {
+          case 1:
+            baseColor = (int)color(0,0,255);
+            break;
+          case 2: 
+             baseColor = (int)color(0,255,0);
+            break;
+          case 3:
+            baseColor = (int)color(255,0,0);
+            break;
+        }
       }
 
 
-        int c1 = (int)blendColor(color(0,0,255), color(random(255),random(255),random(255)), ADD);//random(0,255);
-        int c2 = (int)blendColor(color(0,0,255), color(random(255),random(255),random(255)), ADD);//random(0,255);
-        int c3 = (int)blendColor(color(0,0,255), color(random(255),random(255),random(255)), ADD);//random(0,255);
+        int c1 =  (int)random(0,255);
+        int c2 =  (int)random(0,255);
+        int c3 =  (int)random(0,255);
         int s = (int)random(0,tunnel.getAudioAverage() * 15);
         int t = (int)random(0,255);
 
         fill(0,0,0,50);
         noStroke();
-        rect(0,0,600,600);
-        fill(c1,c2,c3,t);
-        ellipse(trackX,trackY,s,s);
 
+        rect(0,0,800,800);
+        fill((int)blendColor(baseColor, color(random(255),random(255),random(255)), ADD),t);
+        ellipse(trackX,trackY,s,s);
     }
   }
 
