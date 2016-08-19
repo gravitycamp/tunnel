@@ -6,6 +6,7 @@ class SketchName extends PApplet {
 
   int width;
   int height;
+  String position = "Tunnel";
   Tunnel tunnel;
 
   // Audio Support
@@ -15,10 +16,11 @@ class SketchName extends PApplet {
 
   // Instance Variables
 
-  public SketchName(Tunnel t, int w, int h) {
+  public SketchName(Tunnel t, int w, int h, String p) {
       width = w;
       height = h;
       tunnel = t;
+      p = position;
       audio = tunnel.in;
   }
 
