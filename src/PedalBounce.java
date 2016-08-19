@@ -106,7 +106,7 @@ class PedalBounce extends PApplet {
         for (int i=0; i<360; i+=60) {
           float x = sin(radians(i))*r;
           float y = cos(radians(i))*r;
-          float l = sin(radians((mag*tunnel.getAudioAverage()/4)*r-11*frameCount))*r/2*sin(radians(r));
+          float l = sin(radians((mag*tunnel.getAudioAverage()/15)*r-11*frameCount))*r/2*sin(radians(r));
           float s = 3*sin(radians(r));
 
           pushMatrix();
