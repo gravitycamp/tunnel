@@ -59,7 +59,7 @@ class PedalBounce extends PApplet {
       if(beat.isOnset()) {
         mag += .25;
       } else {
-       // mag -= .1;
+        mag -= .1;
       }
       background(0);
       translate(width/2, height/2);
@@ -70,30 +70,47 @@ class PedalBounce extends PApplet {
         for (int i=0; i<360; i+=60) {
           float x = sin(radians(i))*r;
           float y = cos(radians(i))*r;
-          float l = sin(radians(((trackX) /30 )*r-11*frameCount))*r/2*sin(radians(r));
+          float l = sin(radians(((trackX) /70 )*r-11*frameCount))*r/2*sin(radians(r));
           float s = 3*sin(radians(r));
 
           pushMatrix();
           translate(x, -100);
           rotate(radians(-i));
-          if (s > 0) ellipse(l, 0, s, s);
+          if (s > 0) ellipse(l*2, 0, s, s);
           popMatrix();
         }
       }
       for (float q=30; q>=0; q-=0.1) {
         float r = (6*q+frameCount)%180;
         float f = map(r*tunnel.getAudioAverage(), 0, 180, 255, 0);
+        fill((int)(255-f*sin(radians(r*trackY*mag))), (int)255*sin(radians(r* trackY*mag)), (int)f/2*sin(radians(r*trackY*mag)));
+        for (int i=0; i<360; i+=60) {
+          float x = sin(radians(i))*r;
+          float y = cos(radians(i))*r;
+          float l = sin(radians((mag*tunnel.getAudioAverage()/4)*r-11*frameCount))*r/2*sin(radians(r));
+          float s = 3*sin(radians(r));
+
+          pushMatrix();
+          translate(x, y);
+          rotate(radians(-i));
+          if (s > 0) ellipse(l*7, 0, s, s);
+          popMatrix();
+        }
+      }
+       for (float q=30; q>=0; q-=0.1) {
+        float r = (6*q+frameCount)%180;
+        float f = map(r, 0, 180, 255, 0);
         fill((int)(255-f*sin(radians(r*trackY))), (int)255*sin(radians(r* trackY)), (int)f/2*sin(radians(r*trackY)));
         for (int i=0; i<360; i+=60) {
           float x = sin(radians(i))*r;
           float y = cos(radians(i))*r;
-          float l = sin(radians(((trackX)/30 )*r-11*frameCount))*r/2*sin(radians(r));
+          float l = sin(radians(((trackX) /70 )*r-11*frameCount))*r/2*sin(radians(r));
           float s = 3*sin(radians(r));
 
           pushMatrix();
           translate(x, 100);
           rotate(radians(-i));
-          if (s > 0) ellipse(l, 0, s*tunnel.getAudioAverage()/30, s);
+          if (s > 0) ellipse(l*2, 0, s, s);
           popMatrix();
         }
       }
