@@ -6,7 +6,8 @@ import ddf.minim.analysis.*;
 public class MusicVisualizer extends PApplet {
 
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     
     float trackX = 0;
     float trackY = 0;
@@ -25,10 +26,11 @@ public class MusicVisualizer extends PApplet {
 
     AudioInput player;
 
-    public MusicVisualizer(Tunnel t, int w, int h) {
+    public MusicVisualizer(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
         player = tunnel.in;
 
     }
@@ -46,9 +48,25 @@ public class MusicVisualizer extends PApplet {
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
-       trackX = (float)width * Main.kinect.RightHandDepthRatio;
-       trackY = (float)height * Main.kinect.RightHandRaisedRatio;
-       trackZ = 0;
+       switch (position) {
+         case "Tunnel":
+         case "Wall":
+         case "Ceil":
+           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackY = (float)height * Main.kinect.HandDistance;
+           trackZ = 0; 
+           break;
+         case "RWall":
+           trackX = (float)width * Main.kinect.RightHandDepthRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackZ = 0;
+           break;
+         case "LWall":
+           trackX = (float)width * Main.kinect.LeftHandDepthRatio;
+           trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
+           trackZ = 0;
+           break;
+       }
    } else {
        trackX = mouseX;
        trackY = mouseY;

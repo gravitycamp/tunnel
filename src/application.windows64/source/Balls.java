@@ -4,15 +4,17 @@ public class Balls extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
     Ball[] balls = { new Ball(150 / 2, 32 / 2, 80, 255), };
 
 
-    public Balls(Tunnel t, int w, int h) {
+    public Balls(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
     }
 
     public void settings() {

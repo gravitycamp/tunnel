@@ -10,14 +10,16 @@ public class Life extends PApplet {
     int[][] indicies = new int[8][2];
 
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
 
-    public Life(Tunnel t, int w, int h) {
+    public Life(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
     }
 
     public void settings() {

@@ -6,6 +6,7 @@ class Scope extends PApplet {
 
   int width;
   int height;
+    String position = "Tunnel";
   Tunnel tunnel;
 
   // Audio Support
@@ -27,10 +28,11 @@ class Scope extends PApplet {
   float Bspeed;
   float count = 0;
 
-  public Scope(Tunnel t, int w, int h) {
+  public Scope(Tunnel t, int w, int h, String p) {
       width = w;
       height = h;
       tunnel = t;
+        position = p;
       audio = tunnel.in;
   }
 
@@ -56,9 +58,25 @@ class Scope extends PApplet {
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
-       trackX = (float)width * Main.kinect.RightHandDepthRatio;
-       trackY = (float)height * Main.kinect.RightHandRaisedRatio;
-       trackZ = 0;
+       switch (position) {
+         case "Tunnel":
+         case "Wall":
+         case "Ceil":
+           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackY = (float)height * Main.kinect.HandDistance;
+           trackZ = 0; 
+           break;
+         case "RWall":
+           trackX = (float)width * Main.kinect.RightHandDepthRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackZ = 0;
+           break;
+         case "LWall":
+           trackX = (float)width * Main.kinect.LeftHandDepthRatio;
+           trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
+           trackZ = 0;
+           break;
+       }
    } else {
        trackX = mouseX;
        trackY = mouseY;
@@ -78,8 +96,8 @@ class Scope extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
-      ellipse(trackX, trackY, tunnel.getAudioAverage()/4, tunnel.getAudioAverage()/4);
-      RADIUS = (int)tunnel.getAudioAverage() * 20 ;
+      ellipse(trackX, trackY, tunnel.getAudioAverage(), tunnel.getAudioAverage());
+      RADIUS = (int)tunnel.getAudioAverage() * 24 ;
       beat.detect(audio.mix);
       
       smooth();
@@ -87,7 +105,7 @@ class Scope extends PApplet {
       if ( thickness < 1) {
         strokeWeight(1);
       } else {
-        if (thickness < 4)
+        if (thickness < 20)
           strokeWeight(thickness);
         else 
           strokeWeight(random(4));
@@ -108,14 +126,14 @@ class Scope extends PApplet {
       
       if(beat.isOnset()) {
         myColor = 0;
-        strokeWeight(tunnel.getAudioAverage()*3);
+        strokeWeight(tunnel.getAudioAverage()*10);
       }
       
       fill(myColor, 70);
       stroke(myColor, 70);
-      float angle = trackY * random(TWO_PI);
+      float angle = trackX * random(TWO_PI);
 
-      float radius = trackX/40 * random(8);
+      float radius = trackX * 3* random(8);
       if (radius < 4) {
         radius = random(8);
       }

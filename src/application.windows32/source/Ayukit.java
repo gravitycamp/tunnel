@@ -1,4 +1,4 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>// //<>//
+/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>//
 /* !do not delete the line above, required for linking your tweak if you upload again */
 import java.util.*;
 import java.lang.reflect.*;
@@ -16,6 +16,7 @@ public class Ayukit extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
     Minim minim;
     
@@ -50,10 +51,11 @@ public class Ayukit extends PApplet {
     PGraphics Roof; 
     float timeElapsed;
 
-    public Ayukit(Tunnel t, int w, int h) {
+    public Ayukit(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
         minim = tunnel.minim;
     }
 
@@ -81,7 +83,7 @@ public class Ayukit extends PApplet {
         LeftWall= createGraphics(150*scale, 32*scale);
         RightWall= createGraphics(150*scale, 32*scale);
         Roof= createGraphics(150*scale, 24*scale);
-     //   StartTime = millis(); //<>//
+     //   StartTime = millis();
     }
 
 
@@ -113,7 +115,7 @@ public class Ayukit extends PApplet {
               //println(HeadP.x);
               AyukitFound = true;
               AY_depth = Main.kinect.RightHandDepthRatio;
-              AY_Y = Main.kinect.RightHandRaisedRatio;
+              AY_Y = 1-Main.kinect.RightHandRaisedRatio;
               if(Main.kinect.Head.x < 100) //head is on left or right side (need to update center of screen = width/2 
                 AY_OnLeftWall = true;
               Ayukit_Sound.play(); 

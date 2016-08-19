@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.ArrayList;
 import processing.core.PVector;
+import processing.core.PApplet.*;
 import KinectPV2.KJoint;
 import KinectPV2.*;
 
@@ -24,6 +25,7 @@ public class Kinect
     public float LeftHandRaisedRatio = 0;
     public float RightHandDepthRatio = 0;
     public float LeftHandDepthRatio =0;
+    public float HandDistance = 0;
     public boolean RightHandOpen = false;
     public boolean LeftHandOpen = false;
 
@@ -64,8 +66,9 @@ public class Kinect
             //Ratio calculation and calibration
             RightHandDepthRatio = RightWristDepth/5; //4 is as deep as you can go!
             LeftHandDepthRatio = LeftWristDepth/5; //4 is as deep as you can go!
-            RightHandRaisedRatio = (float)(RightWrist.y-RightKnee.y*.85)/(Head.y - RightKnee.y);
-            LeftHandRaisedRatio = (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
+            RightHandRaisedRatio = 1 - (float)(RightWrist.y-RightKnee.y*.85)/(Head.y - RightKnee.y);
+            LeftHandRaisedRatio = 1 - (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
+            HandDistance = (float)(Math.hypot(RightWrist.x-LeftWrist.x, RightWrist.y-LeftWrist.y)/RightHandDepthRatio/3.7);
             
           }
         }

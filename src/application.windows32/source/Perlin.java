@@ -8,16 +8,18 @@ public class Perlin extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
     AudioInput audio;
     Minim minim;
     BeatDetect beat;
 
-    public Perlin(Tunnel t, int w, int h) {
+    public Perlin(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
         audio = tunnel.in;
     }
 

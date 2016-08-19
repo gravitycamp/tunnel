@@ -1,4 +1,4 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>//
+/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>//
 /* !do not delete the line above, required for linking your tweak if you upload again */
 import java.util.*;
 import java.lang.reflect.*;
@@ -14,6 +14,7 @@ public class AudioInputKinect extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
     FFT fft;
     Minim minim;
@@ -44,10 +45,11 @@ public class AudioInputKinect extends PApplet {
     int dB = 1;
     
 
-    public AudioInputKinect(Tunnel t, int w, int h) {
+    public AudioInputKinect(Tunnel t, int w, int h, String p) {
         width = w;
         height = h;
         tunnel = t;
+        position = p;
         fft = tunnel.fft;
      }
 
@@ -69,11 +71,15 @@ public class AudioInputKinect extends PApplet {
     }
 
 
+  float trackX = 0;
+  float trackY = 0;
+  float trackZ = 0;
+  
     public void draw() {
       try{
         synchronized(Tunnel.class) {
             Main.kinect.update();
-            //background(0);
+            background(0);
             LeftWall.beginDraw();
             LeftWall.background(0);
             RightWall.beginDraw();
@@ -194,9 +200,9 @@ public class AudioInputKinect extends PApplet {
         ImageL.ellipseMode(RADIUS);
         ImageR.ellipseMode(RADIUS);
         ImageL.fill( random(255), random(255), random(255), random(255)); 
-        ImageL.ellipse(width*Main.kinect.RightHandDepthRatio, ImageL.height*(Main.kinect.RightHandDepthRatio), 3*fft.getBand(0), 3*fft.getBand(0));
+        ImageL.ellipse(width*Main.kinect.RightHandDepthRatio, ImageL.height*(1-Main.kinect.RightHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));
         ImageR.fill( random(150), random(255), random(255), random(255)); 
-        ImageR.ellipse(width*Main.kinect.RightHandDepthRatio, ImageR.height*(float)(Main.kinect.LeftHandDepthRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
+        ImageR.ellipse(width*Main.kinect.RightHandDepthRatio, ImageR.height*(float)(1-Main.kinect.LeftHandRaisedRatio), 3*fft.getBand(0), 3*fft.getBand(0));      
       
     }
     void SmoothRGB(){

@@ -5,13 +5,15 @@ public class Field extends PApplet {
     ParticleSystem p;
 
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
-    public Field(Tunnel t, int w, int h) {
+    public Field(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
     }
 
     public void settings() {
@@ -23,7 +25,7 @@ public class Field extends PApplet {
      //   frameRate(30);
         smooth();
         background(0);
-        p = new ParticleSystem(tunnel, width, height);
+        p = new ParticleSystem(tunnel, width, height, position);
     }
 
     float trackX = 0;
@@ -59,11 +61,13 @@ public class Field extends PApplet {
         Particle[] particles;
         int width;
         int height;
+    String position = "Tunnel";
         int[] disruptor = { 0, 0 };
 
-        ParticleSystem(Tunnel t, int w, int h)
+        ParticleSystem(Tunnel t, int w, int h, String p)
         {
             tunnel = t;
+        position = p;
             width  = w;
             height = h;
 

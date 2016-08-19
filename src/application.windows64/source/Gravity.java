@@ -4,14 +4,16 @@ public class Gravity extends PApplet {
 
     float textScale;
     int   width;
-    int   height;
+    int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
 
-    public Gravity(Tunnel t, int w, int h) {
+    public Gravity(Tunnel t, int w, int h, String p) {
         width  = w;
         height = h;
         tunnel = t;
+        position = p;
         textScale = 0;
     }
 

@@ -28,10 +28,12 @@ class Bounce extends PApplet {
 
     int width;
     int height;
+    String position = "Tunnel";
     Tunnel tunnel;
 
-    public Bounce(Tunnel t, int w, int h) {
+    public Bounce(Tunnel t, int w, int h, String p) {
         tunnel = t;
+        position = p;
         width  = w;
         height = h;
     }
