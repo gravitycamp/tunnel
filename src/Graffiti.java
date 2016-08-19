@@ -138,11 +138,12 @@ class Graffiti extends PApplet {
   public void render(){
     fill(fillColor);
     radius = sq(map(velocity.mag(), 0, maxVelocity, 4, 1));
+    radius = radius/2;
     if(shapeType == 0){
       rect(position.x, position.y, radius, radius);
     }
     else{
-      ellipse(position.x, position.y, radius, radius);
+      ellipse(position.x, position.y, radius+tunnel.getAudioAverage()/15, radius+tunnel.getAudioAverage()/15);
     }
   }
 }
