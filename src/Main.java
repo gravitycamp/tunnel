@@ -33,8 +33,7 @@ class Main {
        
         wire.SetupCom();
         loadPlaylist();
-        loadNextInQueue();
-        
+
       //  tunnel.exec("C:/TunnelGit2/src/Restart.bat");      
         TimerTask exitApp = new TimerTask() {
         public void run() {
@@ -50,15 +49,16 @@ class Main {
         
         RestartTimer.schedule(exitApp, new Date(System.currentTimeMillis()+30*60*1000)); //restart every 30 minutes
         
-        
-        int playSeconds = 1000* Integer.parseInt(queue.get(queueIndex).get("Time"));
-        
-        playTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-               loadNextInQueue();
-            }
-         }, playSeconds, playSeconds);
+        while(true) {
+          int playSeconds = 1000* Integer.parseInt(queue.get(queueIndex).get("Time"));
+          long millis = System.currentTimeMillis();
+          try{
+              loadNextInQueue();
+              Thread.sleep(playSeconds - millis % 1000);
+          } catch(InterruptedException e) {
+              System.out.println("got interrupted!");
+          }
+        }
     }
 
     public static void loadNextInQueue() {
