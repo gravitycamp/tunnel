@@ -159,7 +159,7 @@ public class Ayukit extends PApplet {
             //test data       
            
             //let Ken Randomly throw Ayukit
-            if(!KenThrowingAyukit && KenAllive && (1==(int)random(100)))
+            if(!KenThrowingAyukit && KenAllive && (1==(int)random(80)))
             {
               KenThrowingAyukit = true;
               AyukitKenHeight = (int)(Ken.height+(int)kenMove-AyukitKen.height*1.9);  //set once at height calibrated at his arms
@@ -224,13 +224,13 @@ public class Ayukit extends PApplet {
             //check to see if Aukits hit each other
             if(AyukitFound && KenThrowingAyukit)  //if both players throwing Ayukit
             {
-              println("player x: " +(AyukitKen.height+AyukitKenHeight) + " > " + (RightWall.height*AY_Y));
-              println("player x: " +AyukitKenHeight + " < " + (RightWall.height*AY_Y+Ayukit.height));
+              //println("player x: " +(AyukitKen.height+AyukitKenHeight) + " > " + (RightWall.height*AY_Y));
+              //println("player x: " +AyukitKenHeight + " < " + (RightWall.height*AY_Y+Ayukit.height));
               if(((RightWall.width*AY_depth-AyukitFrame) < Ken.width+KenAyukitFrame+AyukitKen.width/2) 
                 && (Ayukit.height+AyukitKenHeight  >(RightWall.height*AY_Y)) 
                 && (AyukitKenHeight < RightWall.height*AY_Y+Ayukit.height))  
               {
-                AyukitFound = false; //<>//
+                AyukitFound = false;
                 KenThrowingAyukit = false;
               }
             }
