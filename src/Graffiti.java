@@ -1,4 +1,4 @@
-import processing.core.*;
+ import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
@@ -15,12 +15,12 @@ class Graffiti extends PApplet {
   BeatDetect beat;
 
   // Instance Variables
-  int numBalls = 25600;
+  int numBalls = 100;
   int maxBalls = numBalls;
   int fps;
   boolean clearBG, doSmooth;
   int shapeType;
-  float maxVelocity = 16, minAccel = (float)0.8, maxAccel = (float)1.8;
+  float maxVelocity = 4, minAccel = (float)0.1, maxAccel = (float)0.2;
 
   Seeker[] ball = new Seeker[numBalls];
 
@@ -53,7 +53,7 @@ class Graffiti extends PApplet {
     }
 
     // numBalls adjusted to a sane default for web distribution
-    numBalls = 200;
+    numBalls = 100;
   }
 
   float trackX = 0;
@@ -67,13 +67,9 @@ class Graffiti extends PApplet {
          case "Tunnel":
          case "Wall":
          case "Ceil":
-           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
-           trackY = (float)height * Main.kinect.HandDistance;
-           trackZ = 0; 
-           break;
          case "RWall":
            trackX = (float)width * Main.kinect.RightHandDepthRatio;
-           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackY = (float)height * Main.kinect.RightHandSideRatio;
            trackZ = 0;
            break;
          case "LWall":
@@ -97,7 +93,6 @@ class Graffiti extends PApplet {
       } else {
          clearBG = true;
       }
-
       if(clearBG){
         background(0);
       }
@@ -107,6 +102,7 @@ class Graffiti extends PApplet {
         ball[i].seek(new PVector(trackX, trackY));
         ball[i].render();
       }
+            ellipse(trackX,trackY,10,10);
     }
   }
 
@@ -143,7 +139,8 @@ class Graffiti extends PApplet {
       rect(position.x, position.y, radius, radius);
     }
     else{
-      ellipse(position.x, position.y, radius+tunnel.getAudioAverage()/15, radius+tunnel.getAudioAverage()/15);
+      float audioAverage = tunnel.getAudioAverage()/50;
+      ellipse(position.x, position.y, radius+audioAverage, radius+audioAverage);
     }
   }
 }

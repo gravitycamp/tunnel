@@ -45,7 +45,7 @@ public class Ayukit extends PApplet {
     int R = (int)random(255);
     int G = (int)random(255);
     int B = (int)random(255);
-    int scale = 4;  
+    int scale = 1;  
     int dR = 1;
     int dG = 1;
     int dB = 1;
@@ -75,9 +75,9 @@ public class Ayukit extends PApplet {
 
     public void setup() {
         Ayukit = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");
-        Ayukit.resize(15,15);
+        Ayukit.resize(5,5);
         AyukitKen = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");
-        AyukitKen.resize(15,15);
+        AyukitKen.resize(5,5);
         Logo = loadImage("C:/TunnelGit2/src/data/logo.jpg");
         Ken = loadImage("C:/TunnelGit2/src/data/Ken.jpg");
         KenThrow = loadImage("C:/TunnelGit2/src/data/KenThrow1.jpg");

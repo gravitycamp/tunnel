@@ -152,7 +152,8 @@ public class BallGrab extends PApplet {
         translate(x,y);
         rotate(atan(y_speed/x_speed));
         scale(map(constrain(abs(mag(x_speed, y_speed)), 0, 20), 0, 20, 1, 2),1);
-        ellipse(0, 0, size, size);
+        float audioAverage = (tunnel.getAudioAverage() == 0) ? 1 : tunnel.getAudioAverage();
+        ellipse(0, 0, size/audioAverage, size/audioAverage);
       popMatrix();
     }
   

@@ -93,7 +93,7 @@ class Spotlight extends PApplet {
         int c1 =  (int)random(0,255);
         int c2 =  (int)random(0,255);
         int c3 =  (int)random(0,255);
-        int s = (int)random(0,tunnel.getAudioAverage() * 8);
+        int s = (int)random(0,tunnel.getAudioAverage());
         int t = (int)random(0,100);
 
         fill(0,0,0,50);

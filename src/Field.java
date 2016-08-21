@@ -22,7 +22,7 @@ public class Field extends PApplet {
 
     public void setup()
     {
-     //   frameRate(30);
+        frameRate(30);
         smooth();
         background(0);
         p = new ParticleSystem(tunnel, width, height, position);
@@ -47,7 +47,7 @@ public class Field extends PApplet {
     public void draw()
     {
         synchronized (Tunnel.class) {
-            track();
+            //track();
             noStroke();
             fill(0);
             rect(0, 0, width, height);
@@ -81,7 +81,7 @@ public class Field extends PApplet {
         void update()
         {
 
-            if (tunnel.getAudioAverage() > 2) {
+            if (tunnel.getAudioAverage() > 15) {
                 disruptor[0] = (int) random(0,width);
                 disruptor[1] = (int) random(0,height);
             }
