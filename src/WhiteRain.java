@@ -23,7 +23,7 @@ public class WhiteRain extends PApplet {
         size(width, height);
     }
     
-    int rainNum = 100;
+    int rainNum = 30;
     ArrayList rain = new ArrayList();
     ArrayList splash = new ArrayList();
     float current;
@@ -55,7 +55,7 @@ public class WhiteRain extends PApplet {
         rainT.calculate();
         rainT.draw();
         
-        if ((rainT.position.x>width*Main.kinect.RightHandRaisedRatio*.9) && (rainT.position.x<width*Main.kinect.RightHandDepthRatio*1.1))
+        if ((rainT.position.x>width*Main.kinect.RightHandDepthRatio*.9) && (rainT.position.x<width*Main.kinect.RightHandDepthRatio*1.1))
         {
           if (rainT.position.y>height*Main.kinect.RightHandRaisedRatio)
           {
@@ -126,7 +126,7 @@ public class WhiteRain extends PApplet {
       void draw()
       {
         stroke(100,col);
-        strokeWeight(2);
+        strokeWeight(1);
         line(position.x,position.y,pposition.x,pposition.y);
         //ellipse(position.x,position.y,5,5);
       }
@@ -152,7 +152,7 @@ public class WhiteRain extends PApplet {
       public Splash(float x,float y)
       {
         float angle = random(PI,TWO_PI);
-        float distance = random(1,5);
+        float distance = random((float).8,1);
         float xx = cos(angle)*distance;
         float yy = sin(angle)*distance;
         position = new PVector(x,y);
@@ -165,7 +165,7 @@ public class WhiteRain extends PApplet {
         strokeWeight(1);
         stroke(100,50);
         fill(100,100);
-        ellipse(position.x,position.y,2,2);
+        ellipse(position.x,position.y,1,1);
       }
       
       void calculate()

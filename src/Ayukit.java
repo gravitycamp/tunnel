@@ -121,7 +121,7 @@ public class Ayukit extends PApplet {
             SmoothRGB();
             Roof.background(R,G,B);            
             
-            if(!AyukitFound &&(Main.kinect.LeftWristDepth/Main.kinect.HeadDepth < .9) && (Main.kinect.RightWristDepth/Main.kinect.HeadDepth < .9))    //create an ayukit at right hand y = center of ayukit
+            if(!AyukitFound && KenAllive &&(Main.kinect.LeftWristDepth/Main.kinect.HeadDepth < .9) && (Main.kinect.RightWristDepth/Main.kinect.HeadDepth < .9))    //create an ayukit at right hand y = center of ayukit
             {
               //println(HeadP.x);
               AyukitFound = true;
