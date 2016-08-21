@@ -25,6 +25,8 @@ public class Kinect
     public float LeftHandRaisedRatio = 0;
     public float RightHandDepthRatio = 0;
     public float LeftHandDepthRatio =0;
+    public float RightHandSideRatio = 0;
+    public float LeftHandSideRatio = 0;
     public float HandDistance = 0;
     public boolean RightHandOpen = false;
     public boolean LeftHandOpen = false;
@@ -68,6 +70,8 @@ public class Kinect
             LeftHandDepthRatio = LeftWristDepth/5; //4 is as deep as you can go!
             RightHandRaisedRatio = 1 - (float)(RightWrist.y-RightKnee.y*.85)/(Head.y - RightKnee.y);
             LeftHandRaisedRatio = 1 - (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
+            RightHandSideRatio = (float)((RightWrist.x+1)/2);
+            LeftHandSideRatio = (float)((RightWrist.x)/2);
             HandDistance = (float)(Math.hypot(RightWrist.x-LeftWrist.x, RightWrist.y-LeftWrist.y)/RightHandDepthRatio/3.7);
             
           }

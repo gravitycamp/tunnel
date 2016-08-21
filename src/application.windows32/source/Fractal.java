@@ -61,10 +61,6 @@ class Fractal extends PApplet {
          case "Tunnel":
          case "Wall":
          case "Ceil":
-           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
-           trackY = (float)height * Main.kinect.HandDistance;
-           trackZ = 0; 
-           break;
          case "RWall":
            trackX = (float)width * Main.kinect.RightHandDepthRatio;
            trackY = (float)height * Main.kinect.RightHandRaisedRatio;
@@ -86,8 +82,8 @@ class Fractal extends PApplet {
     synchronized (Tunnel.class) {
       background(0);
       track();
-      angle = TWO_PI * trackX/width; // mouseX controls angle range of nodes
-      power = 1/(float)50.0 * trackY; // mouseY controls perspective of viewing nodes
+      angle = TWO_PI * trackY/width * 2; // mouseX controls angle range of nodes
+      power = 1/(float)50.0 * trackX; // mouseY controls perspective of viewing nodes
       hueVal = 0;
 
       beat.detect(audio.mix);
@@ -107,7 +103,7 @@ class Fractal extends PApplet {
     float t; // angle between nodes
 
     // use an appropriate algorithm to calculate distance between given nodes
-    r = ((float)0.5*power+2) * 25 * pow(n,power) * pow(num,-power);
+    r = ((float)0.5*power+2) * 10 * pow(n,power) * pow(num,-power);
 
     // if spots is on and we are on the first value of n, map initial node
     if( spots && n == num ) {

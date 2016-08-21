@@ -9,7 +9,7 @@ import ddf.minim.analysis.*;
 
 public class Tunnel extends PApplet implements AudioListener {
 
-    int scale      = 4;
+    int scale      = 1;
     int wallHeight = 32 * scale;
     int ceilHeight = 8 * 3 * scale;
     int width      = 150 * scale;

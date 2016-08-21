@@ -1,12 +1,14 @@
 import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
+import java.lang.Math.*;
 
 class HLine extends PApplet {
 
   int width;
   int height;
   String position = "Tunnel";
+  int c = color(random(255), random(255), random(255));
   Tunnel tunnel;
 
   // Audio Support
@@ -49,8 +51,9 @@ class HLine extends PApplet {
          case "Tunnel":
          case "Wall":
          case "Ceil":
-           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackX = (float)(width * Main.kinect.RightHandDepthRatio * (Main.kinect.RightHandDepthRatio * 2));
            trackY = (float)height * Main.kinect.HandDistance;
+           println(trackX);
            trackZ = 0; 
            break;
          case "RWall":
@@ -78,7 +81,8 @@ class HLine extends PApplet {
       } else {
       }
        background(0);
-      stroke(blendColor(color(255,0,0), color(random(255),random(255),random(255), 100), ADD));
+      
+      stroke(blendColor(c, color(random(255),random(255),random(255), 100), ADD));
       line(trackX,0,trackX,height);
       strokeWeight(tunnel.getAudioAverage());
       stroke(blendColor(color(255,0,0), color(random(255),random(255),random(255), 100), ADD));

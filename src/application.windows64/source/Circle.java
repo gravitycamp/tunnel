@@ -31,7 +31,7 @@ public class Circle extends PApplet {
             fill(0, 40);
             rect(-1, -1, width + 1, height + 1);
 
-            float maxX = map(tunnel.getAudioAverage() * 100, 0, width, 1, 250);
+            float maxX = map(tunnel.getAudioAverage(), 0, width, 1, 250);
             //println(maxX);
 
             translate(width / 2, height / 2);

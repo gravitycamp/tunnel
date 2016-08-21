@@ -4,6 +4,7 @@ public class Letters extends PApplet {
 
     int   width;
     int height;
+    int c = color(random(255),random(255),random(255));
     String position = "Tunnel";
     Tunnel tunnel;
 
@@ -52,7 +53,7 @@ public class Letters extends PApplet {
     }
 
     void initialize() {
-        background(color(150, 150, 1));
+        background(c);
         currentSize = 300;
     }
 
@@ -74,7 +75,7 @@ public class Letters extends PApplet {
 
         PGraphics gMask = createGraphics(intSize, intSize);
         gMask.beginDraw();
-        gMask.background(color(150, 150, 1, 1));
+        gMask.background(c);
         gMask.image(g, 0, 0);
         gMask.filter(ERODE);
         gMask.filter(ERODE);

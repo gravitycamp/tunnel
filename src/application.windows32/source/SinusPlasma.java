@@ -14,12 +14,12 @@ public class SinusPlasma extends PApplet {
     Minim minim;
     BeatDetect beat;
 
-    int GRADIENTLEN = 1500;
+    int GRADIENTLEN = 500;
     // use this factor to make things faster, esp. for high resolutions
-    int SPEEDUP = 3;
+    int SPEEDUP = 1;
 
     // swing/wave function parameters
-    int SWINGLEN = GRADIENTLEN*3;
+    int SWINGLEN = GRADIENTLEN;
     int SWINGMAX = GRADIENTLEN / 2 - 1;
 
     // gradient & swing curve arrays
@@ -43,6 +43,7 @@ public class SinusPlasma extends PApplet {
 
   // create standard gradient & swing curve
   public void setup() {
+    frameRate(30);
     minim = new Minim(this);
     beat = new BeatDetect();
   	makeGradient(GRADIENTLEN);
@@ -87,11 +88,14 @@ public class SinusPlasma extends PApplet {
       track();
       
       beat.detect(audio.mix);
-            if(beat.isOnset() && trackX > trackY) {
-               makeGradient(GRADIENTLEN);
-            } else if(beat.isOnset()) {
-              makeSwingCurve(SWINGLEN, SWINGMAX);
-            }
+      float audioAverage = tunnel.getAudioAverage();
+      if(trackY < 10) {
+      } else if(tunnel.getAudioAverage() > 50 && Math.ceil(random(2)) == 1) {
+        makeSwingCurve(SWINGLEN, SWINGMAX);
+        makeGradient(GRADIENTLEN);
+      }
+      //println(tunnel.getAudioAverage());
+      println(Math.ceil(random(2)));
             
     	loadPixels();
     	int i = 0;

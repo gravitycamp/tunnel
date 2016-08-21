@@ -96,8 +96,8 @@ class Scope extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
-      ellipse(trackX, trackY, tunnel.getAudioAverage(), tunnel.getAudioAverage());
-      RADIUS = (int)tunnel.getAudioAverage() * 24 ;
+      ellipse(trackX, trackY, tunnel.getAudioAverage() / 4, tunnel.getAudioAverage() / 4);
+      RADIUS = (int)tunnel.getAudioAverage() * 6 ;
       beat.detect(audio.mix);
       
       smooth();

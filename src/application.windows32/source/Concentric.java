@@ -99,13 +99,13 @@ class Concentric extends PApplet {
         } 
         
          mouse = new PVector(trackX, trackY);
-        dmouse = mouse.dist(center);
+         dmouse = mouse.dist(center);
         
-         float t = map(trackX, 0, width, 0, TWO_PI);
+        float t = map(trackX, 0, width, 0, TWO_PI);
         float u = map(trackY, 0, height, 0, TWO_PI);
-        int a = (int)(map(trackX, 0, width, 0, 255));
+        int a = (int)(map(trackX + trackY, 0, width, 0, 255));
         int b = (int)(map(trackY, 0, width, 0, 255));
-        int c = (int)(map(dmouse, 0, (float)1.7*width/2, 0, 255));
+        int c = (int)(map(trackY, 0, width, 0, 255));
         
         int col = color(a, b, c);
         noFill();

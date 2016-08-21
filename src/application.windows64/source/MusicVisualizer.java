@@ -40,6 +40,7 @@ public class MusicVisualizer extends PApplet {
   }
   public void setup()
   {
+    frameRate(30);
     minim = new Minim(this);
     beat = new BeatDetect();
     background(0);
@@ -96,16 +97,17 @@ public class MusicVisualizer extends PApplet {
        fill(red, green, blue);
        if (beat.isOnset()) rad = (float)(rad*0.9);
        else rad = 70 + trackY/8;
-       ellipse(0, 0, 2*rad, 2*rad);
-       stroke(random(255), random(255), random(255));
-       int bsize = player.bufferSize();
+       ellipse(0, 0, rad/8, rad/8);
+       
+       int bsize = player.bufferSize()/2;
        for (int i = 0; i < bsize - 1; i+=5)
        {
          float x = (r)*cos(i*2*PI/bsize);
          float y = (r)*sin(i*2*PI/bsize);
          float x2 = (r + player.left.get(i)*100)*cos(i*2*PI/bsize);
          float y2 = (r + player.left.get(i)*100)*sin(i*2*PI/bsize);
-         line(x, y, x2, y2);
+         stroke(random(255), random(255), random(255));
+         line(x, y, x2/trackY, y2/trackY);
        }
        beginShape();
        noFill();
@@ -118,7 +120,7 @@ public class MusicVisualizer extends PApplet {
          pushStyle();
          stroke(random(255), random(255), random(255));
          strokeWeight(2);
-         point(x2, y2);
+         point(x2/10, y2/10);
          popStyle();
        }
 

@@ -13,7 +13,7 @@ class Bounce extends PApplet {
     final float particleRadius = 1;
     final float randomAcceleration = 0;
 
-    final int nbParticles = 5000;
+    final int nbParticles = 500;
     final int gridSize = 10;
 
     Particle[] particles;
@@ -72,6 +72,7 @@ class Bounce extends PApplet {
                 y = 2 * (height - particleRadius) - y;
                 vy = -vy;
             }
+            stroke(random(255), random(255), random(255), tunnel.getAudioAverage()*30);
         }
     }
 
@@ -89,7 +90,7 @@ class Bounce extends PApplet {
     }
 
     public void setup() {
-       // frameRate(60);  // highest possible
+       frameRate(60);  // highest possible
 
         particles = new Particle[nbParticles];
         for (int i = 0; i < particles.length; i++)
@@ -172,18 +173,18 @@ class Bounce extends PApplet {
     }
 
     void mouseRepulsion() {  // using the grid even for that !
-        int xmin = max(0, floor((mouseX - mouseMaxDist) / gridSize));
-        int xmax = min(gridW, ceil((mouseX + mouseMaxDist) / gridSize));
-        int ymin = max(0, floor((mouseY - mouseMaxDist) / gridSize));
-        int ymax = min(gridH, ceil((mouseY + mouseMaxDist) / gridSize));
+        int xmin = max(0, floor((trackX - mouseMaxDist) / gridSize));
+        int xmax = min(gridW, ceil((trackX + mouseMaxDist) / gridSize));
+        int ymin = max(0, floor((trackY - mouseMaxDist) / gridSize));
+        int ymax = min(gridH, ceil((trackY + mouseMaxDist) / gridSize));
 
         for (int x = xmin; x < xmax; x++) {
             for (int y = ymin; y < ymax; y++) {
                 GridCell gc = grid[y * gridW + x];
                 for (int i = 0; i < gc.contents.size(); i++) {
                     Particle p = (Particle) gc.contents.get(i);
-                    float dx = mouseX - p.x;
-                    float dy = mouseY - p.y;
+                    float dx = trackX - p.x;
+                    float dy = trackY - p.y;
                     float d = dx * dx + dy * dy;
                     if (d < mmd2) {
                         d = sqrt(d);
@@ -225,16 +226,49 @@ class Bounce extends PApplet {
         }
     }
 
+
+float trackX = 0;
+  float trackY = 0;
+  float trackZ = 0;
+
+  public void track() {
+   if(Main.kinect != null) {
+       Main.kinect.update();
+       switch (position) {
+         case "Tunnel":
+         case "Wall":
+         case "Ceil":
+           trackX = (float)width * (Main.kinect.RightHandDepthRatio + Main.kinect.LeftHandDepthRatio)/2;
+           trackY = (float)height * Main.kinect.HandDistance;
+           trackZ = 0; 
+           break;
+         case "RWall":
+           trackX = (float)width * Main.kinect.RightHandDepthRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
+           trackZ = 0;
+           break;
+         case "LWall":
+           trackX = (float)width * Main.kinect.LeftHandDepthRatio;
+           trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
+           trackZ = 0;
+           break;
+       }
+   } else {
+       trackX = mouseX;
+       trackY = mouseY;
+   }
+  }
+
     public void draw() {
         synchronized(Tunnel.class) {
+          track();
 
           background(color(0));
           for (int i = 0; i < particles.length; i++)
               particles[i].fx = particles[i].fy = 0;
 
           long startTime = System.nanoTime();
-          if (mousePressed || mouseX != pmouseX || mouseY != pmouseY)
-              mouseRepulsion();
+          mouseRepulsion();
           computeSprings();
           for (int i = 0; i < particles.length; i++)
               particles[i].update();

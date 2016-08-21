@@ -32,7 +32,7 @@ public class NoiseField extends PApplet {
       size(width, height);
   }
 
-  int NUM_PARTICLES = 50;
+  int NUM_PARTICLES = 10;
   ParticleSystem p;
   public void setup()
   {
@@ -113,10 +113,10 @@ public class NoiseField extends PApplet {
     {
       beat.detect(audio.mix);
       if(beat.isOnset()) {
-        thickness += 3;
+        thickness += 2;
         strokeWeight((float)thickness);
       } else {
-        thickness -= .01;
+        thickness -= .05;
         if (thickness < 1.0) {
           thickness = 1.0;
         }
