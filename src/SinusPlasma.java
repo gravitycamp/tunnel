@@ -95,7 +95,6 @@ public class SinusPlasma extends PApplet {
         makeGradient(GRADIENTLEN);
       }
       //println(tunnel.getAudioAverage());
-      println(Math.ceil(random(2)));
             
     	loadPixels();
     	int i = 0;
