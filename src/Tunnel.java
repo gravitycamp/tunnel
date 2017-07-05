@@ -9,7 +9,7 @@ import ddf.minim.analysis.*;
 
 public class Tunnel extends PApplet implements AudioListener {
 
-    int scale      = 1;
+    int scale      = 5;
     int wallHeight = 32 * scale;
     int ceilHeight = 8 * 3 * scale;
     int width      = 150 * scale;
@@ -48,7 +48,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
             wallMirroring = true;
             PApplet s1 = loadSketch(mapping.get("Wall"), width, wallHeight, "Wall");
-            loadSketch(mapping.get("Ceil"), width, ceilHeight, "Ceil"); //<>//
+            loadSketch(mapping.get("Ceil"), width, ceilHeight, "Ceil");
             loadSketch(s1);
 
         } else if ((mapping.containsKey("RWall")) &&
@@ -120,7 +120,7 @@ public class Tunnel extends PApplet implements AudioListener {
         }
         
         dispose();
-        frame.setVisible(false);
+        surface.setVisible(false);
     }
 
     private PImage combineSketches() {
@@ -149,7 +149,7 @@ public class Tunnel extends PApplet implements AudioListener {
     private PApplet loadSketch(String sketchName, int width, int height, String position) {
         try {
             Class sketchClass = Class.forName(sketchName);
-            Constructor c  = sketchClass.getConstructor(Tunnel.class, Integer.TYPE, Integer.TYPE, String.class); //<>//
+            Constructor c  = sketchClass.getConstructor(Tunnel.class, Integer.TYPE, Integer.TYPE, String.class);
             PApplet sketch = (PApplet) c.newInstance(this, width, height, position);
             sketches.add(sketch);
             return sketch;
