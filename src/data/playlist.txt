@@ -1,3 +1,4 @@
+100,SinusWave
 100,PortraitPainter
 100,SparkChime
 100,ImageColorRepulsion
