@@ -1,3 +1,7 @@
+100,PortraitPainter
+100,SparkChime
+100,ImageColorRepulsion
+100,FidgetCubes
 100,CircleDistance
 100,Anemone
 100,WhiteRain,Circle
