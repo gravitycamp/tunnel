@@ -58,7 +58,7 @@ public class NoiseField extends PApplet {
            trackY = (float)height * Main.kinect.HandDistance;
            trackZ = 0; 
            break;
-         case "RWall":
+         case "RWall": 
            trackX = (float)width * Main.kinect.RightHandDepthRatio;
            trackY = (float)height * Main.kinect.RightHandRaisedRatio;
            trackZ = 0;
@@ -99,7 +99,7 @@ public class NoiseField extends PApplet {
 
     void update()
     {
-      velocity.x = (float)(20*(noise(trackX/10+position.y/100)-0.5));  //change to kinect //<>//
+      velocity.x = (float)(20*(noise(trackX/10+position.y/100)-0.5));  //change to kinect 
       velocity.y = (float)(20*(noise(trackY/10+position.x/100)-0.5));
       position.add(velocity);
 

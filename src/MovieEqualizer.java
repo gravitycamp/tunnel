@@ -65,26 +65,25 @@ class MovieEqualizer extends PApplet {
         public Visualizer() {
             hVal = 0;
             rectMode(CORNERS);
-            fade = get(0, 0, width, height); //<>//
-            rWidth = width * (float) 0.99; //<>//
+            fade = get(0, 0, width, height); 
+            rWidth = width * (float) 0.99;
             rHeight = height * (float) 0.99;
         }
- //<>//
-        void drawEQ() { //<>//
+
+        void drawEQ() { 
             //creates the values needed to make the 3D effect
-            background(0); //<>//
-            tint(255, 255, 255, 254); //<>//
-            image(fade, (width - rWidth) / 2, (height - rHeight) / 2, rWidth, rHeight); //<>//
-            noTint(); //<>//
- //<>//
-            // rainbow Effect parameters //<>//
-            smooth(); //<>// //<>//
-            colorMode(HSB);// sets color mode value //<>//
-            fill(hVal, 255, 255);//cycles through hue and brightness to expose a greater color palete //<>//
+            background(0); 
+            tint(255, 255, 255, 254); 
+            image(fade, (width - rWidth) / 2, (height - rHeight) / 2, rWidth, rHeight); 
+            noTint(); 
+            // rainbow Effect parameters 
+            smooth(); 
+            colorMode(HSB);// sets color mode value 
+            fill(hVal, 255, 255);//cycles through hue and brightness to expose a greater color palete 
             stroke(hVal, 255, 225);// sets the stroke to cycle through the whole color spectrum
-            colorMode(RGB);//sets color mode back to Red green and blue //<>//
+            colorMode(RGB);//sets color mode back to Red green and blue 
             //fill(EQColorR,EQColorG,EQColorB);
- //<>//
+
             //for loop for creating the audio bars
             w=width/fft.avgSize();
             strokeWeight(w);//the width of line will be equally spacing

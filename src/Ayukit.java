@@ -1,5 +1,3 @@
-/* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/70780*@* */ //<>// //<>// //<>//
-/* !do not delete the line above, required for linking your tweak if you upload again */
 import java.util.*;
 import java.lang.reflect.*;
 import java.awt.geom.*;
@@ -101,7 +99,7 @@ public class Ayukit extends PApplet {
         LeftWall= createGraphics(150*scale, 32*scale);
         RightWall= createGraphics(150*scale, 32*scale);
         Roof= createGraphics(150*scale, 24*scale);
-     //   StartTime = millis(); //<>//
+     //   StartTime = millis();
     }
 
 
