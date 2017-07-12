@@ -1,3 +1,5 @@
+100,AsemicMachine
+100,PhaseFlow
 100,SinusWave
 100,PortraitPainter
 100,SparkChime
