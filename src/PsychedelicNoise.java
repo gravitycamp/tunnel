@@ -16,6 +16,7 @@ class PsychedelicNoise extends PApplet {
   BeatDetect beat;
   PImage img;  // image used to draw the pattern
   int[] c;  // aray of colors
+  long seed = 0x0;
 
 
   public PsychedelicNoise(Tunnel t, int w, int h, String p) {
@@ -131,8 +132,9 @@ class PsychedelicNoise extends PApplet {
     }
   }
   public void mousePressed() { 
-    noiseSeed((long)random(0xFFFFFF));
-    //noiseSeed(undefined);  // edited to work on openProcessing beta
+    //noiseSeed((long)random(0xFFFFFF));
+    println(seed);
+    noiseSeed(seed++);  // edited to work on openProcessing beta
     redraw();
   }
 }
