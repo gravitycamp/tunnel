@@ -69,7 +69,7 @@ class SparkChime extends PApplet {
    * The distance in model coordinates from the viewer to where new sparks are
    * created.  Increasing this number will move the created sparks further away.
    */
-  float INTERACTION_DISTANCE = (float)(4 * FOCAL_LENGTH);
+  float INTERACTION_DISTANCE = (float)(3 * FOCAL_LENGTH);
 
   /*
    * A custom 3D canvas used to draw the world.
@@ -254,7 +254,7 @@ class SparkChime extends PApplet {
        */
       Vector3D velocity = current.diff(prior);
       velocity.shift(new Vector3D(random(-SPRAY_SPREAD, SPRAY_SPREAD), 0, random(-SPRAY_SPREAD, SPRAY_SPREAD) * velocity.x));
-      velocity.scale((float)(1.0 / averageElapsedMillis));
+      velocity.scale((float)(0.5 / averageElapsedMillis));
 
       /*
      * Set the spark's intital motion and queue up the next particle.

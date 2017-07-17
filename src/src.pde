@@ -16,7 +16,7 @@ Kinect kinect;
 void setup() {
   frameRate(60);
   noLoop();
-  
+
   // Init kinect
 //  kinect = new Kinect(new KinectPV2(this));
 }

@@ -95,7 +95,7 @@ class Agentes extends PApplet {
         theBalls[i].display();
       }
     }
-  }
+  }  
 
 
 

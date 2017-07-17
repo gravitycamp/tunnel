@@ -25,10 +25,11 @@ public class Blobs extends PApplet {
 
     public void setup() {
         colorMode(HSB, 100);
-        background(100);
+        background(0);
+        frameRate(25);
         smooth();
         noStroke();
-        noCursor();
+        //noCursor();
     }
 
 
@@ -44,7 +45,7 @@ public class Blobs extends PApplet {
             float x = random(0, width);
             float y = random(0, height);
 
-            float audioAverage = tunnel.getAudioAverage() * 5;
+            float audioAverage = 25+(5+tunnel.getAudioAverage()) * 4;
             ellipse(x, y, audioAverage, audioAverage);
 
             if (tunnel.getAudioAverage() > 10) {
