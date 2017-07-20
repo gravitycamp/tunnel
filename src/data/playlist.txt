@@ -1,3 +1,5 @@
+100,Flames,Circle
+100,Burn,Black, Burn
 100,BrokenSquares
 100,SparkChime,DotTransfer
 100,SparkChime,Circle
