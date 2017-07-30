@@ -86,7 +86,7 @@ class Agentes extends PApplet {
       //     if (beat.isOnset())
       //       generateColors();
       colorMode(RGB, 255, 255, 255);
-      fill(color(200, 200, 0), 20); 
+      fill(color(0, 0, 0), 20); 
       rect(0, 0, width, height);
       colorMode(HSB, 360, 100, 100);
 

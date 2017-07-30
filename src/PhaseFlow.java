@@ -158,7 +158,7 @@ class PhaseFlow extends PApplet {
     void setRandomValues ()
     {
       location = new PVector (random (width), random (height));
-      ellipseSize = 4; 
+      ellipseSize = 1; 
       colorMode(HSB);
       col=color((random(50, 80)+baseColor) % 255, random(100, 255), 255, 150);
     }

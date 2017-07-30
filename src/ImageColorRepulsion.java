@@ -109,7 +109,7 @@ class ImageColorRepulsion extends PApplet {
 
       if (displayLines)
       {
-        strokeWeight(1);
+        strokeWeight(6);
         stroke(0, 130);
       } else
       {
