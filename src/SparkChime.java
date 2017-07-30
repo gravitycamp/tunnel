@@ -18,7 +18,7 @@ class SparkChime extends PApplet {
    * The maximum number of particles to display at once.  Lowering this will
    * improve performance on slow systems.
    */
-  int PARTICLE_COUNT = 256;
+  int PARTICLE_COUNT = 100;
 
   /*
    * The number of events that must occur before a spark is emitted.  Increasing
@@ -134,10 +134,14 @@ class SparkChime extends PApplet {
   float ptrackX = 0;
   float ptrackY = 0;
   float trackZ = 0;
+  boolean IsTracking = false;
+  int X_Auto = 0;
+  int X_Auto_Incrament = 1;
 
   public void track() {
     if (Main.kinect != null) {
       Main.kinect.update();
+      IsTracking = Main.kinect.IsTracking;
       switch (position) {
       case "Tunnel":
       case "Wall":
@@ -179,9 +183,25 @@ class SparkChime extends PApplet {
       /*
      * Convert the prior and current mouse screen coordinates to model coordinates.
        */
-      Point3D prior = canvas.toModelCoordinates(ptrackX, ptrackY);
-      Point3D current = canvas.toModelCoordinates(trackX, trackY);
+      Point3D prior;
+      Point3D current;
+      if(IsTracking || (ptrackX != trackX))
+      {
+        prior = canvas.toModelCoordinates(ptrackX, ptrackY);
+        current = canvas.toModelCoordinates(trackX, trackY);
+      }
+      else
+      {
+        if(X_Auto == width)
+          X_Auto_Incrament = -1;
+        else if(X_Auto == 0)
+          X_Auto_Incrament = 1;
+        X_Auto+=X_Auto_Incrament;
 
+        prior = canvas.toModelCoordinates(X_Auto, 1);
+        current = canvas.toModelCoordinates(X_Auto, 1);
+      }
+  
       /*
      * The spark's initial velocity is the difference between the current and prior
        * points, randomized a bit to create a "spray" effect and scaled by the elapsed

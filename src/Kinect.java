@@ -30,6 +30,7 @@ public class Kinect
     public float HandDistance = 0;
     public boolean RightHandOpen = false;
     public boolean LeftHandOpen = false;
+    public boolean IsTracking;
 
     public Kinect(KinectPV2 k) {
       kinect = k;
@@ -47,7 +48,8 @@ public class Kinect
         RawDepth = kinect.getRawDepthData();
         for (int i = 0; i < skeletonArray.size(); i++) {
           KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
-          if (skeleton.isTracked()) {
+          IsTracking = skeleton.isTracked();
+          if (IsTracking) {
             joints = skeleton.getJoints();
             RightWrist = joints[KinectPV2.JointType_WristRight].getPosition();
             LeftWrist = joints[KinectPV2.JointType_WristLeft].getPosition();

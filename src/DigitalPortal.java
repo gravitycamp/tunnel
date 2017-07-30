@@ -17,14 +17,14 @@ class DigitalPortal extends PApplet {
   float rota;
   float dir;
 
-  float verm = 150;
-  float verms = 2;
+  float R= 100;
+  float Rs = 2;
 
-  float azul = 150;
-  float azuls = (float)0.5;
+  float B= 30;
+  float Bs = (float)0.5;
 
-  float verd = 150;
-  float verds = (float)1.5;
+  float G= 20;
+  float Gs = (float)1.5;
 
   public DigitalPortal(Tunnel t, int w, int h, String p) {
     width = w;
@@ -87,11 +87,10 @@ class DigitalPortal extends PApplet {
       //track();
       //     beat.detect(audio.mix);
       //    if (beat.isOnset())
-      //     generateColors();
       noStroke();
       noCursor();
       translate(width/2, height/2);
-      fill(verm, verd, azul);
+      fill(constrain(R,0,150), constrain(G,0,150), constrain(B,0,150));
 
       //for(int i=0;;){}
       pushMatrix();
@@ -116,32 +115,28 @@ class DigitalPortal extends PApplet {
           popMatrix();
         }
       }
-
-
       rota += 0.05;
-
-      verm += verms;
-      if (verm >= 255 || verm <= 0) {
-        verms = verms*-1;
+      R+= Rs;
+      if (R>= 255 || R<= 0) {
+        Rs = Rs*-1;
       }
-      if (verm <= 0) {
-        verms = random(1, 5);
+      if (R<= 0) {
+        Rs = random(1, 5);
       }
-
-      verd += verds;
-      if (verd >= 255 || verd <= 0) {
-        verds = verds*-1;
+      G+= Gs;
+      if (G>= 255 || G<= 0) {
+        Gs = Gs*-1;
       }
-      if (verd <= 0) {
-        verds = random(1, 5);
+      if (G<= 0) {
+        Gs = random(1, 5);
       }
 
-      azul += azuls;
-      if (azul >= 255 || azul <= 0) {
-        azuls = azuls*-1;
+      B+= Bs;
+      if (B>= 255 || B<= 0) {
+        Bs = Bs*-1;
       }
-      if (azul <= 0) {
-        azuls = random(1, 5);
+      if (B<= 0) {
+        Bs = random(1, 5);
       }
     }
   }

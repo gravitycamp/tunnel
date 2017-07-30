@@ -56,7 +56,7 @@ class PhaseFlow extends PApplet {
 
     particles = new ArrayList();
 
-    for (int i = 0; i < 1500; i++)
+    for (int i = 0; i <1000; i++)
     {
       Mover m = new Mover();
       particles.add (m);
@@ -109,7 +109,7 @@ class PhaseFlow extends PApplet {
       time=time+1;
       baseColor = baseColor+1;
       if (time>100) {
-        bgcolor=color(random(255), random(150, 255), random(155), 10);
+        bgcolor=color(random(2), random(2), random(2), 10);
         time=0;
         //direction=-direction;
       }

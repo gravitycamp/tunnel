@@ -1,20 +1,14 @@
-100,BrokenSquares
-100,Flames,Circle
-100,Burn,Black, Burn
+100,PhaseFlow,Circle
+100,DigitalPortal
+100,PsychedelicNoise
 100,SparkChime,DotTransfer
-100,SparkChime,Circle
-100,Blobs
 100,Agentes,Circle,Agentes
+100,Blobs
 100,InsideBubbles
 100,LetItFlow
-100,PsychedelicNoise
-100,DigitalPortal
 100,PsySquare
 100,AsemicMachine
-100,PhaseFlow
 100,SinusWave
-100,PortraitPainter
-100,ImageColorRepulsion
 100,CircleDistance
 100,Anemone
 100,WhiteRain,Circle
@@ -26,3 +20,6 @@
 100,NoiseField
 100,Perlin
 100,SinusPlasma
+100,BrokenSquares
+100,Flames,Circle
+100,Burn,Black,Burn

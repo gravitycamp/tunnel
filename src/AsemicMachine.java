@@ -88,7 +88,7 @@ class AsemicMachine extends PApplet {
       int tmp = millis();
       float dt = (float)((tmp-lastMillis)/1000.0);
       lastMillis = tmp;
-      background(220, 220, 190);
+      background(0, 0, 0);
 
       dt = min( dt, (float)(1/20.0));
 

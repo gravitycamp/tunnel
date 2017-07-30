@@ -38,7 +38,7 @@ class Agentes extends PApplet {
 
     theBalls = new Ball[numBalls];
     for (int i = 0; i < numBalls; ++i) {
-      float ballSize = constrain(20 + (noise(randomGaussian()) * 4), 1, 100);
+      float ballSize = constrain(20 + (noise(randomGaussian()) * 4), 1, 100)*14*(map(tunnel.getAudioAverage(), 0, 20, (float).5, (float).6))-140;
       theBalls[i] = new Ball(random(width-80)+40, random(height-80)+40, ballSize);
       theBalls[i].randomiseDirection();
     }
@@ -88,21 +88,24 @@ class Agentes extends PApplet {
       colorMode(RGB, 255, 255, 255);
       fill(color(0, 0, 0), 20); 
       rect(0, 0, width, height);
-      colorMode(HSB, 360, 100, 100);
-
+      colorMode(HSB, 100, 100, 100);
+      
       for (int i = 0; i < numBalls; ++i) {
+        //float ballSize = constrain(20 + (noise(randomGaussian()) * 4), 1, 100)*14*(map(tunnel.getAudioAverage(), 0, 20, (float).5, (float).6))-145;
+        float ballSize = (map(tunnel.getAudioAverage(), 0, 20, 5,30));
+     //   print("audio average ");
+     //   println(tunnel.getAudioAverage());
+     //   print("ball size ");
+    //    println(ballSize);
+        theBalls[i].size=ballSize;
         theBalls[i].move();
         theBalls[i].display();
       }
     }
   }  
 
-
-
   // Additional Classes
   class Ball {
-
-
     float x;       
     float y;        
     float size;     
@@ -124,9 +127,8 @@ class Agentes extends PApplet {
       omega = 0;
     }
 
-
     void randomiseDirection() {
-      speed = random(5);
+      speed = random(4,8);
       xdirection = random(360);
       ydirection = random(360);
       omega = randomGaussian() * (float)0.3;
@@ -142,8 +144,7 @@ class Agentes extends PApplet {
       ydirection += omega;
       checkBounds();
     }
-
-
+    
     void checkBounds() {
       if (x <= 0 + size*2 || x >= width - size*2) {
         xdirection += 180;
@@ -154,9 +155,6 @@ class Agentes extends PApplet {
         ydirection = ydirection % 360;
       }
     }
-
-
-
 
     void display() {
       noStroke();

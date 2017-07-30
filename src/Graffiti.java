@@ -1,4 +1,4 @@
- import processing.core.*;
+import processing.core.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
@@ -102,7 +102,8 @@ class Graffiti extends PApplet {
         ball[i].seek(new PVector(trackX, trackY));
         ball[i].render();
       }
-            ellipse(trackX,trackY,10,10);
+      float ballSize = (map(tunnel.getAudioAverage(), 0, 20, 5,15));
+      ellipse(trackX,trackY,ballSize,ballSize);
     }
   }
 

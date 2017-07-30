@@ -85,7 +85,6 @@ class Main {
     queueIndex = --queueIndex % queue.size();
     if(queueIndex<0)
       queueIndex = queue.size()-1;
-        System.out.print("quexe index is");
         System.out.println(queueIndex);
     try { 
       tunnel.kill();

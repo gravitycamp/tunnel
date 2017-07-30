@@ -14,12 +14,9 @@ class LetItFlow extends PApplet {
   AudioInput audio;
   Minim minim;
   BeatDetect beat;
-  int numParticles = 2500;
-
+  int numParticles = 1000;
   Particle[] particles = new Particle[numParticles];
-
   float mult = 150;
-
 
   public LetItFlow(Tunnel t, int w, int h, String p) {
     width = w;

@@ -15,8 +15,6 @@ class PsySquare extends PApplet {
   Minim minim;
   BeatDetect beat;
 
-
-
   public PsySquare(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
@@ -93,7 +91,7 @@ class PsySquare extends PApplet {
         }
         pushMatrix();
         rotate(radians(i*angle/200));
-        rect(0, 0, i, i);
+        rect(0, 0, i-120, i-120);
         popMatrix();
       }
     }
