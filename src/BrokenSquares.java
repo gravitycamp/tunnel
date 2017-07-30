@@ -15,7 +15,7 @@ class BrokenSquares extends PApplet {
   Minim minim;
   BeatDetect beat;
   int rotAngle = 0;
-  float offset = 80;
+  float offset = 0;
 
   public BrokenSquares(Tunnel t, int w, int h, String p) {
     width = w;
@@ -27,12 +27,17 @@ class BrokenSquares extends PApplet {
 
   public void settings()
   {
-    size(width, height);
+    int scale = 1;
+    size(width*scale, height*scale);
   }
 
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
+    frameRate(60);
+    int scale = 5;
+    //surface.setSize(width*scale, height*scale);
+
   }
 
   float trackX = 0;
@@ -76,7 +81,7 @@ class BrokenSquares extends PApplet {
       //   if (beat.isOnset())
       //     generateColors();
 
-      frameRate(20);
+    //  frameRate(offset+10);
       background(0);
       rotate(radians(10));
       starField(offset);
@@ -88,15 +93,15 @@ class BrokenSquares extends PApplet {
     }
   }
   void starField(float offSet) {
-    int w = (int)(width/30);
-    int l = (int)(height/30);
+    int w = (int)(width/40);
+    int l = (int)(height/40);
     
     for (int i=0; i<w; i++) {
       for (int j = 0; j<l; j++) {
         if ((i+j)%2==0) {
-          star1((float)(40*1.4*i-offSet),(float)( 40*1.4*j-offSet));
+          star1((float)(40*1.4*i-offSet),(float)( 40*1.4*j-offSet-l*6));
         } else {
-          star2((float)(40*1.4*i-offSet), (float)(40*1.4*j-offSet));
+          star2((float)(40*1.4*i-offSet), (float)(40*1.4*j-offSet-l*6));
         }
       }
     }
@@ -111,9 +116,9 @@ class BrokenSquares extends PApplet {
     pushMatrix();
     for (int k=0; k<4; k++) {
       if (k%2==0) {
-        fill(255, 0, 0);
+        fill(150, 0, 0);
       } else {
-        fill(0, 0, 255);
+        fill(0, 0, 150);
       }
       stroke(255);
       triangle(0, 0, -40, -30, 0, -30);
@@ -132,9 +137,9 @@ class BrokenSquares extends PApplet {
     pushMatrix();
     for (int k=0; k<4; k++) {
       if (k%2==1) {
-        fill(255, 0, 0);
+        fill(150, 0, 0);
       } else {
-        fill(0, 0, 255);
+        fill(0, 0, 150);
       }
       stroke(255);
       triangle(0, 0, -40, -30, 0, -30);
