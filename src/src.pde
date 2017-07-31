@@ -18,7 +18,7 @@ void setup() {
   noLoop();
 
   // Init kinect
-//  kinect = new Kinect(new KinectPV2(this));
+  kinect = new Kinect(new KinectPV2(this));
 }
 
 void draw() {

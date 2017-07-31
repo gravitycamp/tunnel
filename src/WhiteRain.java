@@ -26,7 +26,7 @@ public class WhiteRain extends PApplet {
     size(width, height);
   }
 
-  int rainNum = 30;
+  int rainNum = 180;
   ArrayList rain = new ArrayList();
   ArrayList splash = new ArrayList();
   float current;
@@ -36,6 +36,7 @@ public class WhiteRain extends PApplet {
   {
     colorMode(HSB, 100);
     background(0);
+    frameRate(90);
 
     rain.add(new Rain());
     current = millis();
@@ -50,7 +51,7 @@ public class WhiteRain extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":
@@ -82,15 +83,16 @@ public class WhiteRain extends PApplet {
         Rain rainT = (Rain) rain.get(i);
         rainT.calculate();
         rainT.draw();
-
-        if ((rainT.position.x>width*trackX*.9) && (rainT.position.x<width*trackX*1.1))
+        //println("position " + rainT.position.x);
+        //println("depth " + trackX);
+        if ((rainT.position.x>trackX*.9) && (rainT.position.x<trackX*1.1))
         {
-          if (rainT.position.y>height*trackY)
+          if (rainT.position.y>trackY)
           {
 
-            for (int k = 0; k<random(5, 10); k++)
+            for (int k = 0; k<random(5, 15); k++)
             {
-              splash.add(new Splash(rainT.position.x, (float)(height*trackX)));
+              splash.add(new Splash(rainT.position.x, (float)(trackY)));
             }
 
             rain.remove(i);
@@ -99,9 +101,8 @@ public class WhiteRain extends PApplet {
               rain.add(new Rain());
           }
         }
-        if (rainT.position.y>height)
+        if (rainT.position.y>(float).95*height)
         {
-
           for (int k = 0; k<random(5, 10); k++)
           {
             splash.add(new Splash(rainT.position.x, (float)(height)));
@@ -119,18 +120,18 @@ public class WhiteRain extends PApplet {
         Splash spl = (Splash) splash.get(i);
         spl.calculate();
         spl.draw();
-        //println("position " + spl.position.y);
-        //println("depth " + width*trackX);
-        if ((spl.position.x>height*trackX*.9) && (spl.position.x<height*trackX*1.1))
+        // println("position " + spl.position.y);
+        // println("depth " + width*trackX);
+        if ((spl.position.x>trackX*.9) && (spl.position.x<trackX*1.1))
         {
-          if (spl.position.y>height*trackY)
-            splash.remove(i);
-        } else if (spl.position.y>height)
+         // if (spl.position.y>0.9*trackY)
+        //    splash.remove(i);
+        } 
+        else if (spl.position.y>height)
           splash.remove(i);
       }
     }
   }
-
 
   void blur(float trans)
   {
@@ -181,7 +182,7 @@ public class WhiteRain extends PApplet {
     public Splash(float x, float y)
     {
       float angle = random(PI, TWO_PI);
-      float distance = random((float).8, 1);
+      float distance = random((float)1, (float)5.0);
       float xx = cos(angle)*distance;
       float yy = sin(angle)*distance;
       position = new PVector(x, y);
@@ -193,7 +194,7 @@ public class WhiteRain extends PApplet {
       strokeWeight(1);
       stroke(100, 50);
       fill(100, 100);
-      ellipse(position.x, position.y, 1, 1);
+      ellipse(position.x, position.y, 2, 2);
     }
 
     void calculate()

@@ -38,7 +38,7 @@ class CircleDistance extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     frameRate(50);
-
+    background(0);
     fill(0, 60);
     rMax = (float)min(width, height)/(float)2;
     dMin = (float)max(width, height)/(float)3.5;

@@ -40,7 +40,7 @@ class PhaseFlow extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     colorMode(HSB);
-    bgcolor=color(random(255), random(150, 255), random(155), 10);
+    bgcolor=color(random(5), random(5), random(5), 10);
 
     // set the background color
     background(bgcolor);
@@ -56,7 +56,7 @@ class PhaseFlow extends PApplet {
 
     particles = new ArrayList();
 
-    for (int i = 0; i <1000; i++)
+    for (int i = 0; i <300; i++)
     {
       Mover m = new Mover();
       particles.add (m);
@@ -124,7 +124,7 @@ class PhaseFlow extends PApplet {
         if (random(500)<2) {
           m.setRandomValues();
         }
-        m.move((float)0.01*direction);
+        m.move((float)0.03*direction);
         m.disp(); 
         i = i + 1;
       }
@@ -132,7 +132,7 @@ class PhaseFlow extends PApplet {
   }
 
   public void mouseClicked() {
-    bgcolor=color(random(255), random(150, 255), random(155), 10);
+    bgcolor=color(random(30), random(30), random(30), 10);
   }
 
 
@@ -160,7 +160,7 @@ class PhaseFlow extends PApplet {
       location = new PVector (random (width), random (height));
       ellipseSize = 1; 
       colorMode(HSB);
-      col=color((random(50, 80)+baseColor) % 255, random(100, 255), 255, 150);
+      col=color((random(150, 180)+baseColor) % 255, random(100, 255), 255, 250);
     }
     void setValues (float x, float y, int c)
     {

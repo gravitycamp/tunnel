@@ -40,7 +40,13 @@ class Graffiti extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    background(0);
+    if(!IsTracking)
+    {
+      trackX = width/2;
+      trackY = height/2;
+    }
+      
     // Additional Setup
     colorMode(HSB, 255);
     noStroke();
@@ -59,10 +65,13 @@ class Graffiti extends PApplet {
   float trackX = 0;
   float trackY = 0;
   float trackZ = 0;
+  boolean IsTracking = false;
 
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
+       IsTracking = Main.kinect.IsTracking;
+
        switch (position) {
          case "Tunnel":
          case "Wall":
@@ -79,8 +88,8 @@ class Graffiti extends PApplet {
            break;
        }
    } else {
-       trackX = mouseX;
-       trackY = mouseY;
+     //  trackX = mouseX;
+    //trackY = mouseY;
    }
   }
 
@@ -96,7 +105,14 @@ class Graffiti extends PApplet {
       if(clearBG){
         background(0);
       }
-
+      if(!IsTracking)
+      {
+        trackX += random(-5,5);
+        trackY += random(-5,5);
+       // println("tracking");
+     //   println(trackX);
+     //   println(trackY);
+      }
       rectMode(CENTER);
       for(int i=0; i<numBalls; i++) {
         ball[i].seek(new PVector(trackX, trackY));

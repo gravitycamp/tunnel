@@ -36,7 +36,7 @@ class PsychedelicNoise extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    background(0);
     // the dimensions of the image are twice the dimentions of
     // the canvas to add antialiasing when the image is reduced
     // noise detail is changed to make the pattern smooth
@@ -98,7 +98,7 @@ class PsychedelicNoise extends PApplet {
       image(img1, 0, 0, width, height);  // the image is reduce to the size of the canvas to make it smooth
       tint(255, counter+1);  // Apply transparency without changing color
       image(img2, 0, 0, width, height);  // the image is reduce to the size of 
-      counter++;
+      counter+=7;
       
       if (counter>=254)
       {

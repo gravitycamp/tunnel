@@ -34,7 +34,7 @@ class LetItFlow extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    background(0);
     frameRate(10000);
     smooth();
     colorMode(HSB);
@@ -51,7 +51,7 @@ class LetItFlow extends PApplet {
   float trackZ = 0;
 
   public void track() {
-    if (Main.kinect != null) {
+  if (Main.kinect != null) {
       Main.kinect.update();
       switch (position) {
       case "Tunnel":

@@ -34,9 +34,15 @@ class Bubbles extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    background(0);
     // Additional Setup
     smooth();
+    track();
+    if(!IsTracking)
+    {
+      trackX =width/2;
+      trackY =height/2;
+    }
     for (int i=0; i<num; i++) {
       sc[i]=new SpreadC(trackX, trackY, random(-1, 1), random(-1, 1), random(1, 30),
       random(255), random(255), random(255));
@@ -46,10 +52,13 @@ class Bubbles extends PApplet {
   float trackX = 0;
   float trackY = 0;
   float trackZ = 0;
+  boolean IsTracking= false;
 
   public void track() {
    if(Main.kinect != null) {
        Main.kinect.update();
+       IsTracking = Main.kinect.IsTracking;
+
        switch (position) {
          case "Tunnel":
          case "Wall":
@@ -109,6 +118,12 @@ class Bubbles extends PApplet {
       Y=Y+amY;
       es-=0.1;
       if (es<0) {
+        if(!IsTracking)
+        {
+          trackX = random(width/5,width*4/5);
+          trackY = random(height/5,height*4/5);
+        }
+
         X=trackX;
         Y=trackY;
         amX=random(-1, 1);

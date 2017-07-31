@@ -16,8 +16,8 @@ class Anemone extends PApplet {
   BeatDetect beat;
   boolean clearBG, doSmooth;
 
-  final int NB_CILIUM = 12;
-  final float CELL_RAD = 13;
+  final int NB_CILIUM = 10;
+  final float CELL_RAD = 11;
   Cilium[] tabCilium = new Cilium[NB_CILIUM];
   float R, G, B, Rspeed, Gspeed, Bspeed, mouseSpeed;
   ArrayList<Part> freeParts = new ArrayList<Part>();
@@ -39,6 +39,8 @@ class Anemone extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
+    background(0, 0, 0);
+
 
     noCursor();
     generateColors();
@@ -63,7 +65,7 @@ class Anemone extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":
@@ -116,9 +118,9 @@ class Anemone extends PApplet {
     }
   }
   void generateColors() {
-    R = random(255);
-    G = random(255);
-    B = random(255);
+    R = random(150,255);
+    G = random(150,255);
+    B = random(150,255);
     Rspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
     Gspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
     Bspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
@@ -214,7 +216,7 @@ class Anemone extends PApplet {
         noStroke();
       } else {
         int c = colors[p_rank], dc = 42;
-        stroke(red(c)-dc, green(c)-dc, blue(c)-dc, map(p_rank, 0, NB_POINTS - 1, 120, 250));
+        stroke(red(c)-dc, green(c)-dc, blue(c)-dc, map(p_rank, 0, NB_POINTS - 1, 150, 250));
       }
       if (p_rank == 0) {
         colors[p_rank] = color(constrain(R, 0, 255), constrain(G, 0, 255), constrain(B, 0, 255));
@@ -262,7 +264,7 @@ class Anemone extends PApplet {
       if (down) {
         pushStyle();
         stroke(200, map(maxY, (float).75, (float)1, (float)5, (float)30));
-        noFill();
+        noFill();  
         diam1 = map(age, downAge, lifetime, 2, 22);   
         float diam2 = map(age, downAge, lifetime, 0, 5);   
         ellipse(pos.x, pos.y, diam1, diam2);

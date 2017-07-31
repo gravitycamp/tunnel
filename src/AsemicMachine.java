@@ -37,7 +37,7 @@ class AsemicMachine extends PApplet {
     beat = new BeatDetect();
 
     smooth();
-    background(220, 220, 190);
+    background(0, 0, 0);
  //  Hand( float xi, float yi, float vxi, float vyi, float sxi, float syi, Pen peni, int a1, int a2, int a3, int a4 )
     h = new Hand((float)50, (float)(1*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(0, 0, 100)), 7, 3, -2, 19);
     f = new Hand((float)50, (float)(3*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(100, 0, 0)), -3, 5, -7, 23);
@@ -88,7 +88,7 @@ class AsemicMachine extends PApplet {
       int tmp = millis();
       float dt = (float)((tmp-lastMillis)/1000.0);
       lastMillis = tmp;
-      background(0, 0, 0);
+    background(0, 0, 0);
 
       dt = min( dt, (float)(1/20.0));
 

@@ -31,7 +31,7 @@ class Main {
 
   public static void main(String... args) {
 
-    // wire.SetupCom();
+    wire.SetupCom();
     loadPlaylist();
 
     //  tunnel.exec("C:/TunnelGit2/src/Restart.bat");      

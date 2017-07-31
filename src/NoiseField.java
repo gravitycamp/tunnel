@@ -32,7 +32,7 @@ public class NoiseField extends PApplet {
       size(width, height);
   }
 
-  int NUM_PARTICLES = 10;
+  int NUM_PARTICLES = 100;
   ParticleSystem p;
   public void setup()
   {
@@ -77,7 +77,7 @@ public class NoiseField extends PApplet {
 
   public void draw(){
     synchronized (Tunnel.class) {
-      track();
+    //  track();
       //println(frameCount);
       noStroke();
       fill(0,5);

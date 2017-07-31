@@ -91,7 +91,7 @@ class PsySquare extends PApplet {
         }
         pushMatrix();
         rotate(radians(i*angle/200));
-        rect(0, 0, i-120, i-120);
+        rect(0, 0, i*(float).9, i*(float).9);
         popMatrix();
       }
     }

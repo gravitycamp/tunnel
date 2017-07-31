@@ -35,6 +35,7 @@ class SinusWave extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
+    background(0);
 
     strokeWeight(3);
     initialize();
