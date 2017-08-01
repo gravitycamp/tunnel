@@ -33,6 +33,7 @@ class Flames extends PApplet {
   public void setup() {
     background(0);
     blendMode(ADD);
+    frameRate(70);
     stroke(200, 100, 50, 10);
     noFill();
   }

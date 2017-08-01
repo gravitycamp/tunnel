@@ -41,6 +41,7 @@ class Graffiti extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     background(0);
+    frameRate(70);
     if(!IsTracking)
     {
       trackX = width/2;
@@ -78,7 +79,7 @@ class Graffiti extends PApplet {
          case "Ceil":
          case "RWall":
            trackX = (float)width * Main.kinect.RightHandDepthRatio;
-           trackY = (float)height * Main.kinect.RightHandSideRatio;
+           trackY = (float)height * Main.kinect.RightHandRaisedRatio;
            trackZ = 0;
            break;
          case "LWall":

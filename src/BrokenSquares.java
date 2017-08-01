@@ -55,7 +55,7 @@ class BrokenSquares extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":

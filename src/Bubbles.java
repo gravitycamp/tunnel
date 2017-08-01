@@ -34,6 +34,7 @@ class Bubbles extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
+    frameRate(70);
     background(0);
     // Additional Setup
     smooth();

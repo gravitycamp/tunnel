@@ -1,3 +1,6 @@
+1000,SinusPlasma
+1000,SinusPlasmaColorOnly
+100,IsoLinesFull
 100,WhiteRain,Circle
 100,Graffiti
 100,LetItFlow
@@ -18,9 +21,7 @@
 100,CircleDistance
 100,Bubbles
 100,Field
-100,IsoLinesFull
 100,Life
 100,NoiseField
 100,Perlin,Circle
-100,SinusPlasma
 100,PsychedelicNoise

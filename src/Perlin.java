@@ -39,6 +39,7 @@ public class Perlin extends PApplet {
         beat = new BeatDetect();
         background(0);
         rectMode(CORNERS);
+        frameRate(70);
         noFill();
         smooth();
         particleSystem = new ParticleSystem(5);

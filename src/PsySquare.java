@@ -31,7 +31,7 @@ class PsySquare extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    frameRate(70);
     noFill();
     stroke(0, 255, 150);
     rectMode(CENTER);
@@ -52,7 +52,7 @@ class PsySquare extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":
@@ -91,7 +91,7 @@ class PsySquare extends PApplet {
         }
         pushMatrix();
         rotate(radians(i*angle/200));
-        rect(0, 0, i*(float).9, i*(float).9);
+        rect(0, 0, i*(float)1.0, i*(float)1.0);
         popMatrix();
       }
     }

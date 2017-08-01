@@ -8,60 +8,61 @@ class IsoLinesFull extends PApplet {
 
   int width;
   int height;
-    String position = "Tunnel";
+  String position = "Tunnel";
   Tunnel tunnel;
-  
+
   public IsoLinesFull(Tunnel t, int w, int h, String p) {
-      width = w;
-      height = h;
-      tunnel = t;
-        position = p;
+    width = w;
+    height = h;
+    tunnel = t;
+    position = p;
   }
 
   public void settings()
   {
-      size(width, height);
+    size(width, height);
   }
-
 
   public void setup()
   {
     values = new int[width * height];
     background(0);
+    frameRate(70);
     noiseDetail(6, (float).5);
   }
-   
-  public void draw(){
+
+  public void draw() {
     synchronized (Tunnel.class) {
-    float offset = frameCount * (float).005;
-    
-    // first pass: compute values
-    for(int y = 0; y < height; y++) {
-      for(int x = 0; x < width; x++) {
-        int i = y * width + x;
-        values[i] = (int) (levels * noise(
-          x * noiseScale,
-          y * noiseScale,
-          offset));
+      float offset = frameCount * (float).005;
+      // first pass: compute values
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+          int i = y * width + x;
+          values[i] = (int) (levels * noise(
+            x * noiseScale, 
+            y * noiseScale, 
+            offset));
+        }
       }
-    }
     }
     // second pass: check neighborhood
     loadPixels();
     int c = color(random(255), random(255), random(255), random(255));
-    for(int y = 1; y < height; y++) {
-  
-      for(int x = 1; x < width; x++) {
+    for (int y = 1; y < height; y++) {
+      for (int x = 1; x < width-3; x+=1) {  //reducing width array for adding thickness
         int i = y * width + x;
         int center = values[i];
-        if(
-          center != values[i - 1] ||
-          center != values[i - width])
+        if (center != values[i - 1] || center != values[i - width])
+        {
           pixels[i] = c;
+          pixels[i+1] = c;  //adding thickness
+          pixels[i+2] = c;
+          pixels[i+3] = c;
+        }
       }
     }
     updatePixels();
-    
+
     fill(0, 5);
     rect(0, 0, width, height);
   }

@@ -35,7 +35,7 @@ class AsemicMachine extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    frameRate(70);
     smooth();
     background(0, 0, 0);
  //  Hand( float xi, float yi, float vxi, float vyi, float sxi, float syi, Pen peni, int a1, int a2, int a3, int a4 )
@@ -59,7 +59,7 @@ class AsemicMachine extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":

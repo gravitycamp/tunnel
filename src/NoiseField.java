@@ -40,6 +40,7 @@ public class NoiseField extends PApplet {
     beat = new BeatDetect();
     smooth();
     background(0);
+    frameRate(70);
     p = new ParticleSystem();
   }
 

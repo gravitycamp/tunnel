@@ -45,7 +45,7 @@ class RainbowPlasma extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    frameRate(70);
     maxSize = (int)(pow(2, tsize) + 1);
     featuresize = (int)(maxSize / 2);
     plasma = new int[maxSize][maxSize];
@@ -103,7 +103,7 @@ class RainbowPlasma extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":

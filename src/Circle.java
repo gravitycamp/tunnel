@@ -21,7 +21,7 @@ public class Circle extends PApplet {
     
     public void setup() {
         stroke(0, 150, 255, 100);
-    //    frameRate(45);
+        frameRate(45);
     }
 
 

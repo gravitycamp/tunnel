@@ -40,6 +40,7 @@ class Anemone extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     background(0, 0, 0);
+    frameRate(70);
 
 
     noCursor();
@@ -74,7 +75,7 @@ class Anemone extends PApplet {
         trackZ = 0;
         break;
       }
-      ptrackX = trackX;
+      ptrackX = trackX;  
       ptrackY = trackY;
     } else {
       ptrackX = pmouseX;

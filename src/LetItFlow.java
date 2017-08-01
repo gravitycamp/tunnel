@@ -35,7 +35,7 @@ class LetItFlow extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     background(0);
-    frameRate(10000);
+    frameRate(70);
     smooth();
     colorMode(HSB);
     for (int i = 0; i < particles.length; i++) {
@@ -59,7 +59,7 @@ class LetItFlow extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":

@@ -34,7 +34,7 @@ class DotTransfer extends PApplet {
   public void setup() {
     minim = new Minim(this);
     beat = new BeatDetect();
-
+    frameRate(70);
     noStroke();
     fill(0, 255, 150);
   }
@@ -54,7 +54,7 @@ class DotTransfer extends PApplet {
       case "Ceil":
       case "RWall":
         trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandSideRatio;
+        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
         trackZ = 0;
         break;
       case "LWall":

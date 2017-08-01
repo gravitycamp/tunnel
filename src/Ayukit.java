@@ -72,6 +72,7 @@ public class Ayukit extends PApplet {
     }
 
     public void setup() {
+        frameRate(70);
         Ayukit = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");
         Ayukit.resize(5,5);
         AyukitKen = loadImage("C:/TunnelGit2/src/data/Aukit_BK.jpg");

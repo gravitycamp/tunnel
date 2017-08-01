@@ -61,22 +61,15 @@ public class Tunnel extends PApplet implements AudioListener {
     }
   }
 
-
   public void settings() {
     size(width, height);
   }
 
-
   public void setup() {
-
-    //  frameRate(60);
-
-
     // Run sketches
     //
     for (int i = 0; i < sketches.size(); i++) {
       // skip the initialization of the last sketch if wallMirroring is used
-      //
       if (!(wallMirroring == true && i == 2)) {
         Class c = sketches.get(i).getClass();
         String[] args = {c.getName()};
@@ -86,9 +79,9 @@ public class Tunnel extends PApplet implements AudioListener {
   }
 
   public void keyPressed() {
-    if ((keyCode==DOWN))
+    if ((keyCode==DOWN) || (keyCode==34))  //pg_down for clicker
       Main.loadNextInQueue();
-    if ((keyCode==UP))
+    if ((keyCode==UP) || (keyCode==33))  //pg_up for clicker
       Main.loadPreviusInQueue();
   }
   public void draw() {
@@ -187,7 +180,6 @@ public class Tunnel extends PApplet implements AudioListener {
     AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
     return new PImage(op.filter(img, null));
   }
-
 
   // feed FFT when samples are available
 

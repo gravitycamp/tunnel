@@ -12,13 +12,13 @@ import KinectPV2.KJoint;
 import KinectPV2.*;
 
 Kinect kinect;
-
+  
 void setup() {
   frameRate(60);
   noLoop();
 
   // Init kinect
-  kinect = new Kinect(new KinectPV2(this));
+  //kinect = new Kinect(new KinectPV2(this));
 }
 
 void draw() {
