@@ -1,7 +1,6 @@
 import processing.core.*;
 
 public class Circle extends PApplet {
-
     float amount = 20, num;
     int   width;
     int height;
@@ -24,21 +23,19 @@ public class Circle extends PApplet {
         frameRate(45);
     }
 
-
     public void draw() {
         synchronized(Tunnel.class) {
 
             fill(0, 40);
             rect(-1, -1, width + 1, height + 1);
 
-            float maxX = map(tunnel.getAudioAverage(), 0, width, 1, 250);
+            float maxX = map(tunnel.getAudioAverage(), 0, 90, 1, height);
             //println(maxX);
 
             translate(width / 2, height / 2);
             for (int i = 0; i < 360; i += amount) {
                 float x = sin(radians(i + num)) * maxX;
                 float y = cos(radians(i + num)) * maxX;
-
                 float x2 = sin(radians(i + amount - num)) * maxX;
                 float y2 = cos(radians(i + amount - num)) * maxX;
                 noFill();
@@ -48,7 +45,6 @@ public class Circle extends PApplet {
                 ellipse(x, y, 5, 5);
                 ellipse(x2, y2, 5, 5);
             }
-
             num += 0.5;
         }
     }

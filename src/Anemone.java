@@ -17,7 +17,7 @@ class Anemone extends PApplet {
   boolean clearBG, doSmooth;
 
   final int NB_CILIUM = 10;
-  final float CELL_RAD = 11;
+  final float CELL_RAD = 8;
   Cilium[] tabCilium = new Cilium[NB_CILIUM];
   float R, G, B, Rspeed, Gspeed, Bspeed, mouseSpeed;
   ArrayList<Part> freeParts = new ArrayList<Part>();

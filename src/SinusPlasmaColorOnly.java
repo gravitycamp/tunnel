@@ -131,7 +131,7 @@ public class SinusPlasmaColorOnly extends PApplet {
     int factor1=1;
     int factor2=1;
     int factor3=1;
-    //cool factors 111 261 151 411
+    //cool factors 111 261 151 411 313
 
     if (swingCurve == null) {
       swingCurve = new int[SWINGLEN];

@@ -1,3 +1,4 @@
+1000,PatternsTimer
 1000,SinusPlasma
 1000,SinusPlasmaColorOnly
 100,IsoLinesFull
@@ -9,14 +10,13 @@
 100,PhaseFlow,Circle
 100,AsemicMachine
 100,BrokenSquares
-100,Flames,Circle
-100,Burn,Black, Burn
+100,Flames,Black
+100,Burn,Black,Burn
 100,SparkChime,DotTransfer
 100,Agentes,Circle,Agentes
 100,InsideBubbles
 100,DigitalPortal
 100,PsySquare
-100,AsemicMachine
 100,SinusWave
 100,CircleDistance
 100,Bubbles
@@ -24,4 +24,4 @@
 100,Life
 100,NoiseField
 100,Perlin,Circle
-100,PsychedelicNoise
+100,InstaAcid

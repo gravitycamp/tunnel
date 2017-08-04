@@ -11,7 +11,6 @@ class BrokenSquares extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
   Minim minim;
   BeatDetect beat;
   int rotAngle = 0;
@@ -22,7 +21,6 @@ class BrokenSquares extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
