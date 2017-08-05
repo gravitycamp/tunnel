@@ -123,18 +123,18 @@ public class PatternsTimer extends PApplet {
         {
           FlyingBalls(LeftWall);  
           FlyingBalls(RightWall);  
-          SmoothRGB(); //<>//
+          SmoothRGB();
           Roof.background(R, G, B);
         } else if (millis()-StartTime < 40*1000)
         {
           LightControl(LeftWall, RightWall);  
-          SmoothRGB(); //<>//
+          SmoothRGB();
           Roof.background(R, G, B);
         } else
         { 
           Equilizer(LeftWall);  
           Equilizer(RightWall);
-          SmoothRGB(); //<>//
+          SmoothRGB();
           Roof.background(R, G, B);
           Roof.stroke(MaxBrightness-R,MaxBrightness-G,MaxBrightness-B);
           strokeWeight(20*scale);

@@ -3,7 +3,7 @@ import java.util.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
-class PsychedelicNoise extends PApplet {
+class InstaAcid extends PApplet {
 
   int width;
   int height;
@@ -20,7 +20,7 @@ class PsychedelicNoise extends PApplet {
   int[] c;  // aray of colors
   long seed = 0x0;
 
-  public PsychedelicNoise(Tunnel t, int w, int h, String p) {
+  public InstaAcid(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
     tunnel = t;

@@ -1,9 +1,9 @@
+100,Graffiti
 1000,PatternsTimer
 1000,SinusPlasma
 1000,SinusPlasmaColorOnly
 100,IsoLinesFull
 100,WhiteRain,Circle
-100,Graffiti
 100,LetItFlow
 100,Blobs
 100,Anemone,Circle,Anemone

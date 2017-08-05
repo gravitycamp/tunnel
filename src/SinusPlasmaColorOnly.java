@@ -169,7 +169,7 @@ public class SinusPlasmaColorOnly extends PApplet {
 
     if (colorGrad == null) {
       // first call
-      colorGrad = new int[GRADIENTLEN]; //<>//
+      colorGrad = new int[GRADIENTLEN];
     } else {
       // we are called again: random gradient
       rf = (int) random(1, 5);

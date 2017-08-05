@@ -83,6 +83,10 @@ public class Tunnel extends PApplet implements AudioListener {
       Main.loadNextInQueue();
     if ((keyCode==UP) || (keyCode==33))  //pg_up for clicker
       Main.loadPreviusInQueue();
+    if (keyCode==LEFT)      
+      Main.loadPreviousPlaylist();
+    if (keyCode==RIGHT)  
+      Main.loadNextPlaylist();
   }
   public void draw() {
     try {
