@@ -9,7 +9,7 @@ import ddf.minim.analysis.*;
 
 public class Tunnel extends PApplet implements AudioListener {
 
-  int scale      = 5;
+  int scale      = 1;
   int wallHeight = 32 * scale;
   int ceilHeight = 8 * 3 * scale;
   int width      = 150 * scale;
@@ -39,6 +39,11 @@ public class Tunnel extends PApplet implements AudioListener {
 
     // init Sketches
     //
+    
+     if (mapping.containsKey("Scale")) {
+        this.updateScale(Integer.parseInt(mapping.get("Scale")));
+     }
+    
     if (mapping.containsKey("Tunnel")) {
 
       loadSketch(mapping.get("Tunnel"), width, height, "Tunnel");
@@ -59,6 +64,14 @@ public class Tunnel extends PApplet implements AudioListener {
     } else { 
       exitInvalid();
     }
+  }
+  
+  public void updateScale(int scale) {
+    this.scale      = scale;
+    this.wallHeight = 32 * scale;
+    this.ceilHeight = 8 * 3 * scale;
+    this.width      = 150 * scale;
+    this.height     = wallHeight + ceilHeight + wallHeight;
   }
 
   public void settings() {

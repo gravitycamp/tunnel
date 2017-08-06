@@ -134,16 +134,17 @@ class Main {
         HashMap<String, String> mapping = new HashMap();
 
         String[] sketches = ((String) line).split(",");
-        mapping.put("Time", sketches[0].trim());
-        if (sketches.length == 2) {
-          mapping.put("Tunnel", sketches[1].trim());
-        } else if (sketches.length == 3) {
-          mapping.put("Wall", sketches[1].trim());
-          mapping.put("Ceil", sketches[2].trim());
+        mapping.put("Scale", sketches[0].trim());
+        mapping.put("Time", sketches[1].trim());
+        if (sketches.length == 3) {
+          mapping.put("Tunnel", sketches[2].trim());
+        } else if (sketches.length == 4) {
+          mapping.put("Wall", sketches[2].trim());
+          mapping.put("Ceil", sketches[3].trim());
         } else {
-          mapping.put("LWall", sketches[1].trim());
-          mapping.put("Ceil", sketches[2].trim());
-          mapping.put("RWall", sketches[3].trim());
+          mapping.put("LWall", sketches[2].trim());
+          mapping.put("Ceil", sketches[3].trim());
+          mapping.put("RWall", sketches[4].trim());
         }
         queue.add(mapping);
       }
