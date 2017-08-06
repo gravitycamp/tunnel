@@ -27,8 +27,14 @@ class Burn extends PApplet {
   static final int NbCols_Tunnel = 15;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
 
+  float x = 0;
+  float y = 0;
+
   int frameCounter = 0;
   int currentPixelIdx = 0;
+
+  static final int CeilBurnTick = 50;
+  static final int DeadPixelTick = 100;
 
   public Burn (Tunnel t, int w, int h, String p) {
     tunnel = t;
@@ -62,68 +68,105 @@ class Burn extends PApplet {
 
   public void setup () {
     smooth();
+    background(0);
     frameRate(20);
-    // Create the flames collection
-    for (int i = 0; i < NbFlames; i++) {
-      Flame flame = new Flame(NbFumesPerFlame);
-      flames.add(flame);
+    switch (position) {
+      case "Ceil":
+        blendMode(ADD);
+        stroke(200, 100, 50, 10);
+        noFill();
+        break;
+      case "Wall":
+      case "LWall":
+      case "RWall":
+      case "Tunnel":
+      default:
+        // Create the flames collection
+        for (int i = 0; i < NbFlames; i++) {
+          Flame flame = new Flame(NbFumesPerFlame);
+          flames.add(flame);
+        }
+        // Create the pixels collection
+        beat = new BeatDetect();
+        int pWidth = width/NbCols;
+        int pHeight = height/NbRows;
+        for (int i = 0; i < NbCols; i++) {
+          for (int j = 0; j < NbRows; j++) {
+            Pixel pixel = new Pixel(
+                i*pWidth + pWidth/2,
+                j*pHeight + pHeight/2,
+                pWidth-1, pHeight-1);
+            pixels.add(pixel);
+          }
+        }
+        Collections.shuffle(pixels);
     }
-    // Create the pixels collection
-    beat = new BeatDetect();
-    int pWidth = width/NbCols;
-    int pHeight = height/NbRows;
-    for (int i = 0; i < NbCols; i++) {
-      for (int j = 0; j < NbRows; j++) {
-        Pixel pixel = new Pixel(
-            i*pWidth + pWidth/2,
-            j*pHeight + pHeight/2,
-            pWidth-1, pHeight-1);
-        pixels.add(pixel);
-      }
-    }
-    Collections.shuffle(pixels);
   }
 
   public void draw() {
     synchronized (Tunnel.class) {
-      background(0);
       frameCounter++;
-      // Process flames on walls
-      for (int i = 0; i < NbFlames; i++) {
-        flames.get(i).update();
-      }
-      //filter(BLUR, 2);
-      // counter++;
-      // if (counter == maxCounter)
-      // {
-      //   counter = 0;
-      //   numFlames++;
-      //   if (numFlames == FinalnumFlames)
-      //     numFlames--;
-      //   frameRate(++rate);
-      //   if (rate == finalFrameRate)
-      //     rate--;
-      // }
-      // Process flames on ceil
-      // for (int j=0; j<100; j++) {
-      //   y=x/100;
-      //   beginShape();
-      //   for (int i=0; i<width; i++) {
-      //     vertex(i, y);
-      //     y=y+(float)((noise(y/100, i/100)-0.5)*4);
-      //   }
-      //   endShape();
-      //   x=x+1;
-      // }
-      // Process pixels
-      beat.detect(audio.mix);
-      boolean flag = beat.isOnset() ? false : true;
-      for (int i = 0; i < NbPixels; i++) {
-        if (currentPixelIdx < NbPixels && flag == false) {
-          pixels.get(currentPixelIdx++).markToDie();
-          flag = true; // One pixel marked as dead for current frame
-        }
-        pixels.get(i).update();
+      switch (position) {
+        case "Ceil":
+          if (frameCounter > CeilBurnTick) {
+            for (int j = 0; j < 100; j++) {
+              y = x/100;
+              beginShape();
+              for (int i = 0; i < width; i++) {
+                vertex(i, y);
+                y = y + (float)((noise(y/100, i/100)-0.5)*4);
+              }
+              endShape();
+              x++;
+            }
+          }
+          break;
+        case "Wall":
+        case "LWall":
+        case "RWall":
+        case "Tunnel":
+        default:
+          background(0);
+          // Process flames
+          for (int i = 0; i < NbFlames; i++) {
+            flames.get(i).update();
+          }
+          //filter(BLUR, 2);
+          // counter++;
+          // if (counter == maxCounter)
+          // {
+          //   counter = 0;
+          //   numFlames++;
+          //   if (numFlames == FinalnumFlames)
+          //     numFlames--;
+          //   frameRate(++rate);
+          //   if (rate == finalFrameRate)
+          //     rate--;
+          // }
+          // Process flames on ceil
+          // for (int j=0; j<100; j++) {
+          //   y=x/100;
+          //   beginShape();
+          //   for (int i=0; i<width; i++) {
+          //     vertex(i, y);
+          //     y=y+(float)((noise(y/100, i/100)-0.5)*4);
+          //   }
+          //   endShape();
+          //   x=x+1;
+          // }
+          // Process pixels
+          boolean flag = true;
+          if (frameCounter > DeadPixelTick) {
+            beat.detect(audio.mix);
+            flag = beat.isOnset() ? false : true;
+          }
+          for (int i = 0; i < NbPixels; i++) {
+            if (currentPixelIdx < NbPixels && flag == false) {
+              pixels.get(currentPixelIdx++).markToDie();
+              flag = true; // One pixel marked as dead for current frame
+            }
+            pixels.get(i).update();
+          }
       }
     }
   }
