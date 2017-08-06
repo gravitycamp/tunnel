@@ -1,21 +1,30 @@
-import java.util.*;
 import processing.core.*;
+import java.util.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
 
 
 class Burn extends PApplet {
 
   Tunnel tunnel;
+  String position;
   int width;
   int height;
-  String position = "Tunnel";
+
+  AudioInput audio;
+  BeatDetect beat;
 
   static final int NbFlames = 50;
   static final int NbFumesPerFlame = 40;
   ArrayList <Flame> flames = new ArrayList<Flame>();
 
-  static final int NbRows = 11;
-  static final int NbColumns = 15;
-  static final int NbPixels = NbRows*NbColumns;
+  static int NbRows;
+  static int NbCols;
+  static int NbPixels;
+  static final int NbRows_Ceil = 3;
+  static final int NbRows_Wall = 4;
+  static final int NbRows_Tunnel = 11;
+  static final int NbCols_Tunnel = 15;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
 
   int frameCounter = 0;
@@ -26,9 +35,25 @@ class Burn extends PApplet {
     width = w;
     height = h;
     position = p;
-    System.out.println("Width    : " + h);
-    System.out.println("Height   : " + w);
-    System.out.println("Position : " + p);
+    audio = tunnel.in;
+    System.out.println(position + " : " + width + " x " + height);
+    switch (position) {
+      case "Wall":
+      case "LWall":
+      case "RWall":
+        NbRows = NbRows_Wall;
+        NbCols = NbCols_Tunnel;
+        break;
+      case "Ceil":
+        NbRows = NbRows_Ceil;
+        NbCols = NbCols_Tunnel;
+        break;
+      case "Tunnel":
+      default:
+        NbRows = NbRows_Tunnel;
+        NbCols = NbCols_Tunnel;
+    }
+    NbPixels = NbRows*NbCols;
   }
 
   public void settings () {
@@ -36,7 +61,6 @@ class Burn extends PApplet {
   }
 
   public void setup () {
-    //background(0);
     smooth();
     frameRate(20);
     // Create the flames collection
@@ -45,14 +69,15 @@ class Burn extends PApplet {
       flames.add(flame);
     }
     // Create the pixels collection
-    int pWidth = width/NbColumns;
+    beat = new BeatDetect();
+    int pWidth = width/NbCols;
     int pHeight = height/NbRows;
-    for (int i = 0; i < NbColumns; i++) {
+    for (int i = 0; i < NbCols; i++) {
       for (int j = 0; j < NbRows; j++) {
         Pixel pixel = new Pixel(
             i*pWidth + pWidth/2,
             j*pHeight + pHeight/2,
-            pWidth, pHeight);
+            pWidth-1, pHeight-1);
         pixels.add(pixel);
       }
     }
@@ -63,10 +88,11 @@ class Burn extends PApplet {
     synchronized (Tunnel.class) {
       background(0);
       frameCounter++;
-      // Process flames
+      // Process flames on walls
       for (int i = 0; i < NbFlames; i++) {
         flames.get(i).update();
       }
+      //filter(BLUR, 2);
       // counter++;
       // if (counter == maxCounter)
       // {
@@ -78,10 +104,22 @@ class Burn extends PApplet {
       //   if (rate == finalFrameRate)
       //     rate--;
       // }
+      // Process flames on ceil
+      // for (int j=0; j<100; j++) {
+      //   y=x/100;
+      //   beginShape();
+      //   for (int i=0; i<width; i++) {
+      //     vertex(i, y);
+      //     y=y+(float)((noise(y/100, i/100)-0.5)*4);
+      //   }
+      //   endShape();
+      //   x=x+1;
+      // }
       // Process pixels
-      boolean flag = false;
+      beat.detect(audio.mix);
+      boolean flag = beat.isOnset() ? false : true;
       for (int i = 0; i < NbPixels; i++) {
-        if (frameCounter%10 == 0 && currentPixelIdx < NbPixels && flag == false) {
+        if (currentPixelIdx < NbPixels && flag == false) {
           pixels.get(currentPixelIdx++).markToDie();
           flag = true; // One pixel marked as dead for current frame
         }
@@ -111,15 +149,15 @@ class Burn extends PApplet {
       for (int i = 0; i < fumes-1; i++) {
         xcFumes[i] = xcFumes[i+1];
         ycFumes[i] = ycFumes[i+1];
-        ycFumes[i] -= 5;
         xcFumes[i] += random(-10, 10);
+        ycFumes[i] -= 5;
       }
       xcFumes[fumes-1] = (int)random(width);
-      ycFumes[fumes-1] = height-(int)random(height/2);
+      ycFumes[fumes-1] = height+fumes-(int)random(height/3);
       for (int i = 0; i < fumes; i++) {
         noStroke();
         fill(230, 200-3*i, 20, 200);
-        ellipse(xcFumes[i], ycFumes[i], i, i);
+        ellipse(xcFumes[i], ycFumes[i], i, i*2);
       }
     }
   }
@@ -181,8 +219,9 @@ class Burn extends PApplet {
           // Inner
           fill(255);
           stroke(255);
-          rect(xc, yc, wc--, hc--);
-          if ( wc==0 || hc==0 ) nextState();
+          rect(xc, yc, wc, hc);
+          wc -= 2; hc -= 2;
+          if ( wc<=0 || hc<=0 ) nextState();
           break;
         case sFULLBLACK:
           fill(0);
