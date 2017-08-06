@@ -1,0 +1,130 @@
+From b940609550bc2d21254332bb2098f105e38060dd Mon Sep 17 00:00:00 2001
+From: Garage-PC <Garage-PC>
+Date: Sun, 23 Jul 2017 22:17:01 -0700
+Subject: [PATCH] WIP: session 20170806
+
+---
+ src/Burn.java                  | 20 ++++++++++----------
+ src/data/playlist-20170806.txt | 27 +++++++++++++++++++++++++++
+ src/data/playlist1.txt         |  2 +-
+ 3 files changed, 38 insertions(+), 11 deletions(-)
+ create mode 100644 src/data/playlist-20170806.txt
+
+diff --git a/src/Burn.java b/src/Burn.java
+index c54039c..9a513c1 100644
+--- a/src/Burn.java
++++ b/src/Burn.java
+@@ -15,7 +15,7 @@ class Burn extends PApplet {
+   BeatDetect beat;
+ 
+   static final int NbFlames = 50;
+-  static final int NbFumesPerFlame = 40;
++  static final int NbFumesPerFlame = 20;
+   ArrayList <Flame> flames = new ArrayList<Flame>();
+ 
+   static int NbRows;
+@@ -161,7 +161,7 @@ class Burn extends PApplet {
+           //  flag = beat.isOnset() ? false : true;
+           //}
+           for (int i = 0; i < NbPixels; i++) {
+-            if (frameCounter%5 == 0 && currentPixelIdx < NbPixels && flag == false) {
++            if (frameCounter%20 == 0 && currentPixelIdx < NbPixels && flag == false) {
+               pixels.get(currentPixelIdx++).markToDie();
+               flag = true; // One pixel marked as dead for current frame
+             }
+@@ -192,14 +192,14 @@ class Burn extends PApplet {
+       for (int i = 0; i < fumes-1; i++) {
+         xcFumes[i] = xcFumes[i+1];
+         ycFumes[i] = ycFumes[i+1];
+-        xcFumes[i] += random(-10, 10);
+-        ycFumes[i] -= 5;
++        xcFumes[i] += random(-3, 3);
++        ycFumes[i] -= 3;
+       }
+       xcFumes[fumes-1] = (int)random(width);
+       ycFumes[fumes-1] = height+fumes-(int)random(height/8);
+       for (int i = 0; i < fumes; i++) {
+         noStroke();
+-        fill(230, 200-3*i, 20, 200);
++        fill(230, 200-10*i, 20, 200);
+         ellipse(xcFumes[i], ycFumes[i], i/2, i);
+       }
+     }
+@@ -209,7 +209,7 @@ class Burn extends PApplet {
+   class Pixel {
+ 
+     int xc, yc;
+-    int wc, hc;
++    float wc, hc;
+     int width;
+     int height;
+ 
+@@ -224,8 +224,8 @@ class Burn extends PApplet {
+     Pixel (int xi, int yi , int wi, int hi) {
+       xc = xi;
+       yc = yi;
+-      wc = wi;
+-      hc = hi;
++      wc = (float)wi;
++      hc = (float)hi;
+       width = wi;
+       height = hi;
+     };
+@@ -262,8 +262,8 @@ class Burn extends PApplet {
+           // Inner
+           fill(200);
+           stroke(200);
+-          rect(xc, yc, wc, hc);
+-          wc -= 3; hc -= 3;
++          rect(xc, yc, (int)wc, (int)hc);
++          wc -= 0.3; hc -= 0.3;
+           if ( wc<=0 || hc<=0 ) nextState();
+           break;
+         case sFULLBLACK:
+diff --git a/src/data/playlist-20170806.txt b/src/data/playlist-20170806.txt
+new file mode 100644
+index 0000000..5a7bd07
+--- /dev/null
++++ b/src/data/playlist-20170806.txt
+@@ -0,0 +1,27 @@
++100,Burn,Black,Burn
++1000,PatternsTimer
++100,WhiteRain,Circle,WhiteRain
++1000,SinusPlasma
++1000,SinusPlasmaColorOnly
++100,IsoLinesFull
++100,Graffiti
++100,LetItFlow
++100,Blobs
++100,Anemone,Circle,Anemone
++100,PhaseFlow,Circle
++100,AsemicMachine
++100,BrokenSquares
++100,Flames,Black
++100,SparkChime,DotTransfer
++100,Agentes,Circle,Agentes
++100,InsideBubbles
++100,DigitalPortal
++100,PsySquare
++100,SinusWave
++100,CircleDistance
++100,Bubbles
++100,Field
++100,Life
++100,NoiseField
++100,Perlin,Circle
++100,InstaAcid
+\ No newline at end of file
+diff --git a/src/data/playlist1.txt b/src/data/playlist1.txt
+index 6dbc4e6..5a7bd07 100644
+--- a/src/data/playlist1.txt
++++ b/src/data/playlist1.txt
+@@ -1,4 +1,4 @@
+-100,Burn,Black
++100,Burn,Black,Burn
+ 1000,PatternsTimer
+ 100,WhiteRain,Circle,WhiteRain
+ 1000,SinusPlasma
+-- 
+2.9.3.windows.1
+
