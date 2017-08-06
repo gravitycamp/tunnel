@@ -46,7 +46,7 @@ class Burn extends PApplet {
     }
     // Create the pixels collection
     int pWidth = width/NbColumns;
-    int pHeight = height/NbRows;
+    int pHeight = 1+height/NbRows;
     for (int i = 0; i < NbColumns; i++) {
       for (int j = 0; j < NbRows; j++) {
         Pixel pixel = new Pixel(
