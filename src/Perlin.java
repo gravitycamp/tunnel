@@ -14,6 +14,14 @@ public class Perlin extends PApplet {
   AudioInput audio;
   Minim minim;
   BeatDetect beat;
+  
+  ParticleSystem particleSystem;
+  int symmetry = 7;
+  int stepSize = 2;
+  boolean blur = true;
+  boolean zMotion = true;
+  boolean MoreParticles = true;
+
 
   public Perlin(Tunnel t, int w, int h, String p) {
     width = w;
@@ -26,12 +34,6 @@ public class Perlin extends PApplet {
   public void settings() {
     size(width, height);
   }
-
-  ParticleSystem particleSystem;
-  int symmetry = 6;
-  int stepSize = 2;
-  boolean blur = true;
-  boolean zMotion = true;
 
   //-----------------Setup
   public void setup() {
@@ -70,11 +72,12 @@ public class Perlin extends PApplet {
       } else {
         blur = false;
       }
-
+/*
       symmetry = (int)(trackX/30);
       if (symmetry < 3) {
         symmetry = 3;
       }
+ */
       fill(0, 32);
       rect(0, 0, width, height);
       particleSystem.update();
@@ -90,6 +93,16 @@ public class Perlin extends PApplet {
       if (blur) {
         convolutionMask4(0xffffffff);
       }
+      if(particleSystem.particles.size() == 10)
+        MoreParticles = true;
+      if(particleSystem.particles.size() == 90)
+        MoreParticles = false;
+     
+      if(MoreParticles)
+        particleSystem.particles.add(new Particle());
+      else  
+        particleSystem.particles.remove(particleSystem.particles.size()-1);
+
     }
   }
 
@@ -174,7 +187,6 @@ public class Perlin extends PApplet {
       }
     }
   }
-
 
   class Particle {
     PVector position, velocity;

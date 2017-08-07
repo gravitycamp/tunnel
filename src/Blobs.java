@@ -23,7 +23,7 @@ public class Blobs extends PApplet {
     }
 
     public void setup() {
-        colorMode(HSB, 100);
+        colorMode(HSB, 130);
         background(0);
         frameRate(25);
         smooth();
@@ -35,7 +35,7 @@ public class Blobs extends PApplet {
         synchronized(Tunnel.class) {
 
             if (renk < 100) {
-                renk = renk + 3;
+                renk = renk + 5;
             } else {
                 renk = 0;
             }
@@ -49,7 +49,6 @@ public class Blobs extends PApplet {
                 background(0);
             }
             noStroke();
-            println(renk);
             fill(renk, 100, 100);
         }
     }

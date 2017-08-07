@@ -15,6 +15,8 @@ class BrokenSquares extends PApplet {
   BeatDetect beat;
   int rotAngle = 0;
   float offset = 0;
+  int H = 40;
+  int dH =1;
 
   public BrokenSquares(Tunnel t, int w, int h, String p) {
     width = w;
@@ -33,9 +35,7 @@ class BrokenSquares extends PApplet {
     minim = new Minim(this);
     beat = new BeatDetect();
     frameRate(60);
-    int scale = 5;
-    //surface.setSize(width*scale, height*scale);
-
+    colorMode(HSB);
   }
 
   float trackX = 0;
@@ -82,6 +82,10 @@ class BrokenSquares extends PApplet {
     //  frameRate(offset+10);
       background(0);
       rotate(radians(10));
+      H+=dH;
+      if ((H <= 2) || (H >= 250))  // if out of bounds
+        dH = - dH; // swap direction  
+    
       starField(offset);
       rotAngle += 1;
       offset += 1;
@@ -91,8 +95,8 @@ class BrokenSquares extends PApplet {
     }
   }
   void starField(float offSet) {
-    int w = (int)(width/40);
-    int l = (int)(height/40);
+    int w = (int)(width/30);
+    int l = (int)(height/30);
     
     for (int i=0; i<w; i++) {
       for (int j = 0; j<l; j++) {
@@ -114,9 +118,9 @@ class BrokenSquares extends PApplet {
     pushMatrix();
     for (int k=0; k<4; k++) {
       if (k%2==0) {
-        fill(150, 0, 0);
+        fill(250-H, 150, 150);
       } else {
-        fill(0, 0, 150);
+        fill(150,H, 50);
       }
       stroke(255);
       triangle(0, 0, -40, -30, 0, -30);
@@ -135,9 +139,9 @@ class BrokenSquares extends PApplet {
     pushMatrix();
     for (int k=0; k<4; k++) {
       if (k%2==1) {
-        fill(150, 0, 0);
+        fill(250-H, 150, 150);
       } else {
-        fill(0, 0, 150);
+        fill(150,H, 50);
       }
       stroke(255);
       triangle(0, 0, -40, -30, 0, -30);
@@ -146,4 +150,5 @@ class BrokenSquares extends PApplet {
     popMatrix();
     popMatrix();
   }
+    
 }

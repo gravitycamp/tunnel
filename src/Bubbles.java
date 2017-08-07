@@ -3,10 +3,9 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 
 class Bubbles extends PApplet {
-
   int width;
   int height;
-    String position = "Tunnel";
+  String position = "Tunnel";
   Tunnel tunnel;
 
   // Audio Support
@@ -22,7 +21,7 @@ class Bubbles extends PApplet {
       width = w;
       height = h;
       tunnel = t;
-        position = p;
+      position = p;
       audio = tunnel.in;
   }
 

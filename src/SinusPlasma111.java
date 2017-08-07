@@ -3,7 +3,7 @@ import java.util.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
-public class SinusPlasmaColorOnly extends PApplet {
+public class SinusPlasma111 extends PApplet {
 
   int width;
   int height;
@@ -26,7 +26,7 @@ public class SinusPlasmaColorOnly extends PApplet {
   private int[] colorGrad;
   private int[] swingCurve;
 
-  public SinusPlasmaColorOnly(Tunnel t, int w, int h, String p) {
+  public SinusPlasma111(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
     tunnel = t;

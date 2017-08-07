@@ -21,6 +21,7 @@ class Graffiti extends PApplet {
   boolean clearBG, doSmooth;
   int shapeType;
   float maxVelocity = 4, minAccel = (float)0.1, maxAccel = (float)0.2;
+  int dy=1;
 
   Seeker[] ball = new Seeker[numBalls];
 
@@ -89,7 +90,7 @@ class Graffiti extends PApplet {
            break;
        }
    } else {
-     //  trackX = mouseX;
+    //trackX = mouseX;
     //trackY = mouseY;
    }
   }
@@ -108,11 +109,10 @@ class Graffiti extends PApplet {
       }
       if(!IsTracking)
       {
-        trackX += random(-5,5);
-        trackY += random(-5,5);
-       // println("tracking");
-     //   println(trackX);
-     //   println(trackY);
+        trackX = width/2;
+        if ((trackY <= 0) || (trackY >= height))  // if out of bounds
+          dy = - dy; // swap direction  
+        trackY +=dy;
       }
       rectMode(CENTER);
       for(int i=0; i<numBalls; i++) {

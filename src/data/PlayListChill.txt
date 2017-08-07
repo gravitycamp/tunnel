@@ -1,10 +1,12 @@
-5,1000,PatternsTimer
-1,100,WhiteRain,Circle
-4,1000,SinusPlasma
+1,100,SinusWave
+1,100,PsySquare
+1,1000,PatternsTimer
+1,1000,SinusPlasma
 1,1000,SinusPlasmaColorOnly
-3,100,IsoLinesFull
+1,100,IsoLinesFull
+1,100,WhiteRain,Circle
 1,100,Graffiti
-2,100,LetItFlow
+1,100,LetItFlow
 1,100,Blobs
 1,100,Anemone,Circle,Anemone
 1,100,PhaseFlow,Circle
@@ -16,8 +18,6 @@
 1,100,Agentes,Circle,Agentes
 1,100,InsideBubbles
 1,100,DigitalPortal
-1,100,PsySquare
-1,100,SinusWave
 1,100,CircleDistance
 1,100,Bubbles
 1,100,Field

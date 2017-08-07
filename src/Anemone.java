@@ -14,14 +14,11 @@ class Anemone extends PApplet {
   AudioInput audio;
   Minim minim;
   BeatDetect beat;
-  boolean clearBG, doSmooth;
-
   final int NB_CILIUM = 10;
-  final float CELL_RAD = 8;
+  final float CELL_RAD = 12;
   Cilium[] tabCilium = new Cilium[NB_CILIUM];
   float R, G, B, Rspeed, Gspeed, Bspeed, mouseSpeed;
   ArrayList<Part> freeParts = new ArrayList<Part>();
-
 
   public Anemone(Tunnel t, int w, int h, String p) {
     width = w;
@@ -130,14 +127,12 @@ class Anemone extends PApplet {
   public void mousePressed() {
     generateColors();
   }
-
-
-
+  
   // Additional Classes
   class Cilium 
   {
-    final int NB_POINTS = 38;
-    final float POINTS_DIST = (float)4.2;//distance between each point
+    final int NB_POINTS = 28; //changes size
+    final float POINTS_DIST = (float)3.7;//distance between each point
     final float AMPLITUDE = random((float)1.5, (float)2);
     final float MIN_SPEED = (float).12, MAX_SPEED =(float).4;//max 'elastic speed' of each segment
     final float STEP = random((float).02, (float).12);//speed of the wave
@@ -160,7 +155,7 @@ class Anemone extends PApplet {
       for (int i = 0; i < NB_POINTS; i++) {
         pos[i] = new PVector(0, 0);     
         colors[i] = 0;
-        diams[i] = sqrt(25*(NB_POINTS-i));
+        diams[i] = sqrt(20*(NB_POINTS-i));
       }
     }
 

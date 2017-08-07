@@ -173,7 +173,7 @@ public class PatternsTimer extends PApplet {
       Image.colorMode(HSB);
       Image.stroke(i*2, 135, 135);
       Image.fill(i*2, 135, 135);
-      float amp = 3*fft.getBand(i);
+      float amp = 4*fft.getBand(i);
       if (amp*.8 > height)
         amp = (float)(height*.8);
       Image.rect( i+Image.width/2, 0, scale, amp);
@@ -214,9 +214,9 @@ public class PatternsTimer extends PApplet {
     ImageL.ellipseMode(RADIUS);
     ImageR.ellipseMode(RADIUS);
     ImageL.fill( random(255), random(255), random(255), random(255)); 
-    ImageL.ellipse(trackXL, (1-trackYR), 2*fft.getBand(0), 2*fft.getBand(0));
+    ImageL.ellipse(trackXL, (1-trackYR), 1*fft.getBand(0), 1*fft.getBand(0));
     ImageR.fill( random(150), random(255), random(255), random(255)); 
-    ImageR.ellipse(trackXR, (float)(1-trackYL), 3*fft.getBand(0), 3*fft.getBand(0));
+    ImageR.ellipse(trackXR, (float)(1-trackYL), 1*fft.getBand(0), 1*fft.getBand(0));
   }
 
   public void NewAnimation(PImage Image)
