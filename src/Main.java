@@ -14,7 +14,7 @@ import KinectPV2.*;
 class Main {
 
   //static String playlistPath = "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/playlist.txt";
-  static String playlistPath[] = {"C:/DeepPsyTunnel/src/data/PlayListFull.txt","C:/DeepPsyTunnel/src/data/PlayListStart.txt", "C:/DeepPsyTunnel/src/data/PlayListInteractive.txt", "C:/DeepPsyTunnel/src/data/PlayListChill.txt","C:/DeepPsyTunnel/src/data/PlayListBurn.txt"};
+  static String playlistPath[] = {"C:/DeepPsyTunnel/src/data/PlayListFull.txt","C:/DeepPsyTunnel/src/data/PlayListParty.txt", "C:/DeepPsyTunnel/src/data/PlayListInteractive.txt", "C:/DeepPsyTunnel/src/data/PlayListChill.txt","C:/DeepPsyTunnel/src/data/PlayListBurn.txt"};
   static int ListIndex = 0;
   static Tunnel tunnel;
   static ArrayList<HashMap<String, String>> queue = new ArrayList();

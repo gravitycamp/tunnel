@@ -4,7 +4,7 @@
 5,1000,SinusPlasma111
 1,1000,SinusPlasma313
 5,1000,SinusPlasma313
-5,1000,SinusPlasma422
+1,1000,SinusPlasma422
 5,1000,SinusPlasma422
 3,100,Perlin,Circle
 5,100,InsideBubbles

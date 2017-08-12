@@ -141,9 +141,9 @@ public class SinusPlasma111 extends PApplet {
       factor3=(int) random(1, 7);
     }
 
-    println("factors 1: "+factor1);
-    println("factors 2: "+factor2);
-    println("factors 3: "+factor3);
+    //println("factors 1: "+factor1);
+    //println("factors 2: "+factor2);
+    //println("factors 3: "+factor3);
 
     int halfmax = maxval/factor1;
 

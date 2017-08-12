@@ -56,6 +56,14 @@ public class Life extends PApplet {
         c.update();
         c.draw((float) width / resY);
       }
+      
+      float audioAverage = 20+(5+tunnel.getAudioAverage()) * 4;
+      if (audioAverage > 300) {
+        for (Cell c : cells) {
+          c.setRandomState(random(5, 95));
+        }
+      }
+
     }
   }
 

@@ -19,6 +19,7 @@ class Anemone extends PApplet {
   Cilium[] tabCilium = new Cilium[NB_CILIUM];
   float R, G, B, Rspeed, Gspeed, Bspeed, mouseSpeed;
   ArrayList<Part> freeParts = new ArrayList<Part>();
+  int dx=1;
 
   public Anemone(Tunnel t, int w, int h, String p) {
     width = w;
@@ -48,15 +49,17 @@ class Anemone extends PApplet {
     }
   }
 
-  float trackX = 0;
+  float trackX = 1;
   float trackY = 0;
   float ptrackX = 0;
   float ptrackY = 0;
   float trackZ = 0;
+  boolean IsTracking = false;
 
   public void track() {
     if (Main.kinect != null) {
       Main.kinect.update();
+      IsTracking = Main.kinect.IsTracking;
       switch (position) {
       case "Tunnel":
       case "Wall":
@@ -75,10 +78,13 @@ class Anemone extends PApplet {
       ptrackX = trackX;  
       ptrackY = trackY;
     } else {
-      ptrackX = pmouseX;
-      ptrackY = pmouseY;
-      trackX = mouseX;
-      trackY = mouseY;
+      if (pmouseX !=mouseY)
+      {
+        ptrackX = pmouseX;
+        ptrackY = pmouseY;
+        trackX = mouseX;
+        trackY = mouseY;
+      }
     }
   }
 
@@ -88,9 +94,15 @@ class Anemone extends PApplet {
       beat.detect(audio.mix);
       if (beat.isOnset())
         generateColors();
-
       background(0);
-
+      if (!IsTracking)
+      {
+        trackY = height/2;
+        if ((trackX <= 0) || (trackX >= width))  // if out of bounds
+          dx = - dx; // swap direction
+        ptrackX=trackX;
+        trackX +=dx;
+      }
       mouseSpeed = dist(trackX, trackY, ptrackX, ptrackY); 
 
       Rspeed = ((R += Rspeed) > 255 || (R < 0)) ? -Rspeed : Rspeed;
@@ -116,9 +128,9 @@ class Anemone extends PApplet {
     }
   }
   void generateColors() {
-    R = random(150,255);
-    G = random(150,255);
-    B = random(150,255);
+    R = random(150, 255);
+    G = random(150, 255);
+    B = random(150, 255);
     Rspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
     Gspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
     Bspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
@@ -127,7 +139,7 @@ class Anemone extends PApplet {
   public void mousePressed() {
     generateColors();
   }
-  
+
   // Additional Classes
   class Cilium 
   {
@@ -228,7 +240,7 @@ class Anemone extends PApplet {
 
   class Part {
     PVector pos, speed = new PVector(0, 0);
-    int age = 0, lifetime = (int)random(50, 160), downAge;
+    int age = 0, lifetime = (int)random(10, 40), downAge;
     float maxY = random((float).75, (float)1);
     Boolean down = false;
 
