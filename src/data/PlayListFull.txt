@@ -1,16 +1,15 @@
 5,1000,SparkChime,DotTransfer
+4,1000,Anemone,Circle,Anemone
 1,1000,SinusPlasma
 5,1000,SinusPlasma
 1,1000,SinusPlasma111
 5,1000,SinusPlasma111
 1,1000,SinusPlasma313
-5,1000,SinusPlasma313
 1,1000,SinusPlasma422
 5,1000,SinusPlasma422
 3,100,Perlin,Circle
 5,100,InsideBubbles
 2,100,BrokenSquares
-4,100,Anemone,Circle,Anemone
 2,100,Graffiti
 3,100,IsoLinesFull
 4,1000,PatternsTimer

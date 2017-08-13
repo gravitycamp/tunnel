@@ -43,7 +43,7 @@ class InstaAcid extends PApplet {
     noiseDetail(1, (float)0.3);
 
     c = new int[255];  // the array has 255 colors, one color for each possible grayscale color
-    frameRate(10);
+    frameRate(13);
     //noLoop();
   }
 
