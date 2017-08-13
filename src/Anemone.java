@@ -14,8 +14,8 @@ class Anemone extends PApplet {
   AudioInput audio;
   Minim minim;
   BeatDetect beat;
-  final int NB_CILIUM = 8;
-  final float CELL_RAD = 8;
+  final int NB_CILIUM = 10;
+  final float CELL_RAD = 12;
   Cilium[] tabCilium = new Cilium[NB_CILIUM];
   float R, G, B, Rspeed, Gspeed, Bspeed, mouseSpeed;
   ArrayList<Part> freeParts = new ArrayList<Part>();
@@ -143,7 +143,7 @@ class Anemone extends PApplet {
   // Additional Classes
   class Cilium 
   {
-    final int NB_POINTS = 30; //changes size
+    final int NB_POINTS = 28; //changes size
     final float POINTS_DIST = (float)3.7;//distance between each point
     final float AMPLITUDE = random((float)1.5, (float)2);
     final float MIN_SPEED = (float).12, MAX_SPEED =(float).4;//max 'elastic speed' of each segment
@@ -240,7 +240,7 @@ class Anemone extends PApplet {
 
   class Part {
     PVector pos, speed = new PVector(0, 0);
-    int age = 0, lifetime = (int)random(20, 60), downAge;
+    int age = 0, lifetime = (int)random(10, 40), downAge;
     float maxY = random((float).75, (float)1);
     Boolean down = false;
 

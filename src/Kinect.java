@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //<>//
 import java.util.ArrayList;
 //import processing.core.*;
 import processing.core.PVector;
@@ -49,8 +49,8 @@ public class Kinect
   public void update() {
     skeletonArray = kinect.getSkeleton3d();
     RawDepth = kinect.getRawDepthData();
- //   if (1==skeletonArray.size())
-  //    Body_Leader_Index = 0;
+    if (1==skeletonArray.size())
+      Body_Leader_Index = 0;
     for (int i = 0; i < skeletonArray.size(); i++) {
       KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
       IsTracking = skeleton.isTracked();
@@ -58,19 +58,28 @@ public class Kinect
         joints = skeleton.getJoints();
 
         //set the leader
-        float LeaderRightHandRaisedRatio = 1 - (float)(RightWrist.y-RightKnee.y*.85)/(Head.y - RightKnee.y);
-        float LeaderLeftHandRaisedRatio = 1 - (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
-        System.out.println("LeaderRightHandRaisedRatio: " + LeaderRightHandRaisedRatio);
-        System.out.println("LeaderLeftHandRaisedRatio: " +LeaderLeftHandRaisedRatio);
-        System.out.println("leader is " + Body_Leader_Index);
-        System.out.println("total bodies " + skeletonArray.size()); 
+        PVector LeaderRightWrist = joints[KinectPV2.JointType_WristRight].getPosition();
+        PVector LeaderLeftWrist = joints[KinectPV2.JointType_WristLeft].getPosition();
+        PVector LeaderRightKnee = joints[KinectPV2.JointType_KneeRight].getPosition();
+        PVector LeaderLeftKnee = joints[KinectPV2.JointType_KneeLeft].getPosition();
+        PVector LeaderHead = joints[KinectPV2.JointType_Head].getPosition();   
+        float LeaderRightHandRaisedRatio = 1 - (float)(LeaderRightWrist.y-LeaderRightKnee.y*.85)/(LeaderHead.y - LeaderRightKnee.y);
+        float LeaderLeftHandRaisedRatio = 1 - (float)(LeaderLeftWrist.y-LeaderLeftKnee.y*.85)/(LeaderHead.y - LeaderLeftKnee.y);
+
+//        System.out.println("LeaderRightHandRaisedRatio: "+i+" " + LeaderRightHandRaisedRatio);
+  //      System.out.println("LeaderLeftHandRaisedRatio: "+i+ " " +LeaderLeftHandRaisedRatio);
+
         if (skeletonArray.size()>1  && LeaderRightHandRaisedRatio < .1 && LeaderLeftHandRaisedRatio < .1)
         {
-          Body_Leader_Index = i; //<>//
+    //      System.out.println("i is: "+i);
+          Body_Leader_Index = i;
         }
 
         if (Body_Leader_Index == i)  //update only for the leader!
         {
+    //      System.out.println("real leader is" + Body_Leader_Index);
+    //      System.out.println("total bodies " + skeletonArray.size()); 
+
           RightWrist = joints[KinectPV2.JointType_WristRight].getPosition();
           LeftWrist = joints[KinectPV2.JointType_WristLeft].getPosition();
           RightKnee = joints[KinectPV2.JointType_KneeRight].getPosition();
