@@ -1,3 +1,4 @@
+5,1000,SparkChime,DotTransfer
 1,1000,SinusPlasma
 5,1000,SinusPlasma
 1,1000,SinusPlasma111
@@ -20,7 +21,6 @@
 1,100,AsemicMachine
 1,100,Burn,Black,Burn
 1,100,SparkChime,DotTransfer
-5,100,SparkChime,DotTransfer
 5,100,Agentes,Circle,Agentes
 4,100,PsySquare
 1,100,SinusWave

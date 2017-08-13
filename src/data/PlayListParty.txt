@@ -4,7 +4,8 @@
 1,200,SinusPlasma
 4,300,Anemone,Circle,Anemone
 3,100,IsoLinesFull
-4,1000,PatternsTimer
+4,100,PatternsTimer
+5,200,SinusPlasma
 5,100,Blobs
 1,200,SinusPlasma313
 5,200,Agentes,Circle,Agentes

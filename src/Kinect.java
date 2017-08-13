@@ -13,7 +13,7 @@ public class Kinect
   public int [] RawDepth;
   public ArrayList<KSkeleton> skeletonArray;
   public KJoint[] joints;
-  int Body_Leader_Index = -1;
+  int Body_Leader_Index = 0;
 
   // Individual JOINTS
   public PVector RightWrist = new PVector(0, 0, 0);
@@ -49,8 +49,8 @@ public class Kinect
   public void update() {
     skeletonArray = kinect.getSkeleton3d();
     RawDepth = kinect.getRawDepthData();
-    if (1==skeletonArray.size())
-      Body_Leader_Index = 0;
+ //   if (1==skeletonArray.size())
+  //    Body_Leader_Index = 0;
     for (int i = 0; i < skeletonArray.size(); i++) {
       KSkeleton skeleton = (KSkeleton) skeletonArray.get(i);
       IsTracking = skeleton.isTracked();
@@ -62,8 +62,12 @@ public class Kinect
         float LeaderLeftHandRaisedRatio = 1 - (float)(LeftWrist.y-LeftKnee.y*.85)/(Head.y - LeftKnee.y);
         System.out.println("LeaderRightHandRaisedRatio: " + LeaderRightHandRaisedRatio);
         System.out.println("LeaderLeftHandRaisedRatio: " +LeaderLeftHandRaisedRatio);
-        if (skeletonArray.size()>1  && LeaderRightHandRaisedRatio > 1 && LeaderLeftHandRaisedRatio > 1) 
-          Body_Leader_Index = i;
+        System.out.println("leader is " + Body_Leader_Index);
+        System.out.println("total bodies " + skeletonArray.size()); 
+        if (skeletonArray.size()>1  && LeaderRightHandRaisedRatio < .1 && LeaderLeftHandRaisedRatio < .1)
+        {
+          Body_Leader_Index = i; //<>//
+        }
 
         if (Body_Leader_Index == i)  //update only for the leader!
         {
