@@ -3,6 +3,7 @@ import java.util.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
+
 class Burn extends PApplet {
 
   Tunnel tunnel;
@@ -10,11 +11,10 @@ class Burn extends PApplet {
   int width;
   int height;
 
+  FFT fft;
+  float[] fftFilter;
   AudioInput audio;
   BeatDetect beat;
-  float[] fftFilter;
-  FFT fft;
-  float StartTime=0;
 
   static final int NbFlames = 70;
   static final int NbFumesPerFlame = 10;
@@ -23,10 +23,9 @@ class Burn extends PApplet {
   static int NbRows;
   static int NbCols;
   static int NbPixels;
-  static final int NbRows_Ceil = 3;//note used
-  static final int NbRows_Tunnel = 11; //note used
-  
+  static final int NbRows_Ceil = 3;
   static final int NbRows_Wall = 6;
+  static final int NbRows_Tunnel = 11;
   static final int NbCols_Tunnel = 24;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
 
@@ -36,22 +35,24 @@ class Burn extends PApplet {
   int frameCounter = 0;
   int currentPixelIdx = 0;
 
-  static final int CeilBurnTick = 50;
-  static final int DeadPixelTick = 100;
+  static final int CeilBurnStartTime = 0; // s
+  static final int DeadPixelStartTime = 5; // s
+  static final int DeadPixelIntervalTime = 700; // ms
+
+  static Timer timeGlobal;
+  static Timer timeInterval;
 
   public Burn (Tunnel t, int w, int h, String p) {
     tunnel = t;
     width = w;
     height = h;
     position = p;
-    audio = tunnel.in;
     fft = tunnel.fft;
+    audio = tunnel.in;
     System.out.println(position + " : " + width + " x " + height);
     switch (position) {
       case "Wall":
       case "LWall":
-        NbRows = NbRows_Wall;
-        NbCols = NbCols_Tunnel;
       case "RWall":
         NbRows = NbRows_Wall;
         NbCols = NbCols_Tunnel;
@@ -76,7 +77,6 @@ class Burn extends PApplet {
     smooth();
     background(0);
     frameRate(20);
-                  StartTime = millis();
     switch (position) {
       case "Ceil":
         blendMode(ADD);
@@ -88,16 +88,16 @@ class Burn extends PApplet {
       case "RWall":
       case "Tunnel":
       default:
+        // Create audio objects
+        beat = new BeatDetect();
+        beat.setSensitivity(300);
+        fftFilter = new float[fft.specSize()];
         // Create the flames collection
         for (int i = 0; i < NbFlames; i++) {
           Flame flame = new Flame(NbFumesPerFlame);
           flames.add(flame);
         }
         // Create the pixels collection
-        beat = new BeatDetect();
-          beat.setSensitivity(300);  
-    fftFilter = new float[fft.specSize()];
-
         int pWidth = width/NbCols;
         int pHeight = height/NbRows;
         for (int i = 0; i < NbCols; i++) {
@@ -111,14 +111,19 @@ class Burn extends PApplet {
         }
         Collections.shuffle(pixels);
     }
+    timeGlobal = new Timer("s");
+    timeInterval = new Timer("ms");
+    timeGlobal.start();
+    timeInterval.start();
   }
 
   public void draw() {
     synchronized (Tunnel.class) {
       frameCounter++;
+/* SWITCH-CASE not required when "Ceil" not used
       switch (position) {
-        case "Ceil":  //this never happens
-          if (frameCounter > CeilBurnTick) {
+        case "Ceil":
+          if (timeGlobal.now() > CeilBurnStartTime) {
             for (int j = 0; j < 100; j++) {
               y = x/100;
               beginShape();
@@ -136,11 +141,14 @@ class Burn extends PApplet {
         case "RWall":
         case "Tunnel":
         default:
+*/
           background(0);
           // Process flames
           for (int i = 0; i < NbFlames; i++) {
             flames.get(i).update();
           }
+
+
           //filter(BLUR, 2);
           // counter++;
           // if (counter == maxCounter)
@@ -153,48 +161,109 @@ class Burn extends PApplet {
           //   if (rate == finalFrameRate)
           //     rate--;
           // }
-          // Process flames on ceil
-          // for (int j=0; j<100; j++) {
-          //   y=x/100;
-          //   beginShape();
-          //   for (int i=0; i<width; i++) {
-          //     vertex(i, y);
-          //     y=y+(float)((noise(y/100, i/100)-0.5)*4);
-          //   }
-          //   endShape();
-          //   x=x+1;
-          // }
-          // Process pixels
-          beat.detect(audio.mix);
-          
-          for (int i = 0; i < fftFilter.length; i++) {
-            fftFilter[i] = max(fftFilter[i], log(1 + fft.getBand(i)) * (float)(1 + i * 0.01));
+
+
+/*
+          Process flames on ceil
+          for (int j = 0; j < 100; j++) {
+            y = x/100;
+            beginShape();
+            for (int i = 0; i < width; i++) {
+              vertex(i, y);
+              y = y + (float)((noise(y/100,i/100)-0.5)*4);
+            }
+            endShape();
+            x += 1;
           }
-
-
+*/
+          // Process pixels
           boolean flag = true;
-          println(StartTime - millis());
-          if(frameCounter > DeadPixelTick && (millis()-StartTime > 250))
+          beat.detect(audio.mix);
+          for (int i = 0; i < fftFilter.length; i++) {
+            fftFilter[i] = max(fftFilter[i], log(1+fft.getBand(i)) * (float)(1+i*0.01));
+          }
+          if (timeGlobal.now() > DeadPixelStartTime && (timeInterval.now() > DeadPixelIntervalTime)) {
             flag = false;
-
- //         if (frameCounter > DeadPixelTick) {
-                          
-            //flag = beat.isOnset() ? false : true;
-           // println(tunnel.getAudioAverage());
-          //  flag = if(20>tunnel.getAudioAverage());
-//        flag = !(fft.getBand(1) >200);
-  //        }
+          }
+          // if (frameCounter > DeadPixelTick) {
+          //   beat.detect(audio.mix);
+          //   flag = beat.isOnset() ? false : true; // Option #1
+          //   flag = ( tunnel.getAudioAverage() < 20 ); // Option #2
+          //   flag = !( fft.getBand(1) > 200 ); // Option #3
+          // }
           for (int i = 0; i < NbPixels; i++) {
             if (currentPixelIdx < NbPixels && flag == false) {
               pixels.get(currentPixelIdx++).markToDie();
               flag = true; // One pixel marked as dead for current frame
-              StartTime = millis();
-
+              timeInterval.reset();
             }
             pixels.get(i).update();
           }
+/*
+      }
+*/
+    }
+  }
+
+  // Timer class
+  class Timer {
+
+    String unit;
+    int timer;
+    int StartTime;
+    int StartStop;
+    int StopDuration;
+    boolean isRunning;
+
+    Timer (String uniti) {
+      unit = uniti;
+      timer = 0;
+      StartTime = 0;
+      StartStop = 0;
+      StopDuration = 0;
+      isRunning = false;
+    }
+
+    private int tick() {
+      switch (unit) {
+        case "ms":
+          return millis();
+        case "s":
+        default:
+          return second();
       }
     }
+
+    void start() {
+      if (isRunning) {
+        StopDuration += tick() - StartStop;
+      } else {
+        StartTime = tick();
+        isRunning = true;
+      }
+    }
+
+    void stop() {
+      if (isRunning) {
+        StartStop = tick();
+      }
+    }
+
+    void reset() {
+      if (isRunning) {
+        StopDuration = 0;
+        StartTime = tick();
+      }
+    }
+
+    int now () {
+      return tick() - StartTime;
+    }
+
+    int elapsed () {
+      return tick() - StartTime - StopDuration;
+    }
+
   }
 
   // Flame class
@@ -270,14 +339,16 @@ class Burn extends PApplet {
       rectMode(CENTER);
       switch (state) {
         case sALIVE:
-          noFill();
-          stroke(255);
- //         rect(xc, yc, width, height);
+          // When pixel is alive, no stroke, hence no drawing
+          // noFill();
+          // stroke(255);
+          // rect(xc, yc, width, height);
           break;
         case sFULLWHITE:
           fill(255);
           stroke(255);
           rect(xc, yc, width, height);
+          // Pixel will start collapsing during the 5th frame
           if ( frame==4 ) nextState();
           break;
         case sCOLLAPSE:
