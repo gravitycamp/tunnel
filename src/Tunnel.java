@@ -81,8 +81,6 @@ public class Tunnel extends PApplet implements AudioListener {
   public void setup() {
     // Run sketches
     //
-                    surface.setVisible(false);
-
     for (int i = 0; i < sketches.size(); i++) {
       // skip the initialization of the last sketch if wallMirroring is used
       if (!(wallMirroring == true && i == 2)) {
