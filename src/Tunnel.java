@@ -133,18 +133,22 @@ public class Tunnel extends PApplet implements AudioListener {
 
   public void kill() {
     for (PApplet sketch : sketches) {
- //     minim.dispose();
- //     delay(10);
-   //   sketch.frame.dispose();
-//      delay(10);
-//      frame.dispose();
+      minim.stop();
+      in.close();
+      delay(10);
+      sketch.frame.dispose();
+      delay(10);
+      frame.dispose();
 //      delay(10);
       sketch.dispose();
       delay(10);
 //      System.gc();
       sketch.frame.setVisible(false);
-  //    delay(10);
-  //    sketch = null;
+  //    sketch.frame = null;
+      delay(10);
+      sketch.stop();
+
+      sketch = null;
     }
     delay(10);
     sketches.clear();
@@ -152,6 +156,8 @@ public class Tunnel extends PApplet implements AudioListener {
     dispose();
     delay(10);
     surface.setVisible(false);
+    super.stop();
+
   //  delay(10);
   //  System.gc();
   }

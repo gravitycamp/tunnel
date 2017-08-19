@@ -38,13 +38,15 @@ class Main {
     int hours = Integer.parseInt(formatter.format(System.currentTimeMillis()));
     System.out.println(hours);
     //Load Playlist according to the time
+    /*
     if(hours < 2 || hours >=18)  //party after 6pm to 2am  
       loadPlaylist(1);
     else if(hours < 4 && hours >=2)  //interactive after 6pm to 2am  
       loadPlaylist(2);
     else if(hours < 18 && hours >=4)  //interactive after 6pm to 6pm 
       loadPlaylist(3);
-
+*/
+      loadPlaylist(4);
     // tunnel.exec("C:/DeepPsyTunnel/src/Restart.bat");
 
     TimerTask exitApp = new TimerTask() {
@@ -92,6 +94,7 @@ class Main {
     try { 
       tunnel.kill();
       tunnel.dispose();
+      tunnel = null;
     } 
     catch(Exception e) {
     }

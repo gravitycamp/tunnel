@@ -12,18 +12,22 @@ class Burn extends PApplet {
 
   AudioInput audio;
   BeatDetect beat;
+  float[] fftFilter;
+  FFT fft;
+  float StartTime=0;
 
-  static final int NbFlames = 50;
-  static final int NbFumesPerFlame = 40;
+  static final int NbFlames = 70;
+  static final int NbFumesPerFlame = 10;
   ArrayList <Flame> flames = new ArrayList<Flame>();
 
   static int NbRows;
   static int NbCols;
   static int NbPixels;
-  static final int NbRows_Ceil = 3;
-  static final int NbRows_Wall = 4;
-  static final int NbRows_Tunnel = 11;
-  static final int NbCols_Tunnel = 15;
+  static final int NbRows_Ceil = 3;//note used
+  static final int NbRows_Tunnel = 11; //note used
+  
+  static final int NbRows_Wall = 6;
+  static final int NbCols_Tunnel = 24;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
 
   float x = 0;
@@ -41,10 +45,13 @@ class Burn extends PApplet {
     height = h;
     position = p;
     audio = tunnel.in;
+    fft = tunnel.fft;
     System.out.println(position + " : " + width + " x " + height);
     switch (position) {
       case "Wall":
       case "LWall":
+        NbRows = NbRows_Wall;
+        NbCols = NbCols_Tunnel;
       case "RWall":
         NbRows = NbRows_Wall;
         NbCols = NbCols_Tunnel;
@@ -69,6 +76,7 @@ class Burn extends PApplet {
     smooth();
     background(0);
     frameRate(20);
+                  StartTime = millis();
     switch (position) {
       case "Ceil":
         blendMode(ADD);
@@ -87,6 +95,9 @@ class Burn extends PApplet {
         }
         // Create the pixels collection
         beat = new BeatDetect();
+          beat.setSensitivity(300);  
+    fftFilter = new float[fft.specSize()];
+
         int pWidth = width/NbCols;
         int pHeight = height/NbRows;
         for (int i = 0; i < NbCols; i++) {
@@ -106,7 +117,7 @@ class Burn extends PApplet {
     synchronized (Tunnel.class) {
       frameCounter++;
       switch (position) {
-        case "Ceil":
+        case "Ceil":  //this never happens
           if (frameCounter > CeilBurnTick) {
             for (int j = 0; j < 100; j++) {
               y = x/100;
@@ -154,15 +165,31 @@ class Burn extends PApplet {
           //   x=x+1;
           // }
           // Process pixels
-          boolean flag = true;
-          if (frameCounter > DeadPixelTick) {
-            beat.detect(audio.mix);
-            flag = beat.isOnset() ? false : true;
+          beat.detect(audio.mix);
+          
+          for (int i = 0; i < fftFilter.length; i++) {
+            fftFilter[i] = max(fftFilter[i], log(1 + fft.getBand(i)) * (float)(1 + i * 0.01));
           }
+
+
+          boolean flag = true;
+          println(StartTime - millis());
+          if(frameCounter > DeadPixelTick && (millis()-StartTime > 250))
+            flag = false;
+
+ //         if (frameCounter > DeadPixelTick) {
+                          
+            //flag = beat.isOnset() ? false : true;
+           // println(tunnel.getAudioAverage());
+          //  flag = if(20>tunnel.getAudioAverage());
+//        flag = !(fft.getBand(1) >200);
+  //        }
           for (int i = 0; i < NbPixels; i++) {
             if (currentPixelIdx < NbPixels && flag == false) {
               pixels.get(currentPixelIdx++).markToDie();
               flag = true; // One pixel marked as dead for current frame
+              StartTime = millis();
+
             }
             pixels.get(i).update();
           }
@@ -191,15 +218,15 @@ class Burn extends PApplet {
       for (int i = 0; i < fumes-1; i++) {
         xcFumes[i] = xcFumes[i+1];
         ycFumes[i] = ycFumes[i+1];
-        xcFumes[i] += random(-10, 10);
+        xcFumes[i] += random(-2, 2);
         ycFumes[i] -= 5;
       }
       xcFumes[fumes-1] = (int)random(width);
-      ycFumes[fumes-1] = height+fumes-(int)random(height/3);
+      ycFumes[fumes-1] = height+fumes-(int)random(height/10);
       for (int i = 0; i < fumes; i++) {
         noStroke();
-        fill(230, 200-3*i, 20, 200);
-        ellipse(xcFumes[i], ycFumes[i], i, i*2);
+        fill(230, 190-6*i, 20, 200);
+        ellipse(xcFumes[i], ycFumes[i]-i, i, i*2);
       }
     }
   }
@@ -245,13 +272,13 @@ class Burn extends PApplet {
         case sALIVE:
           noFill();
           stroke(255);
-          rect(xc, yc, width, height);
+ //         rect(xc, yc, width, height);
           break;
         case sFULLWHITE:
           fill(255);
           stroke(255);
           rect(xc, yc, width, height);
-          if ( frame==5 ) nextState();
+          if ( frame==4 ) nextState();
           break;
         case sCOLLAPSE:
           // Outer
@@ -262,7 +289,7 @@ class Burn extends PApplet {
           fill(255);
           stroke(255);
           rect(xc, yc, wc, hc);
-          wc -= 2; hc -= 2;
+          wc -= 1; hc -= 1;
           if ( wc<=0 || hc<=0 ) nextState();
           break;
         case sFULLBLACK:

@@ -47,8 +47,8 @@ public class PatternsTimer extends PApplet {
   static int NbRows;
   static int NbCols;
   static int NbPixels;
-  static final int NbRows_Wall = 20;
-  static final int NbCols_Tunnel = 24;
+  static final int NbRows_Wall = 30;
+  static final int NbCols_Tunnel = 34;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
   int frameCounter = 0;
   int currentPixelIdx = 0;
