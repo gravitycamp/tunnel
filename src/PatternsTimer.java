@@ -42,7 +42,17 @@ public class PatternsTimer extends PApplet {
   int dR = 1;
   int dG = 2;
   int dB = 3;
+  boolean started = false;
 
+  static int NbRows;
+  static int NbCols;
+  static int NbPixels;
+  static final int NbRows_Wall = 20;
+  static final int NbCols_Tunnel = 24;
+  ArrayList <Pixel> pixels = new ArrayList<Pixel>();
+  int frameCounter = 0;
+  int currentPixelIdx = 0;
+  
   public PatternsTimer(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
@@ -54,18 +64,6 @@ public class PatternsTimer extends PApplet {
 
   public void settings() {
     size(width, height);
-  }
-
-  public void setup() {
-    frameRate(40);
-    dot = loadImage("C:/DeepPsyTunnel/src/data/dot1.png");
-    colors = loadImage("C:/DeepPsyTunnel/src/data/colors.png");
-    fftFilter = new float[fft.specSize()];
-
-    LeftWall= createGraphics(150*scale, 32*scale);
-    RightWall= createGraphics(150*scale, 32*scale);
-    Roof= createGraphics(150*scale, 24*scale);
-    StartTime = millis();
   }
 
   float trackX = 0;
@@ -81,7 +79,6 @@ public class PatternsTimer extends PApplet {
     if (Main.kinect != null) {
       Main.kinect.update();
       IsTracking = Main.kinect.IsTracking;
-
       switch (position) {
       case "Tunnel":
         trackXL = (float)LeftWall.width * Main.kinect.LeftHandDepthRatio;
@@ -104,6 +101,32 @@ public class PatternsTimer extends PApplet {
     }
   }
 
+  public void setup() {
+    frameRate(40);
+    dot = loadImage("C:/DeepPsyTunnel/src/data/dot1.png");
+    colors = loadImage("C:/DeepPsyTunnel/src/data/colors.png");
+    fftFilter = new float[fft.specSize()];
+
+    LeftWall= createGraphics(150*scale, 32*scale);
+    RightWall= createGraphics(150*scale, 32*scale);
+    Roof= createGraphics(150*scale, 24*scale);
+    NbRows = NbRows_Wall;
+    NbCols = NbCols_Tunnel;
+    int pWidth = width/NbCols;
+    int pHeight = height/NbRows;
+    for (int i = 0; i < NbCols; i++) {
+      for (int j = 0; j < NbRows; j++) {
+        Pixel pixel = new Pixel(
+          i*pWidth + pWidth/2, 
+          j*pHeight + pHeight/2, 
+          pWidth-1, pHeight-1);
+        pixels.add(pixel);
+      }
+    }
+    NbPixels = NbRows*NbCols;
+    Collections.shuffle(pixels);
+  }
+
   public void draw() {
     try {
       synchronized(Tunnel.class) {
@@ -115,41 +138,56 @@ public class PatternsTimer extends PApplet {
         RightWall.background(0);
         Roof.beginDraw();
         Roof.background(0, 70, 140);
-        if (millis()-StartTime <=10*1000)
-        {
-          Equilizer(LeftWall);  
-          Equilizer(RightWall);
-        } else if (millis()-StartTime < 20*1000)  //seconds to play upto
-        {
-          FlyingBalls(LeftWall);  
-          FlyingBalls(RightWall);  
-          SmoothRGB();
-          Roof.background(R, G, B);
-        } else if (millis()-StartTime < 40*1000)
-        {
-          LightControl(LeftWall, RightWall);  
-          SmoothRGB();
-          Roof.background(R, G, B);
-        } else
-        { 
-          Equilizer(LeftWall);  
-          Equilizer(RightWall);
-          SmoothRGB();
-          Roof.background(R, G, B);
-          Roof.stroke(MaxBrightness-R,MaxBrightness-G,MaxBrightness-B);
-          strokeWeight(20*scale);
-          Roof.line(counter, 0, counter, 24*scale);
-          counter+=scale;
-          counter%=Roof.width;
-        }
 
+        if (4*fft.getBand(2)>1) {
+          started=true;
+          StartTime = millis();
+        }
+        if (started)
+        {
+          if (millis()-StartTime <=19*1000)
+          {
+            Equilizer(LeftWall);  
+            Equilizer(RightWall);
+
+            if (currentPixelIdx < NbPixels)
+              pixels.get(currentPixelIdx++).markToDie();
+            for (int i = 0; i < NbPixels; i++) {
+              pixels.get(i).update(LeftWall);
+              pixels.get(i).update(RightWall);
+            }
+          } else if (millis()-StartTime < 20*1000)  //seconds to play upto
+          {
+            FlyingBalls(LeftWall);  
+            FlyingBalls(RightWall);  
+            SmoothRGB();
+            Roof.background(R, G, B);
+          } else if (millis()-StartTime < 30*1000)
+          {
+            LightControl(LeftWall, RightWall);  
+            SmoothRGB();
+            Roof.background(R, G, B);
+          } else if (millis()-StartTime < 40*1000) 
+          {
+          } else
+          { 
+            Equilizer(LeftWall);  
+            Equilizer(RightWall);
+            SmoothRGB();
+            Roof.background(R, G, B);
+            Roof.stroke(MaxBrightness-R, MaxBrightness-G, MaxBrightness-B);
+            strokeWeight(20*scale);
+            Roof.line(counter, 0, counter, 24*scale);
+            counter+=scale;
+            counter%=Roof.width;
+          }
+        }
         LeftWall.endDraw();
         RightWall.endDraw();
         Roof.endDraw();
         image(RightWall, 0, 0);
         image(Roof, 0, 32*scale);
         image(flipImage(LeftWall.get()), 0, (32+24)*scale);
-
       }
     }
     catch(Exception e) {
@@ -219,11 +257,80 @@ public class PatternsTimer extends PApplet {
     ImageR.ellipse(trackXR, (float)(1-trackYL), 1*fft.getBand(0), 1*fft.getBand(0));
   }
 
-  public void NewAnimation(PImage Image)
-  {
+  // Pixel class
+  class Pixel {
+
+    int xc, yc;
+    int wc, hc;
+    int width;
+    int height;
+
+    final static int sALIVE     = 4;
+    final static int sFULLWHITE = 2;
+    final static int sCOLLAPSE  = 3;
+    final static int sFULLBLACK = 1;
+
+    int frame = 0;
+    int state = sFULLBLACK;
+
+    Pixel (int xi, int yi, int wi, int hi) {
+      xc = xi;
+      yc = yi;
+      wc = wi;
+      hc = hi;
+      width = wi;
+      height = hi;
+    };
+
+    void markToDie () {
+      nextState();
+    }
+
+    private void nextState () {
+      state++;
+      frame = 0;
+    }
+
+    void update (PGraphics Image) {
+      frame++;
+      Image.rectMode(CENTER);
+      switch (state) {
+      case sALIVE:
+        Image.noFill();
+        Image.stroke(255);
+        //  Image.rect(xc, yc, width, height);
+        break;
+      case sFULLWHITE:
+        Image.fill(255);
+        Image.stroke(255);
+        Image.rect(xc, yc, width, height);
+        if ( frame==5 ) nextState();
+        break;
+      case sCOLLAPSE:
+        // Outer
+        Image.fill(0);
+        Image.stroke(0);
+        Image.rect(xc, yc, width, height);
+        // Inner
+        Image.fill(255);
+        Image.stroke(255);
+        Image.rect(xc, yc, wc, hc);
+        wc -= 1; 
+        hc -= 1;
+        if ( wc<=0 || hc<=0 ) nextState();
+        break;
+      case sFULLBLACK:
+        Image.fill(0);
+        Image.stroke(0);
+        Image.rect(xc, yc, width, height);
+        break;
+      default:
+      }
+    }
   }
 
-  
+
+
   //color fading function
   void SmoothRGB() {
     R+=dR;

@@ -1,7 +1,5 @@
 import processing.core.*;
-import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
+//import java.util.*;
 
 class Black extends PApplet {
 

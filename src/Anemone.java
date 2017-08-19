@@ -35,8 +35,7 @@ class Anemone extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
+        beat = new BeatDetect();
     background(0, 0, 0);
     frameRate(70);
 

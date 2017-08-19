@@ -1,5 +1,6 @@
 import processing.core.*;
 import java.util.*;
+import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.lang.Runtime;
@@ -12,9 +13,7 @@ import KinectPV2.*;
 
 
 class Main {
-
-  //static String playlistPath = "/Users/skryl/Dropbox/dev/projects/gravity/tunnel/src/data/playlist.txt";
-  static String playlistPath[] = {"C:/DeepPsyTunnel/src/data/PlayListFull.txt","C:/DeepPsyTunnel/src/data/PlayListParty.txt", "C:/DeepPsyTunnel/src/data/PlayListInteractive.txt", "C:/DeepPsyTunnel/src/data/PlayListChill.txt","C:/DeepPsyTunnel/src/data/PlayListBurn.txt"};
+  static String playlistPath[] = {"C:/DeepPsyTunnel/src/data/PlayListFull.txt", "C:/DeepPsyTunnel/src/data/PlayListParty.txt", "C:/DeepPsyTunnel/src/data/PlayListInteractive.txt", "C:/DeepPsyTunnel/src/data/PlayListChill.txt", "C:/DeepPsyTunnel/src/data/PlayListBurn.txt"};
   static int ListIndex = 0;
   static Tunnel tunnel;
   static ArrayList<HashMap<String, String>> queue = new ArrayList();
@@ -26,35 +25,44 @@ class Main {
   static Timer RestartTimer = new Timer();
   public static Kinect kinect;
   static Thread t = new Thread();
+  static   int loops = 0;
 
   public static void setKinect(Kinect k) {
     kinect = k;
   }
 
   public static void main(String... args) {
+    
+    //wire.SetupCom();
+    SimpleDateFormat formatter = new SimpleDateFormat("HH");
+    int hours = Integer.parseInt(formatter.format(System.currentTimeMillis()));
+    System.out.println(hours);
+    //Load Playlist according to the time
+    if(hours < 2 || hours >=18)  //party after 6pm to 2am  
+      loadPlaylist(1);
+    else if(hours < 4 && hours >=2)  //interactive after 6pm to 2am  
+      loadPlaylist(2);
+    else if(hours < 18 && hours >=4)  //interactive after 6pm to 6pm 
+      loadPlaylist(3);
 
-    wire.SetupCom();
-    loadPlaylist(0);
+    // tunnel.exec("C:/DeepPsyTunnel/src/Restart.bat");
 
-    //  tunnel.exec("C:/TunnelGit2/src/Restart.bat");
-    /*    
-     TimerTask exitApp = new TimerTask() {
-     public void run() {
-     //open("rundll32 SHELL32.DLL,ShellExec_RunDLL " + "C:/TunnelGit2/src/Restart.bat");
-     //tunnel.launch("C:/TunnelGit2/src/Restart.bat");
-     try {
-     Runtime.getRuntime().exec("cmd.exe /c start C:\\TunnelGit2\\src\\Restart.bat");
-     } 
-     catch(IOException ie) {
-     ie.printStackTrace();
-     }
-     
-     System.exit(0);
-     }
-     };
-     
-     RestartTimer.schedule(exitApp, new Date(System.currentTimeMillis()+30*60*1000)); //restart every 30 minutes
-     */
+    TimerTask exitApp = new TimerTask() {
+      public void run() {
+        //open("rundll32 SHELL32.DLL,ShellExec_RunDLL " + "C:/TunnelGit2/src/Restart.bat");
+        //tunnel.launch("C:/TunnelGit2/src/Restart.bat");
+        try {
+          Runtime.getRuntime().exec("cmd.exe /c start C:\\DeepPsyTunnel\\src\\Restart.bat"); //<>//
+        } 
+        catch(IOException ie) {
+          ie.printStackTrace();
+        }
+        System.exit(0);
+      }
+    };
+
+    RestartTimer.schedule(exitApp, new Date(System.currentTimeMillis()+2*60*60*1000)); //restart every 2 hours minutes
+
     while (true) {
       Play();
     }
@@ -62,13 +70,16 @@ class Main {
 
   public static void Play()
   {
+    if (queueIndex+1 >= queue.size())
+      queueIndex = -1;
+    if (queueIndex==0)
+      System.out.println( "total play lists: "+ (loops++));
     int playSeconds = 1000* Integer.parseInt(queue.get(queueIndex+1).get("Time"));
     long millis = System.currentTimeMillis();
     try {
       loadNextInQueue();
       //TWait = new 
       t.sleep(playSeconds - millis % 1000);
-      System.out.println("done sleeping for queue: " + (queueIndex));
     } 
     catch(InterruptedException e) {
       System.out.println("got interrupted!");
@@ -80,9 +91,11 @@ class Main {
     t.stop();
     try { 
       tunnel.kill();
+      tunnel.dispose();
     } 
     catch(Exception e) {
     }
+    System.gc();
     tunnel = new Tunnel(queue.get(queueIndex), wire);
     System.out.println("Pattern Index: " + queueIndex);
     PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
@@ -100,7 +113,7 @@ class Main {
     } 
     catch(Exception e) {
     }
-      tunnel = new Tunnel(queue.get(queueIndex), wire);
+    tunnel = new Tunnel(queue.get(queueIndex), wire);
     PApplet.runSketch(new String[]{"Tunnel"}, tunnel);
     elapsedTime = 0;
   }

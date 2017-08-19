@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class InsideBubbles extends PApplet {
 
@@ -11,9 +9,6 @@ class InsideBubbles extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   int WIDTH = 800;
   int HEIGHT = 400;
   float ZOOM = (float)2.0;
@@ -39,7 +34,6 @@ class InsideBubbles extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -48,8 +42,6 @@ class InsideBubbles extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     frameRate(70);
     smooth();
     noStroke();
@@ -100,9 +92,6 @@ class InsideBubbles extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
-      //     beat.detect(audio.mix);
-      //     if (beat.isOnset())
-      //       generateColors();
 
       background(BACKGROUND);
       xoffs = (float)(xoffs*0.9 + 0.1*trackX/WIDTH);
@@ -250,7 +239,9 @@ class InsideBubbles extends PApplet {
     void draw(float xoffs, float yoffs) {
       float posX = (ZOOM*x*WIDTH*(1+z*z)) - ZOOM*xoffs*WIDTH*z*z;
       float posY = (ZOOM*y*HEIGHT*(1+z*z)) - ZOOM*yoffs*HEIGHT*z*z;
-      float radius = z*xsize;
+      float ballSize = (map(tunnel.getAudioAverage(), 0, 20, 5,15));
+      ellipse(trackX,trackY,ballSize,ballSize);
+      float radius = z*xsize*ballSize/20;
       if (posX> -xsize*2 && posX < WIDTH+xsize*2 && posY > -xsize*2 && posY < HEIGHT+xsize*2) {
         blurred_circle(posX, posY, radius, abs(z-FOCAL_LENGTH), shaded_color, MIN_BLUR_LEVELS + (z*BLUR_LEVEL_COUNT));
       }

@@ -12,8 +12,6 @@ class SparkChime extends PApplet {
 
   // Audio Support
   AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   /*
    * The maximum number of particles to display at once.  Lowering this will
    * improve performance on slow systems.
@@ -105,8 +103,6 @@ class SparkChime extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     frameRate(70);
     background(0);
 
@@ -116,16 +112,11 @@ class SparkChime extends PApplet {
     canvas = new Canvas3D(FOCAL_LENGTH, INTERACTION_DISTANCE);
 
     /*
-     * Get a soundbank to select bounce sounds from.
-     */
-    SoundBank soundBank = new SilentSoundBank();
-
-    /*
      * Initialize the array of Particles to be used in the animation.  They will be
      * each be randomly colored and have a random sound from the SoundBank.
      */
     for (int i = 0; i < PARTICLE_COUNT; i++) {
-      sparks[i] = new Particle(random(256), random(256), random(256), soundBank.getRandomSound());
+      sparks[i] = new Particle(random(256), random(256), random(256));
     }
   }
 
@@ -170,9 +161,6 @@ class SparkChime extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
-      //   beat.detect(audio.mix);
-      //    if (beat.isOnset())
-      //      generateColors();
       
        if (skipCount >= EMISSION_PERIOD) {
       /*
@@ -504,11 +492,6 @@ class SparkChime extends PApplet {
     private float blue;
 
     /*
-   * The sound that will be played when the particle strikes the ground.
-     */
-    private Sound sound;
-
-    /*
    * Was the particle drawn off the left of the screen?
      */
     private boolean pastLeftWall;
@@ -521,11 +504,10 @@ class SparkChime extends PApplet {
     /**
      * Create a Particle with a specified color and characteristic sound.
      */
-    public Particle(float red, float green, float blue, Sound sound) {
+    public Particle(float red, float green, float blue) {
       this.red = red;
       this.green = green;
       this.blue = blue;
-      this.sound = sound;
     }
 
     /**
@@ -609,12 +591,6 @@ class SparkChime extends PApplet {
        */
       stroke(amplify(red), amplify(green), amplify(blue), 255);
       canvas.drawPoint(to, 16);
-
-      /*
-     * Play the splash sound at a volume relative to how fast the
-       * particle collided.
-       */
-      sound.play(map(-velocity.y, 0, 6, 0, 1));
     }
 
     /*
@@ -707,52 +683,6 @@ class SparkChime extends PApplet {
      * Apply the accleration due to gravity.
        */
       velocity.y += GRAVITY;
-    }
-  }
-
-  /*******************************************************************************
-   * Since Maxim audio is not working on OpenProcessing, these are just stubs.
-   */
-
-  /*******************************************************************************
-   * A Sound is a very simple abstraction of a sound that can be played at
-   * a specified volume.  The baseline volume is 1.0.
-   *
-   * @author Gregory Bush
-   */
-  public interface Sound {
-    public void play(float volume);
-  }
-
-  /*******************************************************************************
-   * You can randomly select a Sound from a SoundBank.
-   *
-   * @author Gregory Bush
-   */
-  public interface SoundBank {
-    public Sound getRandomSound();
-  }
-
-  /*******************************************************************************
-   * Hello, darkness, my old friend...
-   *
-   * THE_SOUND_OF_SILENCE is inaudible when played.
-   *
-   * @author Gregory Bush
-   */
-  Sound THE_SOUND_OF_SILENCE = new Sound() {
-    public void play(float volume) {
-    }
-  };
-
-  /*******************************************************************************
-   * A SilentSoundBank contains only THE_SOUND_OF_SILENCE.
-   *
-   * @author Gregory Bush
-   */
-  public class SilentSoundBank implements SoundBank {
-    public Sound getRandomSound() {
-      return THE_SOUND_OF_SILENCE;
     }
   }
 }

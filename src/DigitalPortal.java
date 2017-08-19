@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class DigitalPortal extends PApplet {
 
@@ -10,10 +8,6 @@ class DigitalPortal extends PApplet {
   String position = "Tunnel";
   Tunnel tunnel;
 
-  // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   float rota;
   float dir;
 
@@ -31,7 +25,6 @@ class DigitalPortal extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -40,9 +33,6 @@ class DigitalPortal extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
-
     background(255); 
     dir = 1;
     frameRate(60);
@@ -85,8 +75,6 @@ class DigitalPortal extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       //track();
-      //     beat.detect(audio.mix);
-      //    if (beat.isOnset())
       noStroke();
       noCursor();
       translate(width/2, height/2);

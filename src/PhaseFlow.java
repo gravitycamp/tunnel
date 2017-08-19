@@ -1,7 +1,5 @@
 import processing.core.*; //<>//
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class PhaseFlow extends PApplet {
 
@@ -10,10 +8,6 @@ class PhaseFlow extends PApplet {
   String position = "Tunnel";
   Tunnel tunnel;
 
-  // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
 
   ArrayList <Mover> particles;
   float time=0;
@@ -28,7 +22,6 @@ class PhaseFlow extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -37,8 +30,6 @@ class PhaseFlow extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     colorMode(HSB);
     bgcolor=color(random(5), random(5), random(5), 10);
 

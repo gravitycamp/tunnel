@@ -3,7 +3,6 @@ import java.util.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
-
 class Burn extends PApplet {
 
   Tunnel tunnel;

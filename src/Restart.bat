@@ -1,3 +1,3 @@
-cd "C:\TunnelGit2\src\application.windows64>"
+cd "C:\DeepPsyTunnel\src\application.windows64>"
 src.exe
 exit

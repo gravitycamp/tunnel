@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class LetItFlow extends PApplet {
 
@@ -11,9 +9,6 @@ class LetItFlow extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   int numParticles = 1000;
   Particle[] particles = new Particle[numParticles];
   float mult = 150;
@@ -23,7 +18,6 @@ class LetItFlow extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -32,8 +26,6 @@ class LetItFlow extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     background(0);
     frameRate(70);
     smooth();
@@ -81,10 +73,6 @@ class LetItFlow extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       //     track();
-      //    beat.detect(audio.mix);
-      //   if (beat.isOnset())
-      //    generateColors();
-
       rect(-1, -1, width+1, height+1);
       for (Particle p : particles) {
         p.update();
@@ -92,7 +80,6 @@ class LetItFlow extends PApplet {
       }
     }
   }
-
 
   // Additional Classes
   class Particle {
@@ -118,7 +105,6 @@ class LetItFlow extends PApplet {
       xInc = map(noise(xInc), 0, 1, 0, (float)0.15);
       yInc = map(noise(yInc), 0, 1, 0,(float)0.03);
       mult = 3*map(noise(mult), 0, 1, 0,(float)90);
-
 
       vel.mult(mult);
       loc.add(vel);

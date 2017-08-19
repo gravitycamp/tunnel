@@ -2,3 +2,5 @@ out
 tmp
 darwin
 src/code_/
+src/application.windows64/
+src/application.windows32/

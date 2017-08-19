@@ -3,7 +3,6 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 
 class CircleDistance extends PApplet {
-
   int width;
   int height;
   String position = "Tunnel";
@@ -11,9 +10,7 @@ class CircleDistance extends PApplet {
 
   // Audio Support
   AudioInput audio;
-  Minim minim;
   BeatDetect beat;
-
 
   int nbCircles = 8;
   Circle[] circles;
@@ -35,7 +32,6 @@ class CircleDistance extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
     beat = new BeatDetect();
     frameRate(50);
     background(0);

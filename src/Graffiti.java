@@ -11,11 +11,10 @@ class Graffiti extends PApplet {
 
   // Audio Support
   AudioInput audio;
-  Minim minim;
   BeatDetect beat;
 
   // Instance Variables
-  int numBalls = 100;
+  int numBalls = 500;
   int maxBalls = numBalls;
   int fps;
   boolean clearBG, doSmooth;
@@ -39,7 +38,6 @@ class Graffiti extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
     beat = new BeatDetect();
     background(0);
     frameRate(70);
@@ -61,7 +59,7 @@ class Graffiti extends PApplet {
     }
 
     // numBalls adjusted to a sane default for web distribution
-    numBalls = 100;
+    numBalls = 500;
   }
 
   float trackX = 0;

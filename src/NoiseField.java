@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
-
 public class NoiseField extends PApplet {
 
   int width;
@@ -15,7 +14,6 @@ public class NoiseField extends PApplet {
   Tunnel tunnel;
 
   AudioInput audio;
-  Minim minim;
   BeatDetect beat;
 
   double thickness = 1.0;
@@ -36,7 +34,6 @@ public class NoiseField extends PApplet {
   ParticleSystem p;
   public void setup()
   {
-    minim = new Minim(this);
     beat = new BeatDetect();
     smooth();
     background(0);

@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class SinusWave extends PApplet {
 
@@ -10,10 +8,7 @@ class SinusWave extends PApplet {
   String position = "Tunnel";
   Tunnel tunnel;
 
-  // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
+
 
   PVector xx, yy, fcx, fcy, sx, sy;
   int seed = 0, cell = 6;
@@ -24,7 +19,6 @@ class SinusWave extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -33,8 +27,6 @@ class SinusWave extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     background(0);
     frameRate(70);
     strokeWeight(3);
@@ -78,9 +70,6 @@ class SinusWave extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       ///      track();
-      //    beat.detect(audio.mix);
-      //   if (beat.isOnset())
-      //    generateColors();
 
 //      background(0);
       noStroke();

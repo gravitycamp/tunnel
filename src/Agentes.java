@@ -1,7 +1,6 @@
 import processing.core.*;
 import java.util.*;
 import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class Agentes extends PApplet {
 
@@ -12,8 +11,6 @@ class Agentes extends PApplet {
 
   // Audio Support
   AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   Ball theBalls[];
   int numBalls = 50;
 
@@ -31,9 +28,6 @@ class Agentes extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
-
     frameRate(25);
 
     theBalls = new Ball[numBalls];
@@ -82,9 +76,6 @@ class Agentes extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       //    track();
-      //     beat.detect(audio.mix);
-      //     if (beat.isOnset())
-      //       generateColors();
       colorMode(RGB, 255, 255, 255);
       fill(color(0, 0, 0), 20); 
       rect(0, 0, width, height);

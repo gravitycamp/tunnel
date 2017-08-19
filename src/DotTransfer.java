@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class DotTransfer extends PApplet {
 
@@ -11,19 +9,13 @@ class DotTransfer extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   float a = 30;
-
-
-
+  
   public DotTransfer(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -32,8 +24,6 @@ class DotTransfer extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     frameRate(70);
     noStroke();
     fill(0, 255, 150);
@@ -76,9 +66,6 @@ class DotTransfer extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       track();
-      //   beat.detect(audio.mix);
-      //   if (beat.isOnset())
-      //     generateColors();
 
       background(0);
       translate(width/2-25, height/2);

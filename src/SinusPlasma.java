@@ -44,7 +44,7 @@ public class SinusPlasma extends PApplet {
   // create standard gradient & swing curve
   public void setup() {
     frameRate(30);
-    minim = new Minim(this);
+    //minim = new Minim(this);
     beat = new BeatDetect();
     makeGradient(GRADIENTLEN);
     makeSwingCurve(SWINGLEN, SWINGMAX);
@@ -84,6 +84,9 @@ public class SinusPlasma extends PApplet {
 
   // draw one frame of the sinus plasma
   public void draw() {
+    frameRate(30);
+
+
     synchronized (Tunnel.class) {
       track();
 

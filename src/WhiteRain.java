@@ -26,7 +26,7 @@ public class WhiteRain extends PApplet {
     size(width, height);
   }
 
-  int rainNum = 180;
+  int rainNum = 140;
   ArrayList rain = new ArrayList();
   ArrayList splash = new ArrayList();
   float current;

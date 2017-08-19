@@ -1,18 +1,12 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class BrokenSquares extends PApplet {
-
   int width;
   int height;
   String position = "Tunnel";
   Tunnel tunnel;
 
-  // Audio Support
-  Minim minim;
-  BeatDetect beat;
   int rotAngle = 0;
   float offset = 0;
   int H = 40;
@@ -32,8 +26,6 @@ class BrokenSquares extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     frameRate(60);
     colorMode(HSB);
   }

@@ -1,8 +1,7 @@
-5,100,InsideBubbles
-4,100,Anemone,Circle,Anemone
-2,100,Graffiti
+5,180,InsideBubbles
+4,180,Anemone,Circle,Anemone
+2,30,Graffiti,DotTransfer,Graffiti
 4,1000,PatternsTimer
 4,100,WhiteRain,Circle
 1,100,AsemicMachine
-1,100,SparkChime,DotTransfer
-5,100,SparkChime,DotTransfer
+4,30,SparkChime,DotTransfer,SparkChime

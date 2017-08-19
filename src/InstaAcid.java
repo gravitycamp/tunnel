@@ -1,7 +1,5 @@
 import processing.core.*;
 import java.util.*;
-import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class InstaAcid extends PApplet {
 
@@ -11,9 +9,6 @@ class InstaAcid extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
   int counter =-1;
   PImage img1 = createImage(2*width, 2*height, RGB);
   PImage img2 = createImage(2*width, 2*height, RGB);
@@ -25,7 +20,6 @@ class InstaAcid extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
   }
 
   public void settings()
@@ -34,8 +28,6 @@ class InstaAcid extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     background(0);
     // the dimensions of the image are twice the dimentions of
     // the canvas to add antialiasing when the image is reduced
@@ -47,48 +39,8 @@ class InstaAcid extends PApplet {
     //noLoop();
   }
 
-  float trackX = 0;
-  float trackY = 0;
-  float ptrackX = 0;
-  float ptrackY = 0;
-  float trackZ = 0;
-
-  public void track() {
-    if (Main.kinect != null) {
-      Main.kinect.update();
-      switch (position) {
-      case "Tunnel":
-      case "Wall":
-      case "Ceil":
-      case "RWall":
-        trackX = (float)width * Main.kinect.RightHandDepthRatio;
-        trackY = (float)height * Main.kinect.RightHandRaisedRatio;
-        trackZ = 0;
-        break;
-      case "LWall":
-        trackX = (float)width * Main.kinect.LeftHandDepthRatio;
-        trackY = (float)height * Main.kinect.LeftHandRaisedRatio;
-        trackZ = 0;
-        break;
-      }
-      ptrackX = trackX;
-      ptrackY = trackY;
-    } else {
-      ptrackX = pmouseX;
-      ptrackY = pmouseY;
-      trackX = mouseX;
-      trackY = mouseY;
-    }
-  }
- 
-
   public void draw() {
-    synchronized (Tunnel.class) {
-      //track();
-      //      beat.detect(audio.mix);
-      //if (beat.isOnset())
-      //      generateColors();
-  
+    synchronized (Tunnel.class) { 
       if(counter==-1){
         img1 = GenerateImage();
         img2 = GenerateImage();

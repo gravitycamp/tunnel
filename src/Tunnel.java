@@ -18,13 +18,12 @@ public class Tunnel extends PApplet implements AudioListener {
 
   // Audio
   Minim minim;
+ // BeatDetect beat;
   AudioInput in;
   FFT fft;
 
-
   ArrayList<PApplet> sketches = new ArrayList();
   Wire wire;
-
 
   public Tunnel(HashMap<String, String> mapping, Wire wire) {
 
@@ -32,6 +31,7 @@ public class Tunnel extends PApplet implements AudioListener {
 
     minim = new Minim(this);
     in = minim.getLineIn();
+  //  beat = new BeatDetect();
     fft = new FFT(in.bufferSize(), in.sampleRate());
     fft.logAverages(22, 1);
     in.addListener(this);
@@ -81,6 +81,8 @@ public class Tunnel extends PApplet implements AudioListener {
   public void setup() {
     // Run sketches
     //
+                    surface.setVisible(false);
+
     for (int i = 0; i < sketches.size(); i++) {
       // skip the initialization of the last sketch if wallMirroring is used
       if (!(wallMirroring == true && i == 2)) {
@@ -110,6 +112,9 @@ public class Tunnel extends PApplet implements AudioListener {
         surface.setAlwaysOnTop(true);
         frame.requestFocusInWindow();
         frame.requestFocus();
+
+        surface.setVisible(true);
+
         PImage frame = combineSketches();
         image(frame, 0, 0);
         frame = frame.get();
@@ -130,12 +135,27 @@ public class Tunnel extends PApplet implements AudioListener {
 
   public void kill() {
     for (PApplet sketch : sketches) {
+ //     minim.dispose();
+ //     delay(10);
+   //   sketch.frame.dispose();
+//      delay(10);
+//      frame.dispose();
+//      delay(10);
       sketch.dispose();
+      delay(10);
+//      System.gc();
       sketch.frame.setVisible(false);
+  //    delay(10);
+  //    sketch = null;
     }
-
+    delay(10);
+    sketches.clear();
+    delay(10);
     dispose();
+    delay(10);
     surface.setVisible(false);
+  //  delay(10);
+  //  System.gc();
   }
 
   private PImage combineSketches() {
@@ -209,8 +229,12 @@ public class Tunnel extends PApplet implements AudioListener {
   {
     fft.forward(in.mix);
   }
-
-
+/*
+  public boolean getBeatIsOnset(){
+        beat.detect(in.mix);
+    return beat.isOnset();
+  }
+*/
   public float getAudioAverage() {
     return fft.getAvg(2);
   }

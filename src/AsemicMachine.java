@@ -1,7 +1,6 @@
 import processing.core.*;
 import java.util.*;
 import ddf.minim.*;
-import ddf.minim.analysis.*;
 
 class AsemicMachine extends PApplet {
 
@@ -11,9 +10,7 @@ class AsemicMachine extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-  AudioInput audio;
-  Minim minim;
-  BeatDetect beat;
+//  AudioInput audio;
 
   Hand h, f;
   int lastMillis;
@@ -24,7 +21,7 @@ class AsemicMachine extends PApplet {
     height = h;
     tunnel = t;
     position = p;
-    audio = tunnel.in;
+//    audio = tunnel.in;
   }
 
   public void settings()
@@ -33,8 +30,6 @@ class AsemicMachine extends PApplet {
   }
 
   public void setup() {
-    minim = new Minim(this);
-    beat = new BeatDetect();
     frameRate(70);
     smooth();
     background(0, 0, 0);
@@ -81,9 +76,6 @@ class AsemicMachine extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       //    track();
-      //     beat.detect(audio.mix);
-      //     if (beat.isOnset())
-      //        generateColors();
 
       int tmp = millis();
       float dt = (float)((tmp-lastMillis)/1000.0);

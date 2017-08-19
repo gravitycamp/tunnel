@@ -3,7 +3,6 @@ import java.util.*;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
-
 public class Perlin extends PApplet {
 
   int width;
@@ -12,7 +11,6 @@ public class Perlin extends PApplet {
   Tunnel tunnel;
 
   AudioInput audio;
-  Minim minim;
   BeatDetect beat;
   
   ParticleSystem particleSystem;
@@ -37,7 +35,6 @@ public class Perlin extends PApplet {
 
   //-----------------Setup
   public void setup() {
-    minim = new Minim(this);
     beat = new BeatDetect();
     background(0);
     rectMode(CORNERS);
@@ -229,7 +226,7 @@ public class Perlin extends PApplet {
 
     void render() {
       stroke(particleColor, 155);
-      float weight = trackY/30;
+      float weight = trackY/90;
       if (weight < 5) {
         weight = 5;
       }
