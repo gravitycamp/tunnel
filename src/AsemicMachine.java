@@ -1,6 +1,7 @@
 import processing.core.*;
 import java.util.*;
 import ddf.minim.*;
+import ddf.minim.analysis.*;
 
 class AsemicMachine extends PApplet {
 
@@ -10,18 +11,29 @@ class AsemicMachine extends PApplet {
   Tunnel tunnel;
 
   // Audio Support
-//  AudioInput audio;
+  AudioInput audio;
+  BeatDetect beat;
+
+  float R, G, B, Rspeed, Gspeed, Bspeed;
 
   Hand h, f;
   int lastMillis;
 
+  void generateColors() {
+    R = random(150, 255);
+    G = random(150, 255);
+    B = random(150, 255);
+    Rspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
+    Gspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
+    Bspeed = (random(1) > .5 ? 1 : -1) * random((float).8, (float)1.5);
+  }
 
   public AsemicMachine(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
     tunnel = t;
     position = p;
-//    audio = tunnel.in;
+    audio = tunnel.in;
   }
 
   public void settings()
@@ -32,10 +44,11 @@ class AsemicMachine extends PApplet {
   public void setup() {
     frameRate(70);
     smooth();
+    beat = new BeatDetect();
     background(0, 0, 0);
  //  Hand( float xi, float yi, float vxi, float vyi, float sxi, float syi, Pen peni, int a1, int a2, int a3, int a4 )
     //h = new Hand((float)50, (float)(1*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(0, 0, 100)), 7, 3, -2, 19);
-    f = new Hand((float)50, (float)(height/2), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(100, 0, 0)), -3, 5, -7, 23);
+    f = new Hand((float)width/4, (float)(height/2), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(100, 0, 0)), -3, 5, -7, 23);
     lastMillis = millis();
   }
 
@@ -77,6 +90,10 @@ class AsemicMachine extends PApplet {
     synchronized (Tunnel.class) {
       //    track();
 
+      beat.detect(audio.mix);
+      if (beat.isOnset())
+        generateColors();
+
       int tmp = millis();
       float dt = (float)((tmp-lastMillis)/1000.0);
       lastMillis = tmp;
@@ -110,10 +127,10 @@ class AsemicMachine extends PApplet {
       na = 4;
       a = new Arm[na];
 
-      a[0] = new Arm( 5, 0, 2*PI/a1);
-      a[1] = new Arm( 5, 0, 2*PI/a2);
-      a[2] = new Arm( 5, 0, 2*PI/a3);
-      a[3] = new Arm( 5, 0, 2*PI/a4);
+      a[0] = new Arm( 3, 0, 2*PI/a1);
+      a[1] = new Arm( 3, 0, 2*PI/a2);
+      a[2] = new Arm( 3, 0, 2*PI/a3);
+      a[3] = new Arm( 4, 0, 2*PI/a4);
 
       xpos = xi;
       ypos = yi;
@@ -209,7 +226,8 @@ class AsemicMachine extends PApplet {
           noStroke();
           fill(0);
           ellipse(xpos, ypos, 20, 20);
-          fill(255);
+          //fill(255);
+          fill(color(constrain(R, 100, 255), constrain(G, 100, 255), constrain(B, 100, 255)));
           ellipse(xpos, ypos, 18, 18);
         }
       }
@@ -281,7 +299,8 @@ class AsemicMachine extends PApplet {
       }
       if ( dist(px, py, x, y) <2 )
         return;
-      stroke(c);
+      //stroke(c);
+      stroke(color(constrain(R, 100, 255), constrain(G, 100, 255), constrain(B, 100, 255)));
       strokeWeight(sz);
       line( px, py, x, y);
       px = x;
@@ -355,11 +374,12 @@ class AsemicMachine extends PApplet {
       int i;
       for ( i=0; i<nq; i++)
       {
-        fill(c);
+        //fill(c);
+        fill(color(constrain(R, 100, 255), constrain(G, 100, 255), constrain(B, 100, 255)));
         noStroke();
-        quad( xq[i][0], yq[i][0], 
-          xq[i][1], yq[i][1], 
-          xq[i][2], yq[i][2], 
+        quad( xq[i][0], yq[i][0],
+          xq[i][1], yq[i][1],
+          xq[i][2], yq[i][2],
           xq[i][3], yq[i][3]);
       }
     }
