@@ -34,8 +34,8 @@ class AsemicMachine extends PApplet {
     smooth();
     background(0, 0, 0);
  //  Hand( float xi, float yi, float vxi, float vyi, float sxi, float syi, Pen peni, int a1, int a2, int a3, int a4 )
-    h = new Hand((float)50, (float)(1*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(0, 0, 100)), 7, 3, -2, 19);
-    f = new Hand((float)50, (float)(3*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(100, 0, 0)), -3, 5, -7, 23);
+    //h = new Hand((float)50, (float)(1*height/4), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(0, 0, 100)), 7, 3, -2, 19);
+    f = new Hand((float)50, (float)(height/2), (float)4*6, (float)0, (float)5.0, (float)5.0, new Nib(3, color(100, 0, 0)), -3, 5, -7, 23);
     lastMillis = millis();
   }
 
@@ -85,7 +85,7 @@ class AsemicMachine extends PApplet {
       dt = min( dt, (float)(1/20.0));
 
       dt *= (float)1.5;
-      h.update( dt );
+      //h.update( dt );
       f.update( dt );
     }
   }
