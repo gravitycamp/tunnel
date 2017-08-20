@@ -33,10 +33,12 @@ class Burn extends PApplet {
   float y = 0;
 
   int frameCounter = 0;
+  int currentNbFlames = 0;
   int currentPixelIdx = 0;
 
-  static final int CeilBurnStartTime = 0; // s
-  static final int DeadPixelStartTime = 5; // s
+  static final int CeilBurnStartTime      = 0; // s
+  static final int BurnWarmupDurationTime = 45; // s
+  static final int DeadPixelStartTime     = 60; // s
   static final int DeadPixelIntervalTime = 700; // ms
 
   static Timer timeGlobal;
@@ -120,7 +122,7 @@ class Burn extends PApplet {
   public void draw() {
     synchronized (Tunnel.class) {
       frameCounter++;
-/* SWITCH-CASE not required when "Ceil" not used
+/*
       switch (position) {
         case "Ceil":
           if (timeGlobal.now() > CeilBurnStartTime) {
@@ -144,25 +146,17 @@ class Burn extends PApplet {
 */
           background(0);
           // Process flames
-          for (int i = 0; i < NbFlames; i++) {
+          if (timeGlobal.now() > BurnWarmupDurationTime) {
+            currentNbFlames = NbFlames;
+          } else {
+            // Polynomial burn ;)
+            float ratio = pow((float)timeGlobal.now()/(float)BurnWarmupDurationTime, 2);
+            if (ratio > 1) ratio = 1; // Prevent overflow
+            currentNbFlames = (int)(ratio*(float)NbFlames);
+          }
+          for (int i = 0; i < currentNbFlames; i++) {
             flames.get(i).update();
           }
-
-
-          //filter(BLUR, 2);
-          // counter++;
-          // if (counter == maxCounter)
-          // {
-          //   counter = 0;
-          //   numFlames++;
-          //   if (numFlames == FinalnumFlames)
-          //     numFlames--;
-          //   frameRate(++rate);
-          //   if (rate == finalFrameRate)
-          //     rate--;
-          // }
-
-
 /*
           Process flames on ceil
           for (int j = 0; j < 100; j++) {
@@ -178,14 +172,14 @@ class Burn extends PApplet {
 */
           // Process pixels
           boolean flag = true;
-          beat.detect(audio.mix);
-          for (int i = 0; i < fftFilter.length; i++) {
-            fftFilter[i] = max(fftFilter[i], log(1+fft.getBand(i)) * (float)(1+i*0.01));
-          }
           if (timeGlobal.now() > DeadPixelStartTime && (timeInterval.now() > DeadPixelIntervalTime)) {
             flag = false;
           }
-          // if (frameCounter > DeadPixelTick) {
+          // beat.detect(audio.mix);
+          // for (int i = 0; i < fftFilter.length; i++) {
+          //   fftFilter[i] = max(fftFilter[i], log(1+fft.getBand(i)) * (float)(1+i*0.01));
+          // }
+          // if (timeGlobal.now() > DeadPixelStartTime) {
           //   beat.detect(audio.mix);
           //   flag = beat.isOnset() ? false : true; // Option #1
           //   flag = ( tunnel.getAudioAverage() < 20 ); // Option #2
@@ -229,8 +223,9 @@ class Burn extends PApplet {
         case "ms":
           return millis();
         case "s":
+          return millis()/1000;
         default:
-          return second();
+          return millis();
       }
     }
 
