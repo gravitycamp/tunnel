@@ -2,11 +2,11 @@ import processing.core.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.lang.Runtime;
 import java.util.HashMap;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 import KinectPV2.KJoint;
 import KinectPV2.*;
@@ -40,11 +40,35 @@ class Main {
     //Load Playlist according to the time
     /*
     if(hours < 2 || hours >=18)  //party after 6pm to 2am  
+    {
       loadPlaylist(1);
+              try {
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        } 
+        catch(IOException ie) {
+          ie.printStackTrace();
+        }
+    }
     else if(hours < 4 && hours >=2)  //interactive after 6pm to 2am  
+    {
       loadPlaylist(2);
+               try {
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        } 
+        catch(IOException ie) {
+          ie.printStackTrace();
+        }
+    }
     else if(hours < 18 && hours >=4)  //interactive after 6pm to 6pm 
-      loadPlaylist(3);
+  {
+    loadPlaylist(3);
+             try {
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        } 
+        catch(IOException ie) {
+          ie.printStackTrace();
+        }
+    }
 */
       loadPlaylist(4);
     // tunnel.exec("C:/DeepPsyTunnel/src/Restart.bat");

@@ -1,4 +1,7 @@
 import processing.core.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Gravity extends PApplet {
     float textScale;
@@ -6,6 +9,8 @@ public class Gravity extends PApplet {
     int height;
     String position = "Tunnel";
     Tunnel tunnel;
+   // AudioPlayer  Music;
+    //Minim minim;
 
     public Gravity(Tunnel t, int w, int h, String p) {
         width  = w;
@@ -13,6 +18,7 @@ public class Gravity extends PApplet {
         tunnel = t;
         position = p;
         textScale = 0;
+        //minim = tunnel.minim;
     }
 
     public void settings() {
@@ -26,6 +32,14 @@ public class Gravity extends PApplet {
         fill(200, 100, 0);
         textAlign(CENTER, CENTER);
         textSize(height);
+        try {
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        } 
+        catch(IOException ie) {
+          ie.printStackTrace();
+        }
+        
+        
     }
     
     public void draw() {

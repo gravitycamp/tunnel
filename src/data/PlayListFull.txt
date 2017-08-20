@@ -1,3 +1,4 @@
+1,1000,AsemicMachine
 4,2,SparkChime,DotTransfer,SparkChime
 1,2,SinusPlasma
 3,2,Circle,Circle

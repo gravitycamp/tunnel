@@ -17,6 +17,8 @@ public class PatternsTimer extends PApplet {
   FFT fft;
   Minim minim;
   //AudioInput in;
+  AudioPlayer  Music;
+
 
   PImage dot;
   PImage colors;
@@ -28,6 +30,8 @@ public class PatternsTimer extends PApplet {
   float minSize = (float)0.05;
   float sizeScale = (float)0.1;
   float textScale = 0;
+  PImage Tetris_img; 
+
   PGraphics LeftWall;
   PGraphics RightWall;
   PGraphics Roof;
@@ -59,6 +63,7 @@ public class PatternsTimer extends PApplet {
     tunnel = t;
     position = p;
     fft = tunnel.fft;
+    minim = tunnel.minim;
     scale = h/88;
   }
 
@@ -105,6 +110,9 @@ public class PatternsTimer extends PApplet {
     frameRate(40);
     dot = loadImage("C:/DeepPsyTunnel/src/data/dot1.png");
     colors = loadImage("C:/DeepPsyTunnel/src/data/colors.png");
+    Music = minim.loadFile("C:/DeepPsyTunnel/src/data/Tetris_song.mp3");
+    Tetris_img = loadImage("C:/DeepPsyTunnel/src/data/tetris.jpg");
+    Tetris_img.resize(750,160);
     fftFilter = new float[fft.specSize()];
 
     LeftWall= createGraphics(150*scale, 32*scale);
@@ -139,35 +147,38 @@ public class PatternsTimer extends PApplet {
         Roof.beginDraw();
         Roof.background(0, 70, 140);
 
-        if (4*fft.getBand(2)>1) {
+        if (!started)// && 4*fft.getBand(2)>1) {
+          {
           started=true;
           StartTime = millis();
+          Music.play();
         }
         if (started)
         {
           if (millis()-StartTime <=19*1000)
           {
-            Equilizer(LeftWall);  
-            Equilizer(RightWall);
-
+     //       Equilizer(LeftWall);  
+          //Equilizer(RightWall);
+            LeftWall.image(Tetris_img,0,0);
+            RightWall.image(Tetris_img,0,0);
             if (currentPixelIdx < NbPixels)
               pixels.get(currentPixelIdx++).markToDie();
             for (int i = 0; i < NbPixels; i++) {
               pixels.get(i).update(LeftWall);
               pixels.get(i).update(RightWall);
             }
-          } else if (millis()-StartTime < 20*1000)  //seconds to play upto
+          } else if (millis()-StartTime < 40*1000)  //seconds to play upto
           {
             FlyingBalls(LeftWall);  
             FlyingBalls(RightWall);  
             SmoothRGB();
             Roof.background(R, G, B);
-          } else if (millis()-StartTime < 30*1000)
+          } else if (millis()-StartTime < 50*1000)
           {
             LightControl(LeftWall, RightWall);  
             SmoothRGB();
             Roof.background(R, G, B);
-          } else if (millis()-StartTime < 40*1000) 
+          } else if (millis()-StartTime < 60*1000) 
           {
           } else
           { 
