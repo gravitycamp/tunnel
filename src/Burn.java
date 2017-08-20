@@ -151,8 +151,8 @@ class Burn extends PApplet {
           } else {
             // Polynomial burn ;)
             float ratio = pow((float)timeGlobal.now()/(float)BurnWarmupDurationTime, 2);
-            if (ratio > 1) ratio = 1; // Prevent overflow
-            currentNbFlames = (int)(ratio*(float)NbFlames);
+            currentNbFlames = 1 + (int)(ratio*(float)NbFlames);
+            if (currentNbFlames > NbFlames) currentNbFlames = NbFlames; // Prevent overflow
           }
           for (int i = 0; i < currentNbFlames; i++) {
             flames.get(i).update();
