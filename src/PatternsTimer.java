@@ -109,6 +109,7 @@ public class PatternsTimer extends PApplet {
   }
 
   public void setup() {
+    background(0);
     frameRate(40);
     dot = loadImage("C:/DeepPsyTunnel/src/data/dot1.png");
     colors = loadImage("C:/DeepPsyTunnel/src/data/colors.png");
@@ -137,7 +138,6 @@ public class PatternsTimer extends PApplet {
     }
     NbPixels = NbRows*NbCols;
     Collections.shuffle(pixels);
-    background(0);
     Music.play();
     delay(4000);
   }
@@ -179,7 +179,7 @@ public class PatternsTimer extends PApplet {
                 Equilizer(LeftWall);  
           Equilizer(RightWall);
         }
-        else if (millis()-StartTime < 92*1000)  //seconds to play upto
+        else if (millis()-StartTime < 90*1000)  //seconds to play upto
         {
           FlyingBalls(LeftWall);  
           FlyingBalls(RightWall);  
@@ -192,7 +192,8 @@ public class PatternsTimer extends PApplet {
             tint(255,frameCounter);
           else
             tint(255,255*2-frameCounter);
-
+LeftWall.tint(255,200);
+RightWall.tint(255,200);
           LeftWall.image(flipImage(Tunnel_img), 0, 0);
           RightWall.image(flipImage(Tunnel_img_rev), 0, 0);
           
