@@ -1,3 +1,3 @@
-5,3000,PatternsTimer
-1,300,Burn,Black
-5,1000,Gravity,Black
+5,109,PatternsTimer
+1,130,Burn,Black
+5,3000,Gravity,Black

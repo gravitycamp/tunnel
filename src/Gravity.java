@@ -33,12 +33,12 @@ public class Gravity extends PApplet {
         textAlign(CENTER, CENTER);
         textSize(height);
         try {
-        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Ceremony.wpl");
         } 
         catch(IOException ie) {
           ie.printStackTrace();
         }
-        
+        delay(500);
         
     }
     

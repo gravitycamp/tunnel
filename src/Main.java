@@ -70,7 +70,7 @@ class Main {
         }
     }
 */
-      loadPlaylist(0);
+      loadPlaylist(4);
     // tunnel.exec("C:/DeepPsyTunnel/src/Restart.bat");
 
     TimerTask exitApp = new TimerTask() {

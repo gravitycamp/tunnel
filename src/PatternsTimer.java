@@ -30,14 +30,15 @@ public class PatternsTimer extends PApplet {
   float minSize = (float)0.05;
   float sizeScale = (float)0.1;
   float textScale = 0;
-  PImage Tetris_img; 
+  PImage Tunnel_img; 
+  PImage Tunnel_img_rev;
 
   PGraphics LeftWall;
   PGraphics RightWall;
   PGraphics Roof;
   double StartTime=0;
   double patternTime = 0;
-  int MaxBrightness = 190;
+  int MaxBrightness = 210;
   int R = (int)random(MaxBrightness);
   int G = (int)random(MaxBrightness);
   int B = (int)random(MaxBrightness);
@@ -46,17 +47,18 @@ public class PatternsTimer extends PApplet {
   int dR = 1;
   int dG = 2;
   int dB = 3;
-  boolean started = false;
 
   static int NbRows;
   static int NbCols;
   static int NbPixels;
-  static final int NbRows_Wall = 30;
-  static final int NbCols_Tunnel = 34;
+  static final int NbRows_Wall = 8;
+  static final int NbCols_Tunnel = 15;
+  //static final int NbRows_Wall = 30;
+  //static final int NbCols_Tunnel = 34;
   ArrayList <Pixel> pixels = new ArrayList<Pixel>();
   int frameCounter = 0;
   int currentPixelIdx = 0;
-  
+
   public PatternsTimer(Tunnel t, int w, int h, String p) {
     width = w;
     height = h;
@@ -110,9 +112,11 @@ public class PatternsTimer extends PApplet {
     frameRate(40);
     dot = loadImage("C:/DeepPsyTunnel/src/data/dot1.png");
     colors = loadImage("C:/DeepPsyTunnel/src/data/colors.png");
-    Music = minim.loadFile("C:/DeepPsyTunnel/src/data/Tetris_song.mp3");
-    Tetris_img = loadImage("C:/DeepPsyTunnel/src/data/tetris.jpg");
-    Tetris_img.resize(750,160);
+    Music = minim.loadFile("C:/DeepPsyTunnel/src/data/Opening1.mp3");
+    Tunnel_img = loadImage("C:/DeepPsyTunnel/src/data/pschedelicTunnel.jpg");
+    Tunnel_img_rev = loadImage("C:/DeepPsyTunnel/src/data/pschedelicTunnel_Rev.jpg");
+
+    //Tunnel_img.resize(750, 160);
     fftFilter = new float[fft.specSize()];
 
     LeftWall= createGraphics(150*scale, 32*scale);
@@ -120,8 +124,8 @@ public class PatternsTimer extends PApplet {
     Roof= createGraphics(150*scale, 24*scale);
     NbRows = NbRows_Wall;
     NbCols = NbCols_Tunnel;
-    int pWidth = width/NbCols;
-    int pHeight = height/NbRows;
+    int pWidth = RightWall.width/NbCols;
+    int pHeight = RightWall.height/NbRows;
     for (int i = 0; i < NbCols; i++) {
       for (int j = 0; j < NbRows; j++) {
         Pixel pixel = new Pixel(
@@ -133,6 +137,9 @@ public class PatternsTimer extends PApplet {
     }
     NbPixels = NbRows*NbCols;
     Collections.shuffle(pixels);
+    background(0);
+    Music.play();
+    delay(4000);
   }
 
   public void draw() {
@@ -140,59 +147,73 @@ public class PatternsTimer extends PApplet {
       synchronized(Tunnel.class) {
         track();
         background(0);
+        frameCounter++;
+
         LeftWall.beginDraw();
         LeftWall.background(0);
         RightWall.beginDraw();
         RightWall.background(0);
         Roof.beginDraw();
-        Roof.background(0, 70, 140);
+    //    Roof.background(0, 70, 140);
 
-        if (!started)// && 4*fft.getBand(2)>1) {
-          {
-          started=true;
-          StartTime = millis();
-          Music.play();
-        }
-        if (started)
+println(millis()-StartTime);
+        if (millis()-StartTime <=40.5*1000)
         {
-          if (millis()-StartTime <=19*1000)
-          {
-     //       Equilizer(LeftWall);  
+          //       Equilizer(LeftWall);  
           //Equilizer(RightWall);
-            LeftWall.image(Tetris_img,0,0);
-            RightWall.image(Tetris_img,0,0);
-            if (currentPixelIdx < NbPixels)
-              pixels.get(currentPixelIdx++).markToDie();
-            for (int i = 0; i < NbPixels; i++) {
-              pixels.get(i).update(LeftWall);
-              pixels.get(i).update(RightWall);
-            }
-          } else if (millis()-StartTime < 40*1000)  //seconds to play upto
+          LeftWall.image(flipImage(Tunnel_img), 0, 0);
+          RightWall.image(flipImage(Tunnel_img_rev), 0, 0);
+          if (currentPixelIdx < NbPixels && frameCounter>10)
           {
-            FlyingBalls(LeftWall);  
-            FlyingBalls(RightWall);  
-            SmoothRGB();
-            Roof.background(R, G, B);
-          } else if (millis()-StartTime < 50*1000)
-          {
-            LightControl(LeftWall, RightWall);  
-            SmoothRGB();
-            Roof.background(R, G, B);
-          } else if (millis()-StartTime < 60*1000) 
-          {
-          } else
-          { 
-            Equilizer(LeftWall);  
-            Equilizer(RightWall);
-            SmoothRGB();
-            Roof.background(R, G, B);
-            Roof.stroke(MaxBrightness-R, MaxBrightness-G, MaxBrightness-B);
-            strokeWeight(20*scale);
-            Roof.line(counter, 0, counter, 24*scale);
-            counter+=scale;
-            counter%=Roof.width;
+            frameCounter=0;
+            pixels.get(currentPixelIdx++).markToDie();
           }
+
+          for (int i = 0; i < NbPixels; i++) {
+            pixels.get(i).update(LeftWall);
+            pixels.get(i).update(RightWall);
+          }
+        } 
+       else    if (millis()-StartTime <=78.7*1000)
+        {
+                Equilizer(LeftWall);  
+          Equilizer(RightWall);
         }
+        else if (millis()-StartTime < 92*1000)  //seconds to play upto
+        {
+          FlyingBalls(LeftWall);  
+          FlyingBalls(RightWall);  
+          SmoothRGB();
+      //    Roof.background(R, G, B);
+          frameCounter=0;
+        } else if (millis()-StartTime < 190*1000)
+        {
+          if(frameCounter<255)
+            tint(255,frameCounter);
+          else
+            tint(255,255*2-frameCounter);
+
+          LeftWall.image(flipImage(Tunnel_img), 0, 0);
+          RightWall.image(flipImage(Tunnel_img_rev), 0, 0);
+          
+       //   LightControl(LeftWall, RightWall);  
+      //    SmoothRGB();
+       //   Roof.background(R, G, B);
+        } else if (millis()-StartTime < 160*1000) 
+        {
+        } else
+        { 
+          Equilizer(LeftWall);  
+          Equilizer(RightWall);
+          SmoothRGB();
+          Roof.background(R, G, B);
+          Roof.stroke(MaxBrightness-R, MaxBrightness-G, MaxBrightness-B);
+          strokeWeight(20*scale);
+          Roof.line(counter, 0, counter, 24*scale);
+          counter+=scale;
+          counter%=Roof.width;
+        }
+
         LeftWall.endDraw();
         RightWall.endDraw();
         Roof.endDraw();
@@ -205,14 +226,6 @@ public class PatternsTimer extends PApplet {
     }
   }  
 
-  private PImage flipImage(PImage image)
-  {
-    BufferedImage img = (BufferedImage) image.getNative();
-    AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
-    tx.translate(0, -img.getHeight(null));
-    AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-    return new PImage(op.filter(img, null));
-  }
 
   public void Equilizer(PGraphics Image) {
     rectMode(CORNER);
@@ -225,11 +238,11 @@ public class PatternsTimer extends PApplet {
       float amp = 4*fft.getBand(i);
       if (amp*.8 > height)
         amp = (float)(height*.8);
-      Image.rect( i+Image.width/2, 0, scale, amp);
-      Image.rect( Image.width - (i+Image.width/2), 0, -1*scale, amp );
+      Image.rect( i+Image.width/2, 0, scale, 2*amp);
+      Image.rect( Image.width - (i+Image.width/2), 0, -1*scale, 2*amp );
       ellipseMode(CENTER);
-      Image.ellipse((float)(.2*Image.width), (float)(.5*Image.height), amp, amp);
-      Image.ellipse((float)(.8*Image.width), (float)(.5*Image.height), amp, amp);
+      Image.ellipse((float)(.2*Image.width), (float)(.5*Image.height), (float)(amp*.8), (float)(amp*.8));
+      Image.ellipse((float)(.8*Image.width), (float)(.5*Image.height), (float)(amp*.8), (float)(amp*.8));
     }
   }
 
@@ -267,6 +280,15 @@ public class PatternsTimer extends PApplet {
     ImageR.fill( random(150), random(255), random(255), random(255)); 
     ImageR.ellipse(trackXR, (float)(1-trackYL), 1*fft.getBand(0), 1*fft.getBand(0));
   }
+  
+      private PImage flipImage(PImage image)
+    {
+        BufferedImage img = (BufferedImage) image.getNative();
+        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+        tx.translate(0, -img.getHeight(null));
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        return new PImage(op.filter(img, null));
+    }
 
   // Pixel class
   class Pixel {

@@ -42,7 +42,7 @@ class Burn extends PApplet {
 
   static final int DelayStart= 13 ;
   static final long CeilBurnStartTime      = 0; // s
-  static final long BurnWarmupDurationTime = 45-DelayStart; // s
+  static final long BurnWarmupDurationTime = 60-DelayStart; // s
   static final long DeadPixelStartTime     = 76-DelayStart; // s
   static final double DeadPixelIntervalTime = 399900; // ms
 
@@ -134,7 +134,6 @@ class Burn extends PApplet {
 
   public void draw() {
     synchronized (Tunnel.class) {
-      frameCounter++;
       /*
       switch (position) {
        case "Ceil":
@@ -158,12 +157,13 @@ class Burn extends PApplet {
        default:
        */
 
-//      println(timeGlobal.now());
+    //  println(timeGlobal.now());
       background(0);
-      tint(255,255-frameCounter/2);
+      tint(255,255-frameCounter);
       image(Tetris_img, 0, 0);
       // Process flames
       if (timeGlobal.now() > BurnWarmupDurationTime) {
+        frameCounter++;
         currentNbFlames = NbFlames;
       } else {
         // Polynomial burn ;)
@@ -190,7 +190,6 @@ class Burn extends PApplet {
       // Process pixels
       boolean flag = true;
       if (timeGlobal.now() > DeadPixelStartTime && (timeInterval.now() > DeadPixelIntervalTime)) {
-        println(timeInterval.now() );
         flag = false;
       }
       // beat.detect(audio.mix);
