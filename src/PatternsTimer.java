@@ -156,7 +156,7 @@ public class PatternsTimer extends PApplet {
         Roof.beginDraw();
     //    Roof.background(0, 70, 140);
 
-println(millis()-StartTime);
+//println(millis()-StartTime);
         if (millis()-StartTime <=40.5*1000)
         {
           //       Equilizer(LeftWall);  

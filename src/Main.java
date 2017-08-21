@@ -38,12 +38,12 @@ class Main {
     int hours = Integer.parseInt(formatter.format(System.currentTimeMillis()));
     System.out.println(hours);
     //Load Playlist according to the time
-    /*
+
     if(hours < 2 || hours >=18)  //party after 6pm to 2am  
     {
       loadPlaylist(1);
               try {
-        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Party.wpl");
         } 
         catch(IOException ie) {
           ie.printStackTrace();
@@ -53,7 +53,7 @@ class Main {
     {
       loadPlaylist(2);
                try {
-        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Chill.wpl");
+        Runtime.getRuntime().exec("cmd.exe /c start C:\\Users\\Garage-PC\\Music\\Playlists\\Interactive.wpl");
         } 
         catch(IOException ie) {
           ie.printStackTrace();
@@ -69,8 +69,8 @@ class Main {
           ie.printStackTrace();
         }
     }
-*/
-      loadPlaylist(4);
+
+   //   loadPlaylist(4);
     // tunnel.exec("C:/DeepPsyTunnel/src/Restart.bat");
 
     TimerTask exitApp = new TimerTask() {
